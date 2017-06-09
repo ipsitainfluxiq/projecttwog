@@ -11,6 +11,7 @@ export class SimplesolutionComponent implements OnInit {
 
 
   public datareq: any = [];
+  public pushval: any = [];
   public item;
   public isActive: any = [];
   public isDisabled: any = [];
@@ -724,6 +725,7 @@ export class SimplesolutionComponent implements OnInit {
     this.simply_display=true;
     this.simply_tablet=true;
     this.simply_mobile=true;
+    this.pushval= [] ;
     for (let i = 0; i <= 4; i++) {
       this.isActive.push(false);
       this.isDisabled.push(true);
@@ -3103,6 +3105,7 @@ export class SimplesolutionComponent implements OnInit {
 
     setTimeout(()=>{
       if (target.id == 'page_context_1') {
+
         /*$(target).parent().find("ul").find("input").click();*/
         if (this.audiences_automative == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3110,7 +3113,8 @@ export class SimplesolutionComponent implements OnInit {
         if (this.audiences_automative == true) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
-        $(target).parent().find("ul").eq(0).find("input").trigger('input');
+/*        $(target).parent().find("ul").eq(0).find("input").trigger('input');
+
 
         $(target).parent().find("ul").eq(0).find("input").each(function () {
           //this['audiences_automative_fuel']=90;
@@ -3119,8 +3123,8 @@ export class SimplesolutionComponent implements OnInit {
           console.log('I am clicked'+$(this).attr('id'));
           this["'"+$(this).attr('ngModel')+"'"]=$(this).prop('checked');
           console.log(this.audiences_automative_fuel);
-          console.log(this);
-        })
+          //console.log(this);
+        })*/
 
       }
 
@@ -4243,48 +4247,52 @@ export class SimplesolutionComponent implements OnInit {
       }
     }, 400);
 
-    //setTimeout(()=>{
+ /*   setTimeout(()=>{
 
-
-   // },700);
+    },700);*/
   }
 
   ngOnInit() {
 
-    $('input[type="checkbox"]').change(function () {
+/*    $('input[type="checkbox"]').change(function () {
       console.log('I am clicked'+$(this).attr('id'));
       this[$(this).attr('ngModel')]=$(this).prop('checked');
-    });
+    });*/
+
+    setTimeout(() => {
+        console.log("hey");
+        $( '.audience-list').find('input').attr('class','boxvalues');
+       console.log($( '.audience-list').find('input').length);
+       //console.log($( '.audience-list').find('input').;
+
+
+
+    }, 2000);
   }
 
 
   sendtype(type: any) {
-    for (let i = 0; i <= 4; i++) {
-      this.isDisabled[i] = true;
-      this.isActive[i] = false;
-    }
-    setTimeout(() => {
-      this.b = true;
-      this.isDisabled[type] = false;
-      this.isActive[type] = true;
-    }, 500);
+      for (let i = 0; i <= 4; i++) {
+        this.isDisabled[i] = true;
+        this.isActive[i] = false;
+      }
+      setTimeout(() => {
+        this.b = true;
+        this.isDisabled[type] = false;
+        this.isActive[type] = true;
+      }, 500);
   }
-
-
 
   haserrorcls(cntrlname) {
 
       if (cntrlname == 'Simply_Solutions__c') {
-
-        if (this.simply_geo != undefined || this.simply_premium != undefined || this.simply_audiences != undefined || this.simply_intent != undefined || this.simply_reach != undefined) {
+        if (this.simply_geo != undefined || this.simply_premium != undefined || this.simply_audiences != undefined || this.simply_intent != undefined || this.simply_reach       != undefined) {
           return '';
-
         }
         else {
           return 'has-error';
         }
       }
-
       if (cntrlname == 'Solution_Geo_Details__c') {
         if (this.simply_display == true || this.simply_tablet == true || this.simply_mobile == true) {
           return '';
@@ -4294,7 +4302,7 @@ export class SimplesolutionComponent implements OnInit {
         }
       }
       if (cntrlname == 'Solution_Premium_Details__c') {
-        if (this.premium_news == true || this.premium_buisness == true || this.premium_politics == true || this.premium_sports == true || this.premium_arts == true || this.premium_shopping == true) {
+        if (this.premium_news == true || this.premium_buisness == true || this.premium_politics == true || this.premium_sports == true || this.premium_arts == true ||           this.premium_shopping == true) {
           return '';
         }
         else {
@@ -4313,7 +4321,6 @@ export class SimplesolutionComponent implements OnInit {
     }
 /*  }*/
 
-
   showerrorcls(cntrlname) {
 
     if (this.validation == false) {
@@ -4323,7 +4330,7 @@ export class SimplesolutionComponent implements OnInit {
     else {
 
       if (cntrlname == 'Simply_Solutions__c') {
-        if (this.simply_geo != undefined || this.simply_premium != undefined || this.simply_audiences != undefined || this.simply_intent != undefined || this.simply_reach != undefined) {
+        if (this.simply_geo != undefined || this.simply_premium != undefined || this.simply_audiences != undefined || this.simply_intent != undefined || this.simply_reach       != undefined) {
           return 'hide';
         }
         else {
@@ -4360,10 +4367,30 @@ export class SimplesolutionComponent implements OnInit {
       return 'hide';
     }
   }
+
+  updatepushval(val:any){
+    this.pushval(val);
+    console.log(this.pushval);
+  }
+
   callsubmit(){
+    this.pushval= [];
+    let pushval=[];
+    console.log(pushval);
+    //console.log("pushvl");
+    $('.boxvalues').each(function () {
+      if($(this).prop("checked")== true){
+        console.log($(this).attr('id'));
+        pushval.push($(this).attr('id'));
+      }
+    });
+
+    console.log(pushval);
+    console.log("pushvl");
+    this.pushval=pushval;
+
     this.validation=true;
     if(
-
         ((this.simply_geo!= undefined)&& (this.simply_display == true || this.simply_tablet == true || this.simply_mobile == true)) ||
 
         ((this.simply_premium!= undefined) && (this.premium_news==true || this.premium_buisness==true || this.premium_politics==true || this.premium_sports==true ||              this.premium_arts==true || this.premium_shopping==true)) ||
