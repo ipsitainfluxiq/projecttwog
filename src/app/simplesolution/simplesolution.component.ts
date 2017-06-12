@@ -4264,10 +4264,48 @@ export class SimplesolutionComponent implements OnInit {
         $( '.audience-list').find('input').attr('class','boxvalues');
        console.log($( '.audience-list').find('input').length);
        //console.log($( '.audience-list').find('input').;
-
-
+      $('.boxvalues').each(function () {
+        console.log($(this).find('ul').length);
+      });
 
     }, 2000);
+
+
+    setTimeout(() => {
+      $('.boxvalues').parent().each(function () {
+        console.log($(this).find('ul').length);
+        if($(this).find('ul').length>0){
+
+          $(this).addClass('collapsed');
+        }
+      });
+
+
+
+    }, 3000);
+    setTimeout(() => {
+      $('.collapsed').click(function () {
+
+
+          $(this).toggleClass('expanded');
+
+      });
+
+
+
+    }, 3200);
+
+   /* setTimeout(() => {
+      $('.active').click(function () {
+
+
+        $(this).toggleClass('expanded');
+
+      });
+
+
+
+    }, 3200);*/
   }
 
 
@@ -4393,7 +4431,7 @@ export class SimplesolutionComponent implements OnInit {
     if(
         ((this.simply_geo!= undefined)&& (this.simply_display == true || this.simply_tablet == true || this.simply_mobile == true)) ||
 
-        ((this.simply_premium!= undefined) && (this.premium_news==true || this.premium_buisness==true || this.premium_politics==true || this.premium_sports==true ||              this.premium_arts==true || this.premium_shopping==true)) ||
+        ((this.simply_premium!= undefined) && ((this.premium_news==true || this.premium_buisness==true || this.premium_politics==true || this.premium_sports==true ||              this.premium_arts==true || this.premium_shopping==true))) ||
 
         (this.simply_audiences!= undefined) ||
 
