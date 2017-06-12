@@ -1,31 +1,65 @@
+
+<div class="top_banner_body">
+  <div class="top_banner_wrapper">
+    <img src="/assets/images/geoai_logo.jpg"  class="geoai_logo"/>
+    <img src="/assets/images/geoai_top_banner.jpg" class="geoai_top_banner" />
+
+    <a href="#" class="top_bannerbtn">Ad Marketing Pros</a>
+
+
+    <div class="clearfix"></div>
+  </div>
+</div>
+<div class="fieldset_wrapper">
+
+  <div class="pageheading">Order Form</div>
+
+  <ul class='nav nav-wizard'>
+
+    <li class='active'><a><span>1</span> Simple Solutions </a></li>
+
+    <li><a (click)="callsubmit()"><span>2</span>  Basic Information </a></li>
+
+    <li><a><span>3</span>  Confirmation </a></li>
+    <div class="clearfix"></div>
+
+  </ul>
+
+
+
 <legend>Simple Solutions</legend>
-<p>
+<h6 class="h6text">
   Introducing Simple Solutions™, a simple way to grow your digital revenues by offering your local advertisers advanced audience targeting, powered by unstructured data. Simple Solutions is a suite of products designed to make selling and ordering on the Simpli.fi platform easy and profitable.
-</p>
+</h6>
 <!--<form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">-->
 <div *ngIf="b==true" class="allradios">
   <div ngClass="{{haserrorcls('Simply_Solutions__c')}}">
     <div class="showerror" ngClass="{{showerrorcls('Simply_Solutions__c')}}">You must choose a Simple Solution.</div>
 <input id="Simply_Geo__c" name="Simply_Solutions__c" type="radio" value="Simply Geo" (click)="sendtype(0)" [(ngModel)]="simply_geo">
-<label for="Simply_Geo__c">
+<label for="Simply_Geo__c" class="label1text">
   Simply
   <strong>Mobile</strong>
 </label>
   <div [ngClass]="{'active': isActive[0], 'disabled': isDisabled[0]}">
-  <div class="child-box" id="simply_geo_box">
+  <div class="child-box geoai_formwrapper" id="simply_geo_box">
   <p>Simply Mobile™ solutions offers accurate geo-targeting across desktop and mobile platforms.</p>
   <p>Define the geography you want your advertising to serve within (state, region, city, ZIP codes):</p>
-  <label for="Geo_Targeting__c">
+<div class="geoai_form_con">
+    <label for="Geo_Targeting__c">
     Geo Targeting
   </label>
   <textarea id="Geo_Targeting__c" name="Geo_Targeting__c" [(ngModel)]="simply_geotargeting"></textarea>
   <p class="note">Limit to 255 Characters. Define the geography you want your advertising to serve within (state, region, city, ZIP codes)</p>
-  <label for="Geo_Fencing__c">
+</div>
+    <div class="geoai_form_con">
+    <label for="Geo_Fencing__c">
     GeoFencing
   </label>
   <textarea id="Geo_Fencing__c" name="Geo_Fencing__c" [(ngModel)]="simply_geofencing"></textarea>
   <p class="note">If you have a brick and mortar location, Simpli.fi is able to utilize geo-fencing! Just let us know what locations you'd like us to target by sending a street address and any parameters around that address you'd like us to include (parking lots, sidewalks, etc). Finally, tell us for how long after someone enters the fence we should serve them ads (10 minutes up to 30 days).</p>
-  <h3>Choose a device type</h3>
+  </div>
+    <div class="clearfix"></div>
+  <h3 class="label1text2">Choose a device type</h3>
 <!--  <div class="Solution_Geo_Details__c_errors"></div>-->
     <div ngClass="{{haserrorcls('Solution_Geo_Details__c')}}">
 
@@ -48,26 +82,35 @@
 <p></p>
 
       <input id="Simply_Premium__c" name="Simply_Solutions__c" type="radio" value="Simply Premium" (click)="sendtype('1')" [(ngModel)]="simply_premium">
-      <label for="Simply_Premium__c">
+      <label for="Simply_Premium__c" class="label1text">
         Simply
         <strong>Premium</strong>
       </label>
   <div [ngClass]="{'active': isActive[1], 'disabled': isDisabled[1]}">
-      <div class="child-box" id="simply_geo_box">
+      <div class="child-box geoai_formwrapper" id="simply_geo_box">
         <p>Simply Premium™ solutions offer an audience visiting a verified whitelist of premium websites.</p>
         <p>Define the geography you want your advertising to serve within (state, region, city, ZIP codes):</p>
+
+<div class="geoai_form_con">
         <label for="Geo_Targeting__c">
           Geo Targeting
         </label>
         <textarea id="Geo_Targeting__c" name="Geo_Targeting__c" [(ngModel)]="premium_geotargeting"></textarea>
         <p class="note">Limit to 255 Characters. Define the geography you want your advertising to serve within (state, region, city, ZIP codes)</p>
+</div>
+        <div class="geoai_form_con">
         <label for="Geo_Fencing__c">
           GeoFencing
         </label>
         <textarea id="Geo_Fencing__c" name="Geo_Fencing__c" [(ngModel)]="premium_geofencing"></textarea>
-        <p class="note">If you have a brick and mortar location, Simpli.fi is able to utilize geo-fencing! Just let us know what locations you'd like us to target by sending a street address and any parameters around that address you'd like us to include (parking lots, sidewalks, etc). Finally, tell us for how long after someone enters the fence we should serve them ads (10 minutes up to 30 days).</p>
 
-        <h3>Choose Categories</h3>
+
+
+        <p class="note">If you have a brick and mortar location, Simpli.fi is able to utilize geo-fencing! Just let us know what locations you'd like us to target by sending a street address and any parameters around that address you'd like us to include (parking lots, sidewalks, etc). Finally, tell us for how long after someone enters the fence we should serve them ads (10 minutes up to 30 days).</p>
+        </div>
+        <div class="clearfix"></div>
+
+        <h3 class="label1text2">Choose Categories</h3>
         <div ngClass="{{haserrorcls('Solution_Premium_Details__c')}}">
           <div ngClass="{{showerrorcls('Solution_Premium_Details__c')}}">You must choose at least one Premium Category.</div>
           <div>
@@ -117,24 +160,30 @@
 <p></p>
 
 <input id="Simply_Audiences__c" name="Simply_Solutions__c" type="radio" value="Simply Audiences" (click)="sendtype('2')" [(ngModel)]="simply_audiences">
-<label for="Simply_Audiences__c">
+<label for="Simply_Audiences__c" class="label1text">
   Simply
   <strong>Audiences</strong>
 </label>
   <div [ngClass]="{'active': isActive[2], 'disabled': isDisabled[2]}">
-<div class="child-box" id="simpli_audiences_box">
+<div class="child-box geoai_formwrapper" id="simpli_audiences_box">
   <p>Simply Audiences™ solutions provide advertisers with targeted audience starters for common advertising categories. Campaigns use a blend of optimized tactics including keyword search, category contextual and keyword contextual targeting.</p>
   <p>Define the geography you want your advertising to serve within (state, region, city, ZIP codes):</p>
+
+  <div class="geoai_form_con">
   <label for="Geo_Targeting__c">
     Geo Targeting
   </label>
   <textarea id="Geo_Targeting__c" name="Geo_Targeting__c" [(ngModel)]="audiences_geotargeting"></textarea>
   <p class="note">Limit to 255 Characters. Define the geography you want your advertising to serve within (state, region, city, ZIP codes)</p>
+  </div>
+    <div class="geoai_form_con">
   <label for="Geo_Fencing__c">
     GeoFencing
   </label>
   <textarea id="Geo_Fencing__c" name="Geo_Fencing__c" [(ngModel)]="audiences_geofencing"></textarea>
   <p class="note">If you have a brick and mortar location, Simpli.fi is able to utilize geo-fencing! Just let us know what locations you'd like us to target by sending a street address and any parameters around that address you'd like us to include (parking lots, sidewalks, etc). Finally, tell us for how long after someone enters the fence we should serve them ads (10 minutes up to 30 days).</p>
+    </div>
+      <div class="clearfix"></div>
   <h3>Choose Categories</h3>
   <input id="Audience_Categories__c" name="Audience_Categories__c" type="hidden" value="">
   <div class="audience-list">
@@ -3497,28 +3546,40 @@
     </ul>
 
   </div>
+
+  <div class="clearfix"></div>
+
+
 </div>
   </div>
 <p></p>
 <input id="Simply_Intent__c" name="Simply_Solutions__c" type="radio" value="Simply Intent" (click)="sendtype('3')" [(ngModel)]="simply_intent">
-<label for="Simply_Intent__c">
+<label for="Simply_Intent__c" class="label1text">
   Simply
   <strong>Intent</strong>
 </label>
   <div [ngClass]="{'active': isActive[3], 'disabled': isDisabled[3]}">
-<div class="child-box" id="simpli_intent_box" >
+<div class="child-box geoai_formwrapper" id="simpli_intent_box" >
   <p>Simply Intent™ solutions use a blend of optimized tactics including keyword search, category contextual and keyword contextual targeting to reach a custom audience.</p>
   <p>Define the geography you want your advertising to serve within (state, region, city, ZIP codes):</p>
+  <div class="geoai_form_con">
+
   <label for="Geo_Targeting__c">
     Geo Targeting
   </label>
   <textarea id="Geo_Targeting__c" name="Geo_Targeting__c" [(ngModel)]="intent_geotargeting"></textarea>
+
   <p class="note">Limit to 255 Characters. Define the geography you want your advertising to serve within (state, region, city, ZIP codes)</p>
+  </div>
+    <div class="geoai_form_con">
   <label for="Geo_Fencing__c">
     GeoFencing
   </label>
   <textarea id="Geo_Fencing__c" name="Geo_Fencing__c" [(ngModel)]="intent_geofencing"></textarea>
   <p class="note">If you have a brick and mortar location, Simpli.fi is able to utilize geo-fencing! Just let us know what locations you'd like us to target by sending a street address and any parameters around that address you'd like us to include (parking lots, sidewalks, etc). Finally, tell us for how long after someone enters the fence we should serve them ads (10 minutes up to 30 days).</p>
+    </div>
+      <div class="geoai_form_con">
+
   <label for="Simply_Intent_Business_Intelligence__c">
     Please describe the audience your are trying to reach. Include information such as demographic, psychographic, business category, keywords, etc.
   </label>
@@ -3526,38 +3587,52 @@
   <textarea id="Simply_Intent_Business_Intelligence__c" name="Simply_Intent_Business_Intelligence__c" [(ngModel)]="intent_audiencetype"></textarea>
     <div ngClass="{{showerrorcls('Simply_Intent_Business_Intelligence__c')}}">This field is required.</div>
 </div>
+      </div>
+  <div class="clearfix"></div>
 </div>
   </div>
 <p></p>
 <input id="Simply_Reach__c" name="Simply_Solutions__c" type="radio" value="Simply Reach" (click)="sendtype('4')" [(ngModel)]="simply_reach">
 
-<label for="Simply_Reach__c">
+<label for="Simply_Reach__c"  class="label1text">
   Simply
   <strong>Reach</strong>
 </label>
   <div [ngClass]="{'active': isActive[4], 'disabled': isDisabled[4]}">
-<div class="child-box" id="simpli_reach_box">
+<div class="child-box geoai_formwrapper" id="simpli_reach_box">
   <p>Simply Reach™ solutions allow advertisers to use retargeting technology to build a customized "digital mirror" of an existing online or offline audience.</p>
   <p>Define the geography you want your advertising to serve within (state, region, city, ZIP codes):</p>
+  <div class="geoai_form_con">
   <label for="Geo_Targeting__c">
     Geo Targeting
   </label>
   <textarea id="Geo_Targeting__c" name="Geo_Targeting__c" [(ngModel)]="reach_geotargeting"></textarea>
   <p class="note">Define the geography you want your advertising to serve within (state, region, city, ZIP codes)</p>
+  </div>
+    <div class="geoai_form_con">
   <label for="Geo_Fencing__c">
     GeoFencing
   </label>
   <textarea id="Geo_Fencing__c" name="Geo_Fencing__c" [(ngModel)]="reach_geofencing"></textarea>
   <p class="note">If you have a brick and mortar location, Simpli.fi is able to utilize geo-fencing! Just let us know what locations you'd like us to target by sending a street address and any parameters around that address you'd like us to include (parking lots, sidewalks, etc). Finally, tell us for how long after someone enters the fence we should serve them ads (10 minutes up to 30 days).</p>
+    </div>
+      <div class="geoai_form_con">
   <label for="Simply_Reach_Core_Audience__c">
     Please describe the audience you would like to mirror, i.e. Modern Family viewers, Country Radio listeners:
   </label>
+
+
   <textarea id="Simply_Reach_Core_Audience__c" name="Simply_Reach_Core_Audience__c" [(ngModel)]="reach_audiencemirror"></textarea>
+
+      </div>
+<div class="clearfix"></div>
+
 </div>
   </div>
 </div>
 </div>
 <!--<a [routerLink]="['/basicinformation']">Next</a>-->
-<button (click)="callsubmit()">Next</button>
+<button (click)="callsubmit()" class="subbtn1">Next</button>
 
 <!--<input type="submit" value="Next">-->
+</div>
