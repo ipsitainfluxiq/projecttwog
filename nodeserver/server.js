@@ -39,16 +39,57 @@ MongoClient.connect(url, function (err, database) {
         db=database;
 console.log("connected");
     }});
+var urlstartcounter=50;
+app.get('/auto',function (req,resp) {
+    console.log(req.query.counter);
+    urlstartcounter=req.query.counter;
+    var interv=setInterval(function () {
+
+
+    request('http://localhost:3004/autourlupdate?counter='+urlstartcounter, function(error2, response, html2){
+        if(!error2) {
+            var $ = cheerio.load(html2);
+            var dealername;
+            //setInterval(function () {
+
+            // },12000);
+
+            /*setTimeout(function () {
+
+             },500);*/
+        }
+        else {
+            console.log("inside geturllist");
+            console.log('in error  :'+error2);
+        }
+    });
+    urlstartcounter=parseInt(urlstartcounter+10);
+    console.log(urlstartcounter+'url sc');
+    if(urlstartcounter>1000) clearInterval(interv);
+         },5000);
+    resp.send("success");
+});
 
 
 
 app.get('/autourlupdate',function(req,resp){
-    var url = 'https://www.autotrader.com/car-dealers/Dallas+TX-75207?filterName=zip&firstRecord=0&numRecords=10&searchRadius=500&sortBy=distanceASC';
+    var url = 'https://www.autotrader.com/car-dealers/Dallas+TX-75207?filterName=pagination&firstRecord='+req.query.counter+'&numRecords=10&searchRadius=500&sortBy=distanceASC';
 
     setTimeout(function () {
         console.log("inside autourlupdate");
         geturllist(url);
     },500)
+
+
+
+    setInterval(function () {
+        //urlstartcounter+=10;
+        var curl = 'https://www.autotrader.com/car-dealers/Dallas+TX-75207?filterName=zip&firstRecord='+urlstartcounter+'&numRecords=10&searchRadius=500&sortBy=distanceASC';
+        //console.log(urlstartcounter);
+        //console.log(curl);
+        //console.log("inside autourlupdate");
+        //if(urlstartcounter<300)geturllist(curl);
+    },1000);
 
     resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
 });
@@ -56,52 +97,75 @@ app.get('/autourlupdate',function(req,resp){
 
 function geturllist(url){
 
+    /*if(urlstartcounter>150){
+        //console.log('in get url');
+        //console.log(url);
+        return;
+    }*/
     request(url, function(error2, response, html2){
         if(!error2) {
             var $ = cheerio.load(html2);
             var dealername;
-            dealername=$('.dealer-listing').each(function () {
-                console.log("Dealer name");
-                console.log($(this).find('.dealer-name').html());
-                console.log("Address 1");
-                console.log($(this).find('.address1').html());
-                console.log("Address 2");
-                console.log($(this).find('.address2').html());
-                console.log("City State Zip");
-                console.log($(this).find('.cityStateZip').html());
-                console.log("City");
-                console.log($(this).find('.cityStateZip').find('span[itemprop="addressLocality"]').html());
-                console.log("State");
-                console.log($(this).find('.cityStateZip').find('span[itemprop="addressRegion"]').html());
-                console.log("Zip");
-                console.log($(this).find('.cityStateZip').find('span[itemprop="postalCode"]').html());
-                console.log("Phone no");
-                console.log($(this).find('.atcui-block').html());
-                var collection = db.collection('dealers');
-                collection.insert([{
-                    dealername:$(this).find('.dealer-name').html() ,
-                    url:$(this).find('.dealer-name').attr('href') ,
-                    address1: $(this).find('.address1').html() ,
-                    address2: $(this).find('.address2').html(),
-                    city: $(this).find('.cityStateZip').find('span[itemprop="addressLocality"]').html(),
-                    state: $(this).find('.cityStateZip').find('span[itemprop="addressRegion"]').html(),
-                    zip: $(this).find('.cityStateZip').find('span[itemprop="postalCode"]').html(),
-                    phoneno: $(this).find('.atcui-block').html(),
-                }],
-                    function (err2, result2) {
-                        if (err2) {
-                            //console.log('error'+err);
+            //setInterval(function () {
 
-                        } else {
-                            //response.send(JSON.stringify({'id':result2.ops[0]._id}));
-                            console.log(result2.ops[0]._id);
-                            getdetails('https://www.autotrader.com'+result2.ops[0].url,result2.ops[0]._id);
-                        }
+                dealername=$('.dealer-listing').each(function () {
+                    /*console.log("Dealer name");
+                     console.log($(this).find('.dealer-name').html());
+                     console.log("Address 1");
+                     console.log($(this).find('.address1').html());
+                     console.log("Address 2");
+                     console.log($(this).find('.address2').html());
+                     console.log("City State Zip");
+                     console.log($(this).find('.cityStateZip').html());
+                     console.log("City");
+                     console.log($(this).find('.cityStateZip').find('span[itemprop="addressLocality"]').html());
+                     console.log("State");
+                     console.log($(this).find('.cityStateZip').find('span[itemprop="addressRegion"]').html());
+                     console.log("Zip");
+                     console.log($(this).find('.cityStateZip').find('span[itemprop="postalCode"]').html());
+                     console.log("Phone no");
+                     console.log($(this).find('.atcui-block').html());*/
+                    var collection = db.collection('dealers');
+                    collection.insert([{
+                            dealername:$(this).find('.dealer-name').html() ,
+                            url:$(this).find('.dealer-name').attr('href') ,
+                            address1: $(this).find('.address1').html() ,
+                            address2: $(this).find('.address2').html(),
+                            city: $(this).find('.cityStateZip').find('span[itemprop="addressLocality"]').html(),
+                            state: $(this).find('.cityStateZip').find('span[itemprop="addressRegion"]').html(),
+                            zip: $(this).find('.cityStateZip').find('span[itemprop="postalCode"]').html(),
+                            phoneno: $(this).find('.atcui-block').html(),
+                            facebookurl: '',
+                        }],
+                        function (err2, result2) {
+                            if (err2) {
+                                //console.log('error'+err);
+
+                            } else {
+                                //response.send(JSON.stringify({'id':result2.ops[0]._id}));
+                                //console.log(result2.ops[0]._id);
+                                //console.log('https://www.autotrader.com'+result2.ops[0].url,result2.ops[0]._id);
+                                getdetails('https://www.autotrader.com'+result2.ops[0].url,result2.ops[0]._id);
+
+                                setTimeout(function () {
+
+                                    $('.pagination-button').each(function () {
+
+                                        if($(this).hasClass('active')){
+                                            console.log('pageination text');
+                                            //$(this).next().click();
+                                            console.log($(this).text());
+                                        }
+                                    })
+                                },5000);
+                            }
+                        });
                 });
-            });
-            setTimeout(function () {
-               // getdetails(url);
-            },500);
+           // },12000);
+
+            /*setTimeout(function () {
+
+            },500);*/
         }
         else {
             console.log("inside geturllist");
@@ -113,43 +177,52 @@ function geturllist(url){
 function getdetails(url,id){
 
     request(url, function(error2, response, html2){
+
         if(!error2) {
             var $ = cheerio.load(html2);
-            var dealerdetails;
-       /*     dealerdetails=$('.dealer-listing').each(function () {
+                var dealerinfo;
+            var dealerfb;
+            //dealerinfo=$('.atcui-list').find('a').attr('href')(function () {
                 var collection = db.collection('dealers');
                 var data = {
-                    websiteurl: $(this).find('a').attr('href'),
+                    websiteurl: $('a[target="_siteLink"]').attr('href'),
+                    facebookurl: $('a[target="_facebook"]').attr('href'),
                 }
+                console.log($('#j_id_2q').html());
+                $('.atcui-title').each(function(){
+
+                    if($(this).text()=='Facebook Feed'){
+
+                        console.log('got fb url');
+                        console.log($(this).next().attr('href'));
+                    }
+
+                });
+                //console.log("hi");
+                console.log(data);
                 collection.update({_id: id}, {$set: data}, true, true);
 
-            });*/
+           // });
+            dealerfb=$('.lfloat').each(function () {
+                var collection = db.collection('dealers');
+                var data1 = {
+                    fburl: $(this).find('a').attr('href'),
+                }
+                console.log("hi");
+                console.log(data1);
+                collection.update({_id: id}, {$set: data1}, true, true);
+
+            });
 
         }
         else {
-            console.log("inside geturllist");
+            console.log("inside getdetailserror");
             console.log('in error  :'+error2);
         }
     });
 
 
 
-/*    var collection = db.collection('dealers');
-
-    collection.find({ _id:req.body.email }).toArray(function(err, items){
-
-        collection.insert([{
-            mailid: req.body.email,
-            ipaddress: ip,
-            time: Math.floor(Date.now() / 1000),
-            type:1, //logout
-        }], function (err2, result2) {
-
-        });
-
-        resp.send(JSON.stringify({'status':'success','msg':items[0]}));
-        return;
-    });*/
 }
 
 
@@ -220,7 +293,20 @@ app.post('/addemployee',function(req,resp){
 });
 
 
+app.get('/ipaddress', function (req, resp) {
+    var collection = db.collection('dealers');
+    collection.drop(function(err, items) {
+    //collection.find().toArray(function(err, items) {
 
+        if (err) {
+            console.log(err);
+            //resp.send(JSON.stringify({'res':[]}));
+        } else {
+            //resp.send(JSON.stringify({'res':items}));
+        }
+
+    });
+});
 
 
 /*
@@ -502,3 +588,6 @@ var server = app.listen(port, function () {
     var host = server.address().address
     var port = server.address().port
 })
+
+/*
+server.listen(80, 'current_local_ip');*/
