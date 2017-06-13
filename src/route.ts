@@ -16,8 +16,9 @@ import {TrialComponent} from 'app/trial/trial.component';
 
 const appRoutes: Routes = [
 
-    { path: '', component: OrderformComponent},
-    { path: 'simplesolution', component: SimplesolutionComponent},
+   // { path: '', component: OrderformComponent},
+    //{ path: 'simplesolution', component: SimplesolutionComponent},
+    { path: '', component: SimplesolutionComponent},
     { path: 'basicinformation', component: BasicinformationComponent},
     { path: 'confirmation', component: ConfirmationComponent},
     { path: 'trial', component: TrialComponent},

@@ -62,7 +62,7 @@ export class BasicinformationComponent implements OnInit {
   }
   haserrorcls(cntrlname) {
     if (cntrlname == 'Advertiser_Name__c') {
-      if(this.basicinfo_advertisement_name != undefined) {
+      if(this.basicinfo_advertisement_name != undefined && this.basicinfo_advertisement_name != null && this.basicinfo_advertisement_name!= '') {
         return '';
       }
       else{
@@ -70,7 +70,7 @@ export class BasicinformationComponent implements OnInit {
       }
     }
      if (cntrlname == 'Brief_Description_of_Campaign_and_Goals__c') {
-      if(this.basicinfo_campaigngoal != undefined) {
+      if(this.basicinfo_campaigngoal != undefined && this.basicinfo_campaigngoal != null && this.basicinfo_campaigngoal!= '') {
         return '';
       }
       else{
@@ -78,7 +78,7 @@ export class BasicinformationComponent implements OnInit {
       }
     }
     if (cntrlname == 'Destination_URL__c') {
-      if(this.adlink != undefined) {
+      if(this.adlink != undefined && this.adlink != null && this.adlink!= '') {
         return '';
       }
       else{
@@ -149,7 +149,7 @@ export class BasicinformationComponent implements OnInit {
 
     else {
       if (cntrlname == 'Advertiser_Name__c') {
-        if (this.basicinfo_advertisement_name != undefined) {
+        if (this.basicinfo_advertisement_name != undefined && this.basicinfo_advertisement_name != null && this.basicinfo_advertisement_name!= '') {
           return 'hide';
         }
         else {
@@ -158,7 +158,7 @@ export class BasicinformationComponent implements OnInit {
       }
 
       if (cntrlname == 'Brief_Description_of_Campaign_and_Goals__c') {
-        if (this.basicinfo_campaigngoal != undefined) {
+        if(this.basicinfo_campaigngoal != undefined && this.basicinfo_campaigngoal != null && this.basicinfo_campaigngoal!= '') {
           return 'hide';
         }
         else {
@@ -166,7 +166,7 @@ export class BasicinformationComponent implements OnInit {
         }
       }
       if (cntrlname == 'Destination_URL__c') {
-        if (this.adlink != undefined) {
+        if (this.adlink != undefined && this.adlink != null && this.adlink!= '') {
           return 'hide';
         }
         else {
@@ -289,12 +289,13 @@ changeval(type){
   }
 
 
-  callsubmit(){
+  callsubmit(flag){
+    console.log(flag);
     this.validation=true;
     this.basicinfo_flight_start=$('#from').val();
     this.basicinfo_flight_end=$('#to').val();
     console.log("end");
-    if(   (this.basicinfo_advertisement_name!=undefined && this.basicinfo_campaigngoal!=undefined && this.adlink!=undefined)
+    if(   (this.basicinfo_advertisement_name!=undefined && this.basicinfo_advertisement_name != null && this.basicinfo_advertisement_name!= '' && this.basicinfo_campaigngoal!=undefined  && this.basicinfo_campaigngoal != null && this.basicinfo_campaigngoal!= '' && this.adlink!=undefined && this.adlink != null && this.adlink!= '')
   &&
           ( ((this.basicinfo_mediabudget != undefined) && ((this.basicinfo_mediabudget_permonth != undefined) && (this.basicinfo_mediabudget_total != undefined))) || ((this.basicinfo_maximumimpression!=undefined) && ((this.basicinfo_maximumimpression_permonth !=undefined) || (this.basicinfo_maximumimpression_total !=undefined)))  )
           &&
@@ -349,9 +350,15 @@ changeval(type){
           this.basicdata[i]=data[i];
         }
       }
-      console.log(this.basicdata);
-      this.router.navigate(['/confirmation']);
-
+      //console.log(this.basicdata);
+      console.log("advertiser name-->");
+      console.log(this.basicinfo_advertisement_name);
+if(flag==1){
+  this.router.navigate(['/']);
+}
+if(flag==0) {
+  this.router.navigate(['/confirmation']);
+}
     }
   }
 }

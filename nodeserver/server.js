@@ -39,6 +39,163 @@ MongoClient.connect(url, function (err, database) {
         db=database;
 console.log("connected");
     }});
+
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*var urlstartcounters=0;
+app.get('/autos',function (req,resp) {
+    console.log(req.query.counter);
+    urlstartcounters=req.query.counter;
+    var interv=setInterval(function () {
+
+    request('http://localhost:3004/autourlupdates?counter='+urlstartcounters, function(error2, response, html2){
+            if(!error2) {
+                var $ = cheerio.load(html2);
+            }
+            else {
+                console.log("inside geturllists");
+                console.log('in error  :'+error2);
+            }
+        });
+        urlstartcounters=parseInt(urlstartcounters+10);
+        console.log(urlstartcounters+'url sc');
+        if(urlstartcounters>1000) clearInterval(interv);
+    },5000);
+    resp.send("success");
+});*/
+
+
+
+app.get('/autourlupdates',function(req,resp){
+
+    var url = 'https://www.autotrader.com/car-dealers/Atlanta+GA-30301?filterName=pagination&firstRecord=20&numRecords=10&searchRadius=500&sortBy=distanceASC';
+
+    setTimeout(function () {
+        console.log("inside autourlupdates");
+        console.log(url);
+        geturllists(url);
+    },500)
+
+    setInterval(function () {
+        var curl = 'https://www.autotrader.com/car-dealers/Atlanta+GA-30301?filterName=pagination&firstRecord=20&numRecords=10&searchRadius=500&sortBy=distanceASC';
+    },1000);
+
+    resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
+});
+
+
+function geturllists(url){
+
+    request(url, function(error2, response, html2){
+        if(!error2) {
+            var $ = cheerio.load(html2);
+            var dealernames;
+            //setInterval(function () {
+
+            dealernames=$('.dealer-listing').each(function () {
+                /*console.log("Dealer name");
+                 console.log($(this).find('.dealer-name').html());
+                 console.log("Address 1");
+                 console.log($(this).find('.address1').html());
+                 console.log("Address 2");
+                 console.log($(this).find('.address2').html());
+                 console.log("City State Zip");
+                 console.log($(this).find('.cityStateZip').html());
+                 console.log("City");
+                 console.log($(this).find('.cityStateZip').find('span[itemprop="addressLocality"]').html());
+                 console.log("State");
+                 console.log($(this).find('.cityStateZip').find('span[itemprop="addressRegion"]').html());
+                 console.log("Zip");
+                 console.log($(this).find('.cityStateZip').find('span[itemprop="postalCode"]').html());
+                 console.log("Phone no");
+                 console.log($(this).find('.atcui-block').html());*/
+                var collection = db.collection('dealersss');
+                collection.insert([{
+                        dealername:$(this).find('.dealer-name').html() ,
+                        url:$(this).find('.dealer-name').attr('href') ,
+                        address1: $(this).find('.address1').html() ,
+                        address2: $(this).find('.address2').html(),
+                        city: $(this).find('.cityStateZip').find('span[itemprop="addressLocality"]').html(),
+                        state: $(this).find('.cityStateZip').find('span[itemprop="addressRegion"]').html(),
+                        zip: $(this).find('.cityStateZip').find('span[itemprop="postalCode"]').html(),
+                        phoneno: $(this).find('.atcui-block').html(),
+                        facebookurl: '',
+                    }],
+                    function (err2, result2) {
+                        if (err2) {
+                            //console.log('error'+err);
+
+                        } else {
+                            //response.send(JSON.stringify({'id':result2.ops[0]._id}));
+                            //console.log(result2.ops[0]._id);
+                            //console.log('https://www.autotrader.com'+result2.ops[0].url,result2.ops[0]._id);
+                            getdetailss('https://www.autotrader.com'+result2.ops[0].url,result2.ops[0]._id);
+
+                            setTimeout(function () {
+
+                                $('.pagination-button').each(function () {
+
+                                    if($(this).hasClass('active')){
+                                        console.log('pageination text');
+                                        //$(this).next().click();
+                                        console.log($(this).text());
+                                    }
+                                })
+                            },5000);
+                        }
+                    });
+            });
+            // },12000);
+
+            /*setTimeout(function () {
+
+             },500);*/
+        }
+        else {
+            console.log("inside geturllists");
+            console.log('in error  :'+error2);
+        }
+    });
+}
+
+function getdetailss(url,id){
+
+    request(url, function(error2, response, html2){
+
+        if(!error2) {
+            var $ = cheerio.load(html2);
+            var dealerfbs;
+            var collection = db.collection('dealersss');
+            var data = {
+                websiteurl: $('a[target="_siteLink"]').attr('href'),
+                facebookurl: $('a[target="_facebook"]').attr('href'),
+            }
+            console.log($('#j_id_2q').html());
+            $('.atcui-title').each(function(){
+
+                if($(this).text()=='Facebook Feed'){
+
+                    console.log('got fb url');
+                    console.log($(this).next().attr('href'));
+                }
+
+            });
+            //console.log("hi");
+            console.log(data);
+            collection.update({_id: id}, {$set: data}, true, true);
+
+        }
+        else {
+            console.log("inside getdetailserror");
+            console.log('in error  :'+error2);
+        }
+    });
+
+
+
+}
+/*---------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 var urlstartcounter=50;
 app.get('/auto',function (req,resp) {
     console.log(req.query.counter);
@@ -226,85 +383,17 @@ function getdetails(url,id){
 }
 
 
-app.post('/addemployee',function(req,resp){
-    //console.log("Hello");
-    var collection = db.collection('users');
-
-    var crypto = require('crypto');
-
-    var secret = req.body.password;
-    var hash = crypto.createHmac('sha256', secret)
-        .update('password')
-        .digest('hex');
-    var added_on=new Date();
-    collection.insert([{
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: hash,
-        designation: req.body.designation,
-        note: req.body.note,
-        //added_time: Math.floor(Date.now() / 1000),
-        type:3 //1=>admin, 0=>user, 2=>aces, 3=>employee
-    }], function (err, result) {
-        if (err) {
-            console.log('error'+err);
-            resp.send(JSON.stringify({'id':0}));
-        } else {
-            var smtpTransport = mailer.createTransport("SMTP", {
-                service: "Gmail",
-                auth: {
-                    user: "itplcc40@gmail.com",
-                    pass: "DevelP7@"
-                }
-            });
-
-
-            //var link=mzsadielink+'emailverify/'+result.ops[0]._id;
-            var link='http://localhost:4200/#/emailverify/'+result.ops[0]._id;
-            var name=req.body.firstname+' '+req.body.lastname;
-            var email=req.body.email;
-            var mail = {
-                from: "Admin <ipsitaghosal1@gmail.com>",
-                to: req.body.email,
-                //to: 'ipsita.influxiq@gmail.com',
-                subject: 'Welcome to Employee Management System',
-
-
-                /*html: '<P>Below is your login information – Login Link: http://localhost:4200/#/login</p>' +
-                 '<p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'*/
-                html: '<p>Welcome </p>'+name +'<P>We are please to let you know that you have been successfully registered as an Employee.</p>'+'<P>Below is your login information:</p>'+'<p>Email id: </p>'+email+'<p>Password: Protected due to security</p>'+'<p>Login Link: http://mzsadie.influxiq.com/#/login</p>' +
-                '<p>Please click on the link below to activate your account.</p><a href="'+link+'">Click Here</a>'
-
-
-
-            }
-
-            smtpTransport.sendMail(mail, function (error, response) {
-                // resp.send((response.message));
-                console.log('send');
-                smtpTransport.close();
-            });
-            resp.send(JSON.stringify({'id':result.ops[0]._id}));
-        }
-        //console.log("Hi");
-    });
-
-});
-
 
 app.get('/ipaddress', function (req, resp) {
-    var collection = db.collection('dealers');
-    collection.drop(function(err, items) {
-    //collection.find().toArray(function(err, items) {
-
+    var collection = db.collection('dealerss');
+    //collection.drop(function(err, items) {
+    collection.find().toArray(function(err, items) {
         if (err) {
             console.log(err);
-            //resp.send(JSON.stringify({'res':[]}));
+            resp.send(JSON.stringify({'res':[]}));
         } else {
-            //resp.send(JSON.stringify({'res':items}));
+            resp.send(JSON.stringify({'res':items}));
         }
-
     });
 });
 
@@ -332,7 +421,6 @@ app.get('/dealerslist', function (req, resp) {
         resp.send(JSON.stringify(items));
     });
 });
-
 
 
 app.get('/getusastates',function (req,resp) {

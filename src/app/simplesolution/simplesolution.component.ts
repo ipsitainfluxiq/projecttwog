@@ -4348,7 +4348,8 @@ export class SimplesolutionComponent implements OnInit {
         }
       }
       if (cntrlname == 'Simply_Intent_Business_Intelligence__c') {
-        if (this.intent_audiencetype != 'undefined') {
+        if (this.intent_audiencetype != 'undefined' && this.intent_audiencetype != '' && this.intent_audiencetype != null) {
+
           return '';
         }
         else {
@@ -4395,7 +4396,7 @@ export class SimplesolutionComponent implements OnInit {
         }
       }
       if (cntrlname == 'Simply_Intent_Business_Intelligence__c') {
-        if (this.intent_audiencetype != undefined) {
+        if (this.intent_audiencetype!= 'undefined' && this.intent_audiencetype!= '' && this.intent_audiencetype!= null) {
           return 'hide';
         }
         else {
@@ -4435,7 +4436,7 @@ export class SimplesolutionComponent implements OnInit {
 
         (this.simply_audiences!= undefined) ||
 
-        ((this.simply_intent!= undefined) && (this.intent_audiencetype!=undefined)) ||
+        ((this.simply_intent!= undefined) && ((this.intent_audiencetype!=undefined)&&(this.intent_audiencetype!= '')&&(this.intent_audiencetype!= null))) ||
 
         (this.simply_reach!= undefined)
 
@@ -5003,6 +5004,8 @@ export class SimplesolutionComponent implements OnInit {
     };
    /* this._http.post(link, data)
         .subscribe(res => {*/
+   console.log("intent type");
+   console.log(this.intent_audiencetype);
    console.log(data);
          for (let i in data) {
         if(data[i]!= undefined){
@@ -5014,7 +5017,14 @@ export class SimplesolutionComponent implements OnInit {
         /*console.log(validdata);*/
       }
       console.log(this.datareq);
+      console.log("value");
+       //  console.log($('.nav nav-wizard').find('li').length);
+     // $('.nav nav-wizard').find('li').eq(0).removeClass('active');
+     // $('.nav nav-wizard').find('li').eq(1).addClass('active');
           this.router.navigate(['/basicinformation']);
+
+
+
        /* }, error => {
           console.log("Oooops!");
         });*/

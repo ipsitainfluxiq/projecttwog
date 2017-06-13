@@ -1,76 +1,126 @@
+<div class="top_banner_body">
+  <div class="top_banner_wrapper">
+    <img src="/assets/images/geoai_logo.jpg"  class="geoai_logo"/>
+    <img src="/assets/images/geoai_top_banner.jpg" class="geoai_top_banner" />
+
+    <a href="#" class="top_bannerbtn">Ad Marketing Pros</a>
 
 
+    <div class="clearfix"></div>
+  </div>
+</div>
+<div class="fieldset_wrapper">
+
+  <div class="pageheading">Order Form</div>
+
+  <ul class='nav nav-wizard'>
+
+    <li ><a (click)="callsubmit(1)"><span>1</span> Simple Solutions </a></li>
+
+    <li class='active'><a (click)="callsubmit(0)"><span>2</span>  Basic Information </a></li>
+
+    <li><a (click)="callsubmit(0)"><span>3</span>  Confirmation </a></li>
+    <div class="clearfix"></div>
+
+  </ul>
 <div class="content" id="basic_information">
   <fieldset>
     <legend>Advertiser Information</legend>
-    <div>
-      <div>
+    <div class="geoai_formwrapper">
+      <div class="geoai_form_con">
         <label for="Sales_Rep_Name__c">Sales Rep</label>
         <input id="Sales_Rep_Name__c" name="Sales_Rep_Name__c" type="text" [(ngModel)]="basicinfo_sales_rep_name">
+
+
         <label for="Sales_Rep_Phone__c">Sales Rep Phone</label>
         <input id="Sales_Rep_Phone__c" name="Sales_Rep_Phone__c" type="text" [(ngModel)]="basicinfo_sales_rep_phone">
+
+
         <label for="Sales_Rep_Email__c">Sales Rep Email</label>
         <input id="Sales_Rep_Email__c" name="Sales_Rep_Email__c" type="email" [(ngModel)]="basicinfo_sales_rep_email">
-      </div>
-      <div>
+
+          </div>
+      <div class="geoai_form_con">
         <label for="Partner__c">
           Parent Company
           <small>required</small>
         </label>
+
         <input id="Partner__c" name="Partner__c" type="text" value="Simpli.fi" readonly>
         <input id="hidden_platform_id" type="hidden" value="0">
+
+
         <label for="Property__c">
           Property
           <small>required</small>
         </label>
+
         <input id="Property__c" name="Property__c" type="text" [(ngModel)]="basicinfo_property">
+
+
         <div ngClass="{{haserrorcls('Advertiser_Name__c')}}">
         <label for="Advertiser_Name__c">
           Advertiser Name
           <small>required</small>
         </label>
+
         <input id="Advertiser_Name__c" name="Advertiser_Name__c" type="text" [(ngModel)]="basicinfo_advertisement_name">
-          <div ngClass="{{showerrorcls('Advertiser_Name__c')}}">This field is required.</div>
+          <div class="showerror" ngClass="{{showerrorcls('Advertiser_Name__c')}}">This field is required.</div>
         </div>
+
+
         <label for="Advertiser_Identifier__c">Advertiser Identifier</label>
         <input id="Advertiser_Identifier__c" name="Advertiser_Identifier__c" type="text" [(ngModel)]="basicinfo_advertisement_identifier">
+
         <input id="New_Simpli_fi_Advertiser__c" name="New_Simpli_fi_Advertiser__c" type="checkbox" value="1" [(ngModel)]="basicinfo_new_identifier">
         <label for="New_Simpli_fi_Advertiser__c">New Simpli.fi Advertiser?</label>
+
       </div>
-    </div>
+        <div class="clearfix"></div>
+      </div>
+
+
+
+
   </fieldset>
   <fieldset>
     <legend>Basic Campaign Information</legend>
-    <div>
-      <div>
+
+    <div class="geoai_formwrapper">
+      <div class="geoai_form_con" style="width: 100%;">
         <div ngClass="{{haserrorcls('Brief_Description_of_Campaign_and_Goals__c')}}">
         <label for="Brief_Description_of_Campaign_and_Goals__c">
           Please give a brief description of the Campaign and its goals
           <small>required</small>
           <textarea id="Brief_Description_of_Campaign_and_Goals__c" name="Brief_Description_of_Campaign_and_Goals__c" [(ngModel)]="basicinfo_campaigngoal"></textarea>
         </label>
-          <div ngClass="{{showerrorcls('Brief_Description_of_Campaign_and_Goals__c')}}">
+          <div class="showerror" ngClass="{{showerrorcls('Brief_Description_of_Campaign_and_Goals__c')}}">
             There was an error. Be sure to keep the number of characters under 255</div>
         </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="geoai_form_con">
         <h3>Where are your Creative Files</h3>
         <div>
           <div>
             <label for="URL_to_Creative__c">
               Link to Creative URL
             </label>
-            <div>
-              <div>
+            <div class="http_con1">
+
                 <span class="prefix">http://</span>
-              </div>
-              <div>
+
+
                 <input id="URL_to_Creative__c" name="URL_to_Creative__c" type="text">
-              </div>
+              <div class="clearfix"></div>
             </div>
           </div>
           <div>
             <p>If you have creative files you would like to upload, please finish this form and reply to the confirmation email with the creative files attached.</p>
           </div>
         </div>
+      </div>
+      <div class="geoai_form_con">
         <h3>Please specify desired Flight Dates</h3>
         <div>
           <div>
@@ -81,15 +131,16 @@
            <!-- <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>-->
           </div>
           <div style="text-align:center;">
-            <br>
-            <br>
-            <strong>-</strong>
+
           </div>
           <div>
             <label for="to">End Date</label>
             <input id="to" name="Campaign_End_Date__c" placeholder="" type="text" [(ngModel)]="basicinfo_flight_end" (click)="call2()">
           </div>
         </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="geoai_form_con">
         <h3>What Page/URL should the ad link to?</h3>
         <div>
           <div>
@@ -99,17 +150,26 @@
               <small>required</small>
             </label>
             <div>
-              <div>
+              <div class="http_con1">
                 <span class="prefix">http://</span>
-              </div>
-              <div>
+
                 <input id="Destination_URL__c" name="Destination_URL__c" type="text" [(ngModel)]="adlink" >
               </div>
-              <div ngClass="{{showerrorcls('Destination_URL__c')}}">This field is required.</div>
+
+
+              <div class="showerror" ngClass="{{showerrorcls('Destination_URL__c')}}">This field is required.</div>
             </div>
+
+
+
+
           </div>
           </div>
         </div>
+      </div>
+
+
+      <div class="geoai_form_con">
         <h3>Facebook</h3>
         <div>
           <div>
@@ -118,6 +178,10 @@
             <p class="note">Simpli.fi now has access to reach your audience on the Facebook Newsfeed. Please describe the audience you are trying to reach. Include information such as demographic, psychographic, business category, keywords, etc.</p>
           </div>
         </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="geoai_form_con" style="width: 100%;">
+
         <h3>
           What is your Media Budget / Maximum Impression Goals
           <small>Required</small>
@@ -129,96 +193,150 @@
         <p>You may select a maximum number of impressions and we will cap impressions at that number (using your eCPM), regardless of total campaign monetary budget.</p>
         <p>Note that an impression cap may result in delivery just slightly under the monetary budget as we will work to not exceed the maximum impressions.</p>
         <p>**If you have both a monetary budget and a goal for minimum number of impressions to hit, please include that minimum in the miscellaneous notes at the bottom of this page.</p>
+      </div>
+
+
+
+
         <div ngClass="{{haserrorcls('Budget_Impression_Goal__c')}}">
-        <div ngClass="{{showerrorcls('Budget_Impression_Goal__c')}}">You must select either Media Budget or Maximum Impressions.</div>
+        <div class="showerror" ngClass="{{showerrorcls('Budget_Impression_Goal__c')}}">You must select either Media Budget or Maximum Impressions.</div>
+
+
         <input id="Media_budget__c" name="Budget_Impression_Goal__c" type="radio" value="Media Budget" [(ngModel)]="basicinfo_mediabudget" (click)="changeval(1)">
-        <label for="Media_budget__c">Media Budget</label>
+        <label for="Media_budget__c" style="padding-top: 20px;">Media Budget</label>
         <div>
           <div>
-            <div>
-              <label for="Media_budget_per_month__c">
+            <div class="geoai_form_con">
+              <label for="Media_budget_per_month__c" style="padding-top: 0px;">
                 Media Spend per month
               </label>
+
+
               <div>
-                <div>
+                <div class="http_con2">
                   <span class="prefix">$</span>
-                </div>
+
                 <div ngClass="{{haserrorcls('Media_budget_per_month__c')}}">
 
-                <div>
+
                   <input id="Media_budget_per_month__c"  name="Media_budget_per_month__c" placeholder="e.g. 5,000" type="text" [(ngModel)]="basicinfo_mediabudget_permonth">
-                </div>
-                <div>
+
+
                   <span class="postfix">/mo</span>
+                  <div class="clearfix"></div>
+                  <div class="showerror" ngClass="{{showerrorcls('Media_budget_per_month__c')}}">Please enter valid budget.</div>
                 </div>
-                  <div ngClass="{{showerrorcls('Media_budget_per_month__c')}}">Please enter valid budget.</div>
+
                 </div>
+
               </div>
+
+
+
+
+
             </div>
-            <div>
-              <label for="Total_campaign_media_spend__c">
+            <div class="geoai_form_con">
+              <label for="Total_campaign_media_spend__c" style="padding-top: 0px;">
                 Total Campaign media spend
               </label>
+
+
+
               <div>
-                <div>
+
+
+                <div class="http_con1">
+
+
                   <span class="prefix">$</span>
-                </div>
-                <div ngClass="{{haserrorcls('Total_campaign_media_spend__c')}}">
-                <div>
-                  <input id="Total_campaign_media_spend__c"  name="Total_campaign_media_spend__c" placeholder="e.g. 5,000" type="text" [(ngModel)]="basicinfo_mediabudget_total">
-                </div>
-                  <div ngClass="{{showerrorcls('Total_campaign_media_spend__c')}}">This field is required.</div>
+
+                <div ngClass="{{haserrorcls('Total_campaign_media_spend__c')}}" style=" padding-top: 0px;">
+
+                  <input  id="Total_campaign_media_spend__c"  name="Total_campaign_media_spend__c" placeholder="e.g. 5,000" type="text" [(ngModel)]="basicinfo_mediabudget_total">
+
+
               </div>
+<div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="showerror" ngClass="{{showerrorcls('Total_campaign_media_spend__c')}}">This field is required.</div>
             </div>
+
+
+
+
           </div>
         </div>
         </div>
-        <input id="Maximum_impressions__c" name="Budget_Impression_Goal__c" type="radio" value="Maximum Impressions" [(ngModel)]="basicinfo_maximumimpression" (click)="changeval(2)">
-        <label for="Maximum_impressions__c">Maximum Impressions</label>
-        <div class="child-box">
-          <div ngClass="{{haserrorcls('Maximum_impressions_per_month__c')}}">
-            <div ngClass="{{showerrorcls('Maximum_impressions_per_month__c')}}">Please enter Maximum Impressions per month or Total Campaign Impressions.</div>
-          <div>
-            <div>
-              <label for="Maximum_impressions_per_month__c">Maximum Impressions per month</label>
-              <div>
 
-                <div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <input id="Maximum_impressions__c" name="Budget_Impression_Goal__c" type="radio" value="Maximum Impressions" [(ngModel)]="basicinfo_maximumimpression" (click)="changeval(2)">
+        <label for="Maximum_impressions__c"  style="padding-top: 20px;">Maximum Impressions</label>
+        <div class="child-box" style="padding-left: 0px; margin-left: 0px; ">
+          <div ngClass="{{haserrorcls('Maximum_impressions_per_month__c')}}">
+            <div class="showerror" ngClass="{{showerrorcls('Maximum_impressions_per_month__c')}}">Please enter Maximum Impressions per month or Total Campaign Impressions.</div>
+          <div>
+            <div class="geoai_form_con">
+
+              <div class="http_con3">
+              <label for="Maximum_impressions_per_month__c" style="padding-top: 0px;">Maximum Impressions per month</label>
+
+
+
                   <input id="Maximum_impressions_per_month__c"  name="Maximum_impressions_per_month__c" placeholder="e.g. 1,000,000" type="text" [(ngModel)]="basicinfo_maximumimpression_permonth">
-                </div>
-                <div>
+
                   <span class="postfix">/mo</span>
-                </div>
+
+
+
               </div>
+
+
+
             </div>
-            <div>
-              <label for="Total_campaign_impressions__c">Total Campaign Impressions</label>
+            <div class="geoai_form_con">
+              <label for="Total_campaign_impressions__c" style="padding-top: 0px;">Total Campaign Impressions</label>
 <!--              <input id="Total_campaign_impressions__c" name="Total_campaign_impressions__c" placeholder="e.g. 1,000,000" type="text" [(ngModel)]="basicinfo_maximumimpression_total">-->
               <input id="Total_campaign_impressions__c"  name="Maximum_impressions_per_month__c" placeholder="e.g. 1,000,000" type="text" [(ngModel)]="basicinfo_maximumimpression_total">
             </div>
+
+            <div class="clearfix"></div>
             </div>
           </div>
         </div>
-        </div>
+
         <div>
-          <div>
+          <div class="clearfix"></div>
+          <div class="geoai_form_con">
+
+
             <label for="eCPM__c">eCPM</label>
-            <div>
-              <div>
+            <div class="http_con4">
                 <span class="prefix">$</span>
-              </div>
-              <div>
+
                 <input id="eCPM__c" name="eCPM__c" placeholder="" type="text" [(ngModel)]="basicinfo_ecpm">
-              </div>
+
+
             </div>
+
+
+
           </div>
+
+          <div class="clearfix"></div>
         </div>
-        <h3>
+
+      <div class="geoai_form_con" style="width: 100%; float: none;">
+        <h4>
           Budget Allocation
           <small>Required</small>
-        </h3>
+        </h4>
         <div ngClass="{{haserrorcls('Budget_Allocation__c')}}">
-          <div ngClass="{{showerrorcls('Budget_Allocation__c')}}">You must select one the budget options.</div>
+          <div class="showerror" ngClass="{{showerrorcls('Budget_Allocation__c')}}">You must select one the budget options.</div>
         <div>
           <div>
             <input id="Spend_evenly__c" name="Budget_Allocation__c" type="radio" value="Spend Evenly" [(ngModel)]="basicinfo_spendevenly" (click)="disablearea(1)">
@@ -253,17 +371,19 @@
           </div>
         </div>
         </div>
-        <h3>
+      </div>
+      <div class="geoai_form_con" >
+      <h4>
           Campaign Goals
           <small>Required</small>
-        </h3>
+        </h4>
         <p>
           This is the metric by which you will judge the succcess or failure of the campaign.
           <strong>Note:</strong>
           Campaigns with media spend less than $250 will optimize to delivery, not a performance goal.
         </p>
         <div ngClass="{{haserrorcls('Campaign_Goal__c')}}">
-          <div ngClass="{{showerrorcls('Campaign_Goal__c')}}">You must select one of the Campaign Goals.</div>
+          <div  class="showerror" ngClass="{{showerrorcls('Campaign_Goal__c')}}">You must select one of the Campaign Goals.</div>
         <input id="Reach_and_impressions__c" name="Campaign_Goal__c" value="Reach" type="radio" [(ngModel)]="basicinfo_reachh" (click)="disableforcampaigngoal('1')">
         <label for="Reach_and_impressions__c">Reach &amp; Impressions</label>
         <div class="child-box">
@@ -274,41 +394,47 @@
         <div class="child-box">
           <p class="note">CTR is the # of clicks, divided by the # of times the ad is shown</p>
           <label for="Click_Through_Rate_CTR_value_c">If CTR is the goal, what is the average CTR% goal?</label>
-          <div>
-            <div>
-              <div>
-                <div>
-                  <input id="Click_Through_Rate_CTR_value_c" name="Click_Through_Rate_CTR__c" placeholder="e.g. 0.05%" type="text" [(ngModel)]="basicinfo_ctrgoal">
-                </div>
-                <div >
-                  <span class="postfix">%</span>
-                </div>
-              </div>
-            </div>
+
+
+          <div class="http_con3">
+             <input id="Click_Through_Rate_CTR_value_c" name="Click_Through_Rate_CTR__c" placeholder="e.g. 0.05%" type="text" [(ngModel)]="basicinfo_ctrgoal">
+              <span class="postfix">%</span>
+              <div class="clearfix"></div>
+
           </div>
+
+
+
         </div>
         <input id="Cost_Per_Acquisition_CPA__c" name="Campaign_Goal__c" type="radio" value="Cost Per Acquisition (CPA)" [(ngModel)]="basicinfo_cpa" (click)="disableforcampaigngoal('2')">
         <label for="Cost_Per_Acquisition_CPA__c">Cost Per Acquisition (CPA)</label>
         <div class="child-box">
           <p class="note">CPA is the total spend on the campaign, divided by the total number of "actions." CPA standards actions: click, phone call, form completion, purchase, etc. Minimum media spend for   CPA goal is $1,000 per month</p>
           <label for="CPA_goal__c">What is the CPA goal?</label>
-          <div>
-            <div>
-              <div>
-                <div>
+          <div class="http_con4">
+
+
+
+
                   <span class="prefix">$</span>
-                </div>
-                <div class="l-col-13">
+
+
                   <input id="CPA_goal__c" name="CPA_goal__c" placeholder="e.g. $1,000" type="text" [(ngModel)]="basicinfo_cpagoal">
-                </div>
-                </div>
-              </div>
+
+
+                <div class="clearfix"></div>
+
             </div>
           </div>
         </div>
-        <h3>
+
+      </div>
+
+      <div class="clearfix"></div>
+      <div class="geoai_form_con" style="width: 100%; float: none;">
+        <h4>
           Site Retargeting or Look-a-like Pixel
-        </h3>
+        </h4>
         <input id="Site_Retargeting_secure_pixel__c" name="Site_retargeting_look_a_like_pixel__c" type="radio" value="Secure Pixel" [(ngModel)]="basicinfo_siteretargating_securepixel">
         <label for="Site_Retargeting_secure_pixel__c">Secure Pixel</label>
         <div class="child-box">
@@ -319,9 +445,12 @@
         <div class="child-box">
           <p class="note">e.g. using the http:// prefix</p>
         </div>
-        <h3>
+
+      </div>
+      <div class="geoai_form_con" style="width: 100%; float: none;">
+        <h4>
           What conversion pixel type do you need?
-        </h3>
+        </h4>
         <p>We will generate this for you.</p>
         <input id="Campaign_Goal_secure_pixel__c" name="Campaign_Goal_pixel_type__c" type="radio" value="Secure Pixel" [(ngModel)]="basicinfo_conversion_securepixel">
         <label for="Campaign_Goal_secure_pixel__c">Secure Pixel</label>
@@ -333,6 +462,10 @@
         <div class="child-box">
           <p class="note">e.g. using the http:// prefix</p>
         </div>
+      </div>
+      <div class="geoai_form_con" style="width: 100%; float: none;">
+
+
         <h3>Which Reporting will be used for billing purposes?</h3>
         <p>e.g. DFA tags</p>
         <div class="l-row">
@@ -349,20 +482,26 @@
             <label for="Reporting_based_on_3rd_party__c">Based on 3rd party reporting</label>
           </div>
         </div>
+
+
       </div>
     </div>
-    <br>
+
     <div class="l-row">
-      <div class="l-col-8">
-        <label for="Misc_notes__c">
-          Misc Notes
-          <textarea id="Misc_notes__c" name="Misc_notes__c" [(ngModel)]="basicinfo_misc_securepixel"></textarea>
-          <p class="note">Please include any additional notes that might be helpful.</p>
-        </label>
+      <div class="geoai_form_con" style="width: 100%; float: none;">
+      <div class="l-col-8 " >
+        <label for="Misc_notes__c" class="labelnewtext">
+          Misc Notes  </label>
+          <textarea  class="textareanewtext" id="Misc_notes__c" name="Misc_notes__c" [(ngModel)]="basicinfo_misc_securepixel"></textarea>
+          <p class="note notetext">Please include any additional notes that might be helpful.</p>
+
       </div>
     </div>
-    <br>
+    </div>
+    <div class="clearfix"></div>
     <!--<button class="button">Submit</button>-->
-    <button (click)="callsubmit()">Submit</button>
+    <button (click)="callsubmit(0)"  class="subbtn1">Submit</button>
   </fieldset>
+</div>
+
 </div>

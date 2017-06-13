@@ -20,7 +20,7 @@
 
     <li><a (click)="callsubmit()"><span>2</span>  Basic Information </a></li>
 
-    <li><a><span>3</span>  Confirmation </a></li>
+    <li><a (click)="callsubmit()"><span>3</span>  Confirmation </a></li>
     <div class="clearfix"></div>
 
   </ul>
@@ -75,7 +75,7 @@
   <label  for="Simply_Geo_Smartphone__c">
     Smartphone
   </label>
-      <div ngClass="{{showerrorcls('Simply_Geo_Display__c')}}">You must choose at least one device type.</div>
+      <div class="showerror" ngClass="{{showerrorcls('Simply_Geo_Display__c')}}">You must choose at least one device type.</div>
     </div>
   </div>
 </div>
@@ -112,7 +112,7 @@
 
         <h3 class="label1text2">Choose Categories</h3>
         <div ngClass="{{haserrorcls('Solution_Premium_Details__c')}}">
-          <div ngClass="{{showerrorcls('Solution_Premium_Details__c')}}">You must choose at least one Premium Category.</div>
+          <div class="showerror" ngClass="{{showerrorcls('Solution_Premium_Details__c')}}">You must choose at least one Premium Category.</div>
           <div>
             <input id="Simply_Premium_News_Information__C" name="Solution_Premium_Details__c" type="checkbox" [(ngModel)]="premium_news">
             <label for="Simply_Premium_News_Information__C">
@@ -3581,11 +3581,11 @@
       <div class="geoai_form_con">
 
   <label for="Simply_Intent_Business_Intelligence__c">
-    Please describe the audience your are trying to reach. Include information such as demographic, psychographic, business category, keywords, etc.
+    Please describe the audience you are trying to reach. Include information such as demographic, psychographic, business category, keywords, etc.
   </label>
   <div ngClass="{{haserrorcls('Simply_Intent_Business_Intelligence__c')}}">
   <textarea id="Simply_Intent_Business_Intelligence__c" name="Simply_Intent_Business_Intelligence__c" [(ngModel)]="intent_audiencetype"></textarea>
-    <div ngClass="{{showerrorcls('Simply_Intent_Business_Intelligence__c')}}">This field is required.</div>
+    <div class="showerror" ngClass="{{showerrorcls('Simply_Intent_Business_Intelligence__c')}}">This field is required.</div>
 </div>
       </div>
   <div class="clearfix"></div>
