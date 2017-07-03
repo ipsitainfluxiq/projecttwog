@@ -46,10 +46,10 @@
 
       <div class="campaign_settings_wrapper">
 
-
         <div class="campaign_settings_box1">
           <label>Name</label>
-          <input type="text"  placeholder="My best campaign yet!(8) " value="{{newcreatedcampaignname}}"/>
+          <div *ngIf="error">{{error}}</div>
+          <input type="text" value="{{newcreatedcampaignname}}" (blur)="updatename()" [(ngModel)]="name"/>
 
         </div>
 
@@ -77,7 +77,10 @@
             <div class="campaign_settings_cell_top">
 
               <label>Flight </label>
-              <b>May 30, 2017</b>
+
+              <b>June 30, 2017</b>
+              <div *ngIf="error1">{{error1}}</div>
+              <pre class="card-block card-header">Start date: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
               <div class="clearfix"></div>
             </div>
 
@@ -85,9 +88,12 @@
               <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
             </div>
 
-
-
-
+              <pre class="card-block card-header">End date: <em *ngIf="enddate">{{ getendDate() | date:'fullDate'}}</em></pre>
+              <div class="clearfix"></div>
+            <div style="display:inline-block; min-height:290px;">
+              <datepicker [(ngModel)]="enddate" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+            </div>
+            <input type="button" value="OK" (click)="updatedate()">
           </div>
 
 
@@ -98,7 +104,33 @@
 
               <label>Budget </label>
               <b>None</b>
+              <div *ngIf="error2">
+                <b>There were errors with your request:</b> {{error2}}</div>
+              <div *ngIf="error3">{{error3}}</div>
+              <div *ngIf="error3">{{error4}}</div>
+              <div *ngIf="error3">{{error5}}</div>
               <div class="clearfix"></div>
+
+                <label>Campaign Budget</label>
+              <input id="campaign_budget"  name="campaign_budget" type="number" [(ngModel)]="campaign_budget">
+
+              <label>Bidding Type</label>
+              <select id="bidding_type"  name="bidding_type" [(ngModel)]="bidding_type" >
+                <option value="cpm_bidding">CPM Bidding</option>
+                <option value="cpc_bidding">CPC Bidding</option>
+              </select>
+
+              <label>Monthly Budget</label>
+              <input id="monthly_budget"  name="monthly_budget" type="number" [(ngModel)]="monthly_budget">
+
+              <label>Bidding Amount</label>
+              <input id="bidding_amount"  name="bidding_amount" type="number" [(ngModel)]="bidding_amount">
+
+              <label>Daily Spend Target</label>
+              <input id="daily_spend_target"  name="daily_spend_target" type="number" [(ngModel)]="daily_spend_target">
+              <input type="checkbox" value="auto">Auto Adjust Daily Spend Target
+              <p><small>Campaign Budget and End Date Required</small></p>
+              <input type="button" value="OK" (click)="updatebudget()">
             </div>
 
 
@@ -114,10 +146,39 @@
               <label>Capping </label>
               <b>None</b>
               <div class="clearfix"></div>
+              <div *ngIf="error6">
+                <b>There were errors with your request:</b> {{error6}}</div>
+              <div *ngIf="error7">{{error7}}</div>
+              <label>Impression Capping</label>
+              <label>Impressions</label>
+              <input id="impressions_c"  name="impressions_c" type="text" [(ngModel)]="impressions_c">
+              <label>Monthly Impression Capping</label>
+              <input id="monthly_impression"  name="monthly_impression" type="text" [(ngModel)]="monthly_impression">
+              <label>Daily Impression Capping</label>
+              <input id="daily_impression"  name="daily_impression" type="text" [(ngModel)]="daily_impression">
+              <label>Frequency Capping</label>
+              <label>Impressions</label>
+              <input id="impressions_f"  name="impressions_f" type="text" [(ngModel)]="impressions_f">
+              <label>Per Hours</label>
+              <!--<div *ngFor="let item of items; let i=index">
+                <div *ngIf="i<25">
+                  <span>{{item}}</span>
+                </div>
+              </div>-->
+              <select id="p_hour"  name="p_hour" [(ngModel)]="p_hour" >
+
+                <option *ngFor="let item of items; let i=index" value="{{item}}">{{item}}
+                </option>
+              </select>
+              <input type="button" value="OK" (click)="updatecapping()">
             </div>
 
 
-
+     <!--       <div *ngFor=" let tweet of singleCategory;  let i=index">
+              <div *ngIf="i<2">
+                {{tweet}}
+              </div>
+            </div>-->
 
 
 
