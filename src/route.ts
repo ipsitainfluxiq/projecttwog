@@ -12,6 +12,7 @@ import {SimplesolutionComponent} from 'app/simplesolution/simplesolution.compone
 import {BasicinformationComponent} from 'app/basicinformation/basicinformation.component';
 import {ConfirmationComponent} from 'app/confirmation/confirmation.component';
 import {TrialComponent} from 'app/trial/trial.component';
+import {CampaignsettingsComponent} from 'app/campaignsettings/campaignsettings.component';
 
 
 const appRoutes: Routes = [
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
     { path: 'basicinformation', component: BasicinformationComponent},
     { path: 'confirmation', component: ConfirmationComponent},
     { path: 'trial', component: TrialComponent},
+    { path: 'campaignsettings', component: CampaignsettingsComponent},
 
 ];
 

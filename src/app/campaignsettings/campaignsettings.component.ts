@@ -15,10 +15,9 @@ export class CampaignsettingsComponent implements OnInit {
   public result;
   public newcreatedcampaignid;
   public newcreatedcampaignname;
-  public cookieinfo: any = [];
+  public getval: any = [];
 
   constructor(addcookie: CookieService, private _http: Http) {
-    /*let cookiedetails: any;*/
     this.addcookie = addcookie ;
     this.cookiedetails = this.addcookie.getObject('cookiedetails');
   }
@@ -39,16 +38,13 @@ export class CampaignsettingsComponent implements OnInit {
     this._http.get(this.link)
         .subscribe(res => {
           this.result = res.json();
-          console.log(this.result);
-          this.addcookie.putObject('cookiedetails', this.result);
-          this.newcreatedcampaignid = this.result.campaigns[0].id;
-          this.newcreatedcampaignname = this.result.campaigns[0].name;
-          console.log('cookiedetails');
-          //console.log(this.cookiedetails);
-          console.log('addcookie');
-          //console.log(this.addcookie);
-          /*console.log(this.newcreatedcampaignid);
-          console.log(this.newcreatedcampaignname);*/
+          //console.log(this.result.campaigns[0]);
+          this.getval = this.result.campaigns[0];
+            //console.log(this.cookieinfo);
+          //this.addcookie.putObject('cookiedetails', this.result/*.campaigns[0].id*/);
+          this.addcookie.putObject('cookiedetails', this.getval/*.campaigns[0].id*/);
+          this.newcreatedcampaignid = this.getval.id;
+          this.newcreatedcampaignname = this.getval.name;
         }, error2 => {
           console.log('Ooops');
         } );

@@ -40,17 +40,67 @@ MongoClient.connect(url, function (err, database) {
 console.log("connected");
     }});
 
+/*-----------------------------------------------------------------(start_for_geoai)------------------------------------------------------------------------*/
 
-/*---------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*var urlstartcounters=0;
+/*-----------------------------------------------------------------(end_for_geoai)--------------------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------(start)----------------------------------------------------------------------------------*/
+app.get('/getdetails', function (req,resp) {
+    var collection= db.collection('details');
+    collection.find().toArray(function(err, items) {
+        resp.send(JSON.stringify(items));
+    });
+});
+
+app.get('/getdetails1', function (req,resp) {
+    var collection= db.collection('details');
+    var k=0;
+    collection.find().skip(0).limit(200).toArray(function(err, items) {
+    var counter=0;
+        for(var i in items){
+            var email=items[i].email;
+            var uniqid=items[i]._id;
+            setTimeout(function () {
+                if(counter==700){
+                    return;
+                }
+                calltodelete(items[i]);
+                counter++;
+            },1000)
+          /*  for(var j in items) {
+                calltodelete(items[j]);
+              if ((items[j]._id != uniqid) && (items[j].email == email)) {
+                    collection.remove( {"_id": items[j]._id});
+                }
+            }*/
+        }
+    });
+});
+
+function calltodelete(items){
+    var collection1= db.collection('details');
+    collection1.find().toArray(function(err1, items1) {
+        console.log("2.3");
+        for(p in items1){
+            if(items1[p]._id != items._id && items1[p].email == items.email){
+
+                collection1.remove( {"_id": items1[p]._id});
+            }
+        }
+    });
+}
+
+/*-------------------------------------------------------------(end)---------------------------------------------------------------------------------------*/
+var urlstartcounters=0;
 app.get('/autos',function (req,resp) {
     console.log(req.query.counter);
     urlstartcounters=req.query.counter;
     var interv=setInterval(function () {
 
-    request('http://localhost:3004/autourlupdates?counter='+urlstartcounters, function(error2, response, html2){
+        request('http://localhost:3004/autourlupdates?counter='+urlstartcounters, function(error2, response, html2){
             if(!error2) {
                 var $ = cheerio.load(html2);
+                var dealernames;
             }
             else {
                 console.log("inside geturllists");
@@ -62,22 +112,24 @@ app.get('/autos',function (req,resp) {
         if(urlstartcounters>1000) clearInterval(interv);
     },5000);
     resp.send("success");
-});*/
+});
 
 
 
 app.get('/autourlupdates',function(req,resp){
-
-    var url = 'https://www.autotrader.com/car-dealers/Atlanta+GA-30301?filterName=pagination&firstRecord=20&numRecords=10&searchRadius=500&sortBy=distanceASC';
-
+    var url = 'https://www.autotrader.com/car-dealers/Seattle+WA-98121?filterName=pagination&firstRecord='+req.query.counter+'&numRecords=10&searchRadius=500&sortBy=distanceASC';
     setTimeout(function () {
         console.log("inside autourlupdates");
-        console.log(url);
         geturllists(url);
     },500)
 
     setInterval(function () {
-        var curl = 'https://www.autotrader.com/car-dealers/Atlanta+GA-30301?filterName=pagination&firstRecord=20&numRecords=10&searchRadius=500&sortBy=distanceASC';
+        //urlstartcounter+=10;
+        var curls = 'https://www.autotrader.com/car-dealers/Seattle+WA-98121?filterName=zip&firstRecord='+urlstartcounters+'&numRecords=10&searchRadius=500&sortBy=distanceASC';
+        //console.log(urlstartcounter);
+        //console.log(curl);
+        //console.log("inside autourlupdate");
+        //if(urlstartcounter<300)geturllist(curl);
     },1000);
 
     resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
@@ -109,7 +161,7 @@ function geturllists(url){
                  console.log($(this).find('.cityStateZip').find('span[itemprop="postalCode"]').html());
                  console.log("Phone no");
                  console.log($(this).find('.atcui-block').html());*/
-                var collection = db.collection('dealersss');
+                var collection = db.collection('dealerss');
                 collection.insert([{
                         dealername:$(this).find('.dealer-name').html() ,
                         url:$(this).find('.dealer-name').attr('href') ,
@@ -123,8 +175,7 @@ function geturllists(url){
                     }],
                     function (err2, result2) {
                         if (err2) {
-                            //console.log('error'+err);
-
+                            console.log('error'+err);
                         } else {
                             //response.send(JSON.stringify({'id':result2.ops[0]._id}));
                             //console.log(result2.ops[0]._id);
@@ -164,8 +215,10 @@ function getdetailss(url,id){
 
         if(!error2) {
             var $ = cheerio.load(html2);
-            var dealerfbs;
-            var collection = db.collection('dealersss');
+            var dealerinfo;
+            var dealerfb;
+            //dealerinfo=$('.atcui-list').find('a').attr('href')(function () {
+            var collection = db.collection('dealerss');
             var data = {
                 websiteurl: $('a[target="_siteLink"]').attr('href'),
                 facebookurl: $('a[target="_facebook"]').attr('href'),
@@ -184,9 +237,10 @@ function getdetailss(url,id){
             console.log(data);
             collection.update({_id: id}, {$set: data}, true, true);
 
+            // });
         }
         else {
-            console.log("inside getdetailserror");
+            console.log("inside getdetailserrors");
             console.log('in error  :'+error2);
         }
     });

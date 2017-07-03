@@ -112,7 +112,7 @@ export class BasicinformationComponent implements OnInit {
     }
 
       if (cntrlname == 'Media_budget_per_month__c') {
-        if (this.basicinfo_mediabudget_permonth != undefined) {
+        if (this.basicinfo_mediabudget_permonth != undefined && this.basicinfo_mediabudget_permonth!='') {
           return '';
         }
         else {
@@ -120,7 +120,7 @@ export class BasicinformationComponent implements OnInit {
         }
       }
       if (cntrlname == 'Total_campaign_media_spend__c') {
-        if (this.basicinfo_mediabudget_total != undefined) {
+        if (this.basicinfo_mediabudget_total != undefined && this.basicinfo_mediabudget_total !='') {
           return '';
         }
         else {
@@ -130,7 +130,8 @@ export class BasicinformationComponent implements OnInit {
 
 
       if (cntrlname == 'Maximum_impressions_per_month__c') {
-        if (this.basicinfo_maximumimpression_permonth != undefined || this.basicinfo_maximumimpression_total != undefined) {
+        if (((this.basicinfo_maximumimpression_permonth != undefined)&&(this.basicinfo_maximumimpression_permonth!='')) || ((this.basicinfo_maximumimpression_total != undefined)&&(this.basicinfo_maximumimpression_total!=''))){
+        //if (this.basicinfo_maximumimpression_permonth != undefined || this.basicinfo_maximumimpression_total != undefined) {
           return '';
         }
         else {
@@ -205,7 +206,7 @@ export class BasicinformationComponent implements OnInit {
       }*/
       if (this.checkerrorradio1 == true && this.checkerrorradio2 == false )  {
         if (cntrlname == 'Media_budget_per_month__c') {
-          if (this.basicinfo_mediabudget_permonth != undefined) {
+          if (this.basicinfo_mediabudget_permonth != undefined && this.basicinfo_mediabudget_permonth!='') {
             return 'hide';
           }
           else {
@@ -213,7 +214,7 @@ export class BasicinformationComponent implements OnInit {
           }
         }
         if (cntrlname == 'Total_campaign_media_spend__c') {
-          if (this.basicinfo_mediabudget_total != undefined) {
+          if (this.basicinfo_mediabudget_total != undefined && this.basicinfo_mediabudget_total !='') {
             return 'hide';
           }
           else {
@@ -226,7 +227,7 @@ export class BasicinformationComponent implements OnInit {
       if (this.checkerrorradio2 == true && this.checkerrorradio1==false) {
        console.log("hey");
         if (cntrlname == 'Maximum_impressions_per_month__c') {
-          if (this.basicinfo_maximumimpression_permonth != undefined || this.basicinfo_maximumimpression_total != undefined) {
+          if (((this.basicinfo_maximumimpression_permonth != undefined)&&(this.basicinfo_maximumimpression_permonth!='')) || ((this.basicinfo_maximumimpression_total != undefined)&&(this.basicinfo_maximumimpression_total!=''))) {
             return 'hide';
           }
           else {
@@ -244,6 +245,14 @@ changeval(type){
     if (type==1){
     this.checkerrorradio1=true;
     this.checkerrorradio2=false;
+
+      /*---------------------------------------------------------------done(START)-----------------------------------------------------------*/
+       $( '#Total_campaign_impressions__c').val('e.g. 1,000,000');
+      $( '#Maximum_impressions_per_month__c').val('e.g. 1,000,000');
+      $( '#Media_budget_per_month__c').val('');
+      $( '#Total_campaign_media_spend__c').val('');
+      /*---------------------------------------------------------------done(END)-------------------------------------------------------------*/
+
        $( '#Total_campaign_impressions__c').attr('disabled','disabled');
       $( '#Maximum_impressions_per_month__c').attr('disabled','disabled');
       $( '#Media_budget_per_month__c').removeAttr('disabled');
@@ -252,6 +261,14 @@ changeval(type){
     if(type==2){
       this.checkerrorradio2=true;
       this.checkerrorradio1=false;
+
+      /*---------------------------------------------------------------done(START)-----------------------------------------------------------*/
+      $( '#Media_budget_per_month__c').val('e.g. 5,000');
+      $( '#Total_campaign_media_spend__c').val('e.g. 5,000');
+      $( '#Total_campaign_impressions__c').val('');
+      $( '#Maximum_impressions_per_month__c').val('');
+      /*---------------------------------------------------------------done(END)-------------------------------------------------------------*/
+
       $( '#Media_budget_per_month__c').attr('disabled','disabled');
       $( '#Total_campaign_media_spend__c').attr('disabled','disabled');
       $( '#Total_campaign_impressions__c').removeAttr('disabled');
@@ -295,9 +312,26 @@ changeval(type){
     this.basicinfo_flight_start=$('#from').val();
     this.basicinfo_flight_end=$('#to').val();
     console.log("end");
+
+/*---------------------------------------------------------------done(START)-----------------------------------------------------------*/
+    if(this.basicinfo_mediabudget==undefined){
+      this.basicinfo_mediabudget_permonth='';
+      this.basicinfo_mediabudget_total='';
+    }
+    if(this.basicinfo_maximumimpression==undefined){
+      this.basicinfo_maximumimpression_permonth='';
+      this.basicinfo_maximumimpression_total='';
+    }
+/*---------------------------------------------------------------done(END)-------------------------------------------------------------*/
+
+    console.log("basicinfo_mediabudget_permonth  "+this.basicinfo_mediabudget_permonth);
+console.log("basicinfo_mediabudget_total  "+this.basicinfo_mediabudget_total);
+console.log("basicinfo_maximumimpression_permonth  "+this.basicinfo_maximumimpression_permonth);
+console.log("basicinfo_maximumimpression_total  "+this.basicinfo_maximumimpression_total);
+
     if(   (this.basicinfo_advertisement_name!=undefined && this.basicinfo_advertisement_name != null && this.basicinfo_advertisement_name!= '' && this.basicinfo_campaigngoal!=undefined  && this.basicinfo_campaigngoal != null && this.basicinfo_campaigngoal!= '' && this.adlink!=undefined && this.adlink != null && this.adlink!= '')
   &&
-          ( ((this.basicinfo_mediabudget != undefined) && ((this.basicinfo_mediabudget_permonth != undefined) && (this.basicinfo_mediabudget_total != undefined))) || ((this.basicinfo_maximumimpression!=undefined) && ((this.basicinfo_maximumimpression_permonth !=undefined) || (this.basicinfo_maximumimpression_total !=undefined)))  )
+          ( ((this.basicinfo_mediabudget != undefined) && (((this.basicinfo_mediabudget_permonth != undefined)&& (this.basicinfo_mediabudget_permonth!='')) && ((this.basicinfo_mediabudget_total != undefined)&&(this.basicinfo_mediabudget_total!='')))) || ((this.basicinfo_maximumimpression!=undefined) && (((this.basicinfo_maximumimpression_permonth !=undefined)&&(this.basicinfo_maximumimpression_permonth!='')) || ((this.basicinfo_maximumimpression_total !=undefined)&&(this.basicinfo_maximumimpression_total!=''))))  )
           &&
   (this.basicinfo_spendevenly != undefined || this.basicinfo_spend_particular!=undefined || this.basicinfo_uneven!=undefined || this.basicinfo_adjust!=undefined)
  &&
@@ -351,8 +385,8 @@ changeval(type){
         }
       }
       //console.log(this.basicdata);
-      console.log("advertiser name-->");
-      console.log(this.basicinfo_advertisement_name);
+      /*console.log("??-->");
+      console.log(this.basicinfo_maximumimpression_total);*/
 if(flag==1){
   this.router.navigate(['/']);
 }

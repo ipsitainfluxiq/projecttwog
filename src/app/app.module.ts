@@ -9,7 +9,10 @@ import { SimplesolutionComponent } from './simplesolution/simplesolution.compone
 import { BasicinformationComponent } from './basicinformation/basicinformation.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { TrialComponent } from './trial/trial.component';
-/*import {DatepickerModule} from 'ngx-bootstrap/datepicker';*/
+import { CampaignsettingsComponent } from './campaignsettings/campaignsettings.component';
+import {DatepickerModule} from 'ngx-bootstrap/datepicker';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +21,7 @@ import { TrialComponent } from './trial/trial.component';
     BasicinformationComponent,
     ConfirmationComponent,
     TrialComponent,
+    CampaignsettingsComponent,
 
   ],
   imports: [
@@ -25,10 +29,10 @@ import { TrialComponent } from './trial/trial.component';
     FormsModule,
     HttpModule,
     routing,
-    /*DatepickerModule.forRoot(),*/
+    DatepickerModule.forRoot(),
 
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

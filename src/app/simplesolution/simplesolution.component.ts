@@ -792,7 +792,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen2 = 'hide';
       }
     }
-
     if(target.className == 'thumb3'){
       if (this.isopen3 == 'hide') {
         this.isopen3 = '';
@@ -809,7 +808,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen3 = 'hide';
       }
     }
-
     if(target.className == 'thumb4'){
       if (this.isopen4 == 'hide') {
         this.isopen4 = '';
@@ -826,7 +824,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen4 = 'hide';
       }
     }
-
     if(target.className == 'thumb5'){
       if (this.isopen5 == 'hide') {
         this.isopen5 = '';
@@ -843,7 +840,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen5 = 'hide';
       }
     }
-
     if(target.className == 'thumb6'){
       if (this.isopen6 == 'hide') {
         this.isopen6 = '';
@@ -860,7 +856,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen6 = 'hide';
       }
     }
-
     if(target.className == 'thumb7'){
       if (this.isopen7 == 'hide') {
         this.isopen7 = '';
@@ -909,7 +904,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen9 = 'hide';
       }
     }
-
     if(target.className == 'thumb10'){
       if (this.isopen10 == 'hide') {
         this.isopen10 = '';
@@ -1006,7 +1000,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen15 = 'hide';
       }
     }
-
     if(target.className == 'thumb16'){
       if (this.isopen16 == 'hide') {
         this.isopen16 = '';
@@ -1055,7 +1048,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen18 = 'hide';
       }
     }
-
     if(target.className == 'thumb19'){
       if (this.isopen19 == 'hide') {
         this.isopen19 = '';
@@ -1072,7 +1064,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen19 = 'hide';
       }
     }
-
     if(target.className == 'thumb20'){
       if (this.isopen20 == 'hide') {
         this.isopen20 = '';
@@ -1089,7 +1080,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen20 = 'hide';
       }
     }
-
     if(target.className == 'thumb21'){
       if (this.isopen21 == 'hide') {
         this.isopen21 = '';
@@ -1106,7 +1096,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen21 = 'hide';
       }
     }
-
     if(target.className == 'thumb22'){
       if (this.isopen22 == 'hide') {
         this.isopen22 = '';
@@ -1123,7 +1112,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen22 = 'hide';
       }
     }
-
     if(target.className == 'thumb23'){
       if (this.isopen23 == 'hide') {
         this.isopen23 = '';
@@ -1140,7 +1128,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen23 = 'hide';
       }
     }
-
     if(target.className == 'thumb25'){
       if (this.isopen25 == 'hide') {
         this.isopen25 = '';
@@ -1157,7 +1144,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen25 = 'hide';
       }
     }
-
     if(target.className == 'thumb26'){
       if (this.isopen26 == 'hide') {
         this.isopen26 = '';
@@ -1174,7 +1160,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen26 = 'hide';
       }
     }
-
     if(target.className == 'thumb27'){
       if (this.isopen27 == 'hide') {
         this.isopen27 = '';
@@ -1191,7 +1176,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen27 = 'hide';
       }
     }
-
     if(target.className == 'thumb28'){
       if (this.isopen28 == 'hide') {
         this.isopen28 = '';
@@ -1208,7 +1192,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen28 = 'hide';
       }
     }
-
     if(target.className == 'thumb29'){
       if (this.isopen29 == 'hide') {
         this.isopen29 = '';
@@ -1225,7 +1208,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen29 = 'hide';
       }
     }
-
     if(target.className == 'thumb30'){
       if (this.isopen30 == 'hide') {
         this.isopen30 = '';
@@ -1242,7 +1224,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen30 = 'hide';
       }
     }
-
     if(target.className == 'thumb31'){
       if (this.isopen31 == 'hide') {
         this.isopen31 = '';
@@ -1259,7 +1240,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen31 = 'hide';
       }
     }
-
     if(target.className == 'thumb32'){
       if (this.isopen32 == 'hide') {
         this.isopen32 = '';
@@ -1276,7 +1256,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen32 = 'hide';
       }
     }
-
     if(target.className == 'thumb33'){
       if (this.isopen33 == 'hide') {
         this.isopen33 = '';
@@ -1293,7 +1272,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen33 = 'hide';
       }
     }
-
     if(target.className == 'thumb34'){
       if (this.isopen34 == 'hide') {
         this.isopen34 = '';
@@ -1310,7 +1288,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen34 = 'hide';
       }
     }
-
     if(target.className == 'thumb35'){
       if (this.isopen35 == 'hide') {
         this.isopen35 = '';
@@ -1327,7 +1304,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen35 = 'hide';
       }
     }
-
     if(target.className == 'thumb36'){
       if (this.isopen36 == 'hide') {
         this.isopen36 = '';
@@ -1344,7 +1320,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen36 = 'hide';
       }
     }
-
     if(target.className == 'thumb37'){
       if (this.isopen37 == 'hide') {
         this.isopen37 = '';
@@ -1361,7 +1336,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen37 = 'hide';
       }
     }
-
     if(target.className == 'thumb38'){
       if (this.isopen38 == 'hide') {
         this.isopen38 = '';
@@ -1378,7 +1352,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen38 = 'hide';
       }
     }
-
     if(target.className == 'thumb39'){
       if (this.isopen39 == 'hide') {
         this.isopen39 = '';
@@ -1395,7 +1368,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen39 = 'hide';
       }
     }
-
     if(target.className == 'thumb40'){
       if (this.isopen40 == 'hide') {
         this.isopen40 = '';
@@ -1428,7 +1400,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen41 = 'hide';
       }
     }
-
     if(target.className == 'thumb42'){
       if (this.isopen42 == 'hide') {
         this.isopen42 = '';
@@ -1445,7 +1416,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen42 = 'hide';
       }
     }
-
     if(target.className == 'thumb43'){
       if (this.isopen43 == 'hide') {
         this.isopen43 = '';
@@ -1462,7 +1432,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen43 = 'hide';
       }
     }
-
     if(target.className == 'thumb44'){
       if (this.isopen44 == 'hide') {
         this.isopen44 = '';
@@ -1479,7 +1448,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen44 = 'hide';
       }
     }
-
     if(target.className == 'thumb45'){
       if (this.isopen45 == 'hide') {
         this.isopen45 = '';
@@ -1496,7 +1464,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen45 = 'hide';
       }
     }
-
     if(target.className == 'thumb46'){
       if (this.isopen46 == 'hide') {
         this.isopen46 = '';
@@ -1513,7 +1480,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen46 = 'hide';
       }
     }
-
     if(target.className == 'thumb47'){
       if (this.isopen47 == 'hide') {
         this.isopen47 = '';
@@ -1530,7 +1496,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen47 = 'hide';
       }
     }
-
     if(target.className == 'thumb48'){
       if (this.isopen48 == 'hide') {
         this.isopen48 = '';
@@ -1547,7 +1512,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen48 = 'hide';
       }
     }
-
     if(target.className == 'thumb49'){
       if (this.isopen49 == 'hide') {
         this.isopen49 = '';
@@ -1564,7 +1528,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen49 = 'hide';
       }
     }
-
     if(target.className == 'thumb50'){
       if (this.isopen50 == 'hide') {
         this.isopen50 = '';
@@ -1581,7 +1544,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen50 = 'hide';
       }
     }
-
     if(target.className == 'thumb51'){
       if (this.isopen51 == 'hide') {
         this.isopen51 = '';
@@ -1598,7 +1560,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen51 = 'hide';
       }
     }
-
     if(target.className == 'thumb52'){
       if (this.isopen52 == 'hide') {
         this.isopen52 = '';
@@ -1615,7 +1576,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen52 = 'hide';
       }
     }
-
     if(target.className == 'thumb53'){
       if (this.isopen53 == 'hide') {
         this.isopen53 = '';
@@ -1632,7 +1592,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen53 = 'hide';
       }
     }
-
     if(target.className == 'thumb54'){
       if (this.isopen54 == 'hide') {
         this.isopen54 = '';
@@ -1649,7 +1608,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen54 = 'hide';
       }
     }
-
     if(target.className == 'thumb55'){
       if (this.isopen55 == 'hide') {
         this.isopen55 = '';
@@ -1666,7 +1624,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen55 = 'hide';
       }
     }
-
     if(target.className == 'thumb56'){
       if (this.isopen56 == 'hide') {
         this.isopen56 = '';
@@ -1683,7 +1640,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen56 = 'hide';
       }
     }
-
     if(target.className == 'thumb57'){
       if (this.isopen57 == 'hide') {
         this.isopen57 = '';
@@ -1700,7 +1656,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen57 = 'hide';
       }
     }
-
     if(target.className == 'thumb58'){
       if (this.isopen58 == 'hide') {
         this.isopen58 = '';
@@ -1717,7 +1672,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen58 = 'hide';
       }
     }
-
     if(target.className == 'thumb59'){
       if (this.isopen59 == 'hide') {
         this.isopen59 = '';
@@ -1734,7 +1688,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen59 = 'hide';
       }
     }
-
     if(target.className == 'thumb60'){
       if (this.isopen60 == 'hide') {
         this.isopen60 = '';
@@ -1751,7 +1704,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen60 = 'hide';
       }
     }
-
     if(target.className == 'thumb61'){
       if (this.isopen61 == 'hide') {
         this.isopen61 = '';
@@ -1768,7 +1720,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen61 = 'hide';
       }
     }
-
     if(target.className == 'thumb62'){
       if (this.isopen62 == 'hide') {
         this.isopen62 = '';
@@ -1785,7 +1736,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen62 = 'hide';
       }
     }
-
     if(target.className == 'thumb63'){
       if (this.isopen63 == 'hide') {
         this.isopen63 = '';
@@ -1802,7 +1752,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen63 = 'hide';
       }
     }
-
     if(target.className == 'thumb64'){
       if (this.isopen64 == 'hide') {
         this.isopen64 = '';
@@ -1819,7 +1768,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen64 = 'hide';
       }
     }
-
     if(target.className == 'thumb65'){
       if (this.isopen65 == 'hide') {
         this.isopen65 = '';
@@ -1836,7 +1784,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen65 = 'hide';
       }
     }
-
     if(target.className == 'thumb66'){
       if (this.isopen66 == 'hide') {
         this.isopen66 = '';
@@ -1853,7 +1800,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen66 = 'hide';
       }
     }
-
     if(target.className == 'thumb67'){
       if (this.isopen67 == 'hide') {
         this.isopen67 = '';
@@ -1870,7 +1816,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen67 = 'hide';
       }
     }
-
     if(target.className == 'thumb68'){
       if (this.isopen68 == 'hide') {
         this.isopen68 = '';
@@ -1887,7 +1832,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen68 = 'hide';
       }
     }
-
     if(target.className == 'thumb69'){
       if (this.isopen69 == 'hide') {
         this.isopen69 = '';
@@ -1904,7 +1848,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen69 = 'hide';
       }
     }
-
     if(target.className == 'thumb70'){
       if (this.isopen70 == 'hide') {
         this.isopen70 = '';
@@ -1921,7 +1864,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen70 = 'hide';
       }
     }
-
     if(target.className == 'thumb71'){
       if (this.isopen71 == 'hide') {
         this.isopen71 = '';
@@ -1938,7 +1880,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen71 = 'hide';
       }
     }
-
     if(target.className == 'thumb72'){
       if (this.isopen72 == 'hide') {
         this.isopen72 = '';
@@ -1955,7 +1896,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen72 = 'hide';
       }
     }
-
     if(target.className == 'thumb73'){
       if (this.isopen73 == 'hide') {
         this.isopen73 = '';
@@ -1972,7 +1912,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen73 = 'hide';
       }
     }
-
     if(target.className == 'thumb74'){
       if (this.isopen74 == 'hide') {
         this.isopen74 = '';
@@ -1989,7 +1928,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen74 = 'hide';
       }
     }
-
     if(target.className == 'thumb75'){
       if (this.isopen75 == 'hide') {
         this.isopen75 = '';
@@ -2006,7 +1944,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen75 = 'hide';
       }
     }
-
     if(target.className == 'thumb76'){
       if (this.isopen76 == 'hide') {
         this.isopen76 = '';
@@ -2023,7 +1960,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen76 = 'hide';
       }
     }
-
     if(target.className == 'thumb77'){
       if (this.isopen77 == 'hide') {
         this.isopen77 = '';
@@ -2040,7 +1976,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen77 = 'hide';
       }
     }
-
     if(target.className == 'thumb78'){
       if (this.isopen78 == 'hide') {
         this.isopen78 = '';
@@ -2057,7 +1992,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen78 = 'hide';
       }
     }
-
     if(target.className == 'thumb79'){
       if (this.isopen79 == 'hide') {
         this.isopen79 = '';
@@ -2074,7 +2008,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen79 = 'hide';
       }
     }
-
     if(target.className == 'thumb80'){
       if (this.isopen80 == 'hide') {
         this.isopen80 = '';
@@ -2091,7 +2024,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen80 = 'hide';
       }
     }
-
     if(target.className == 'thumb81'){
       if (this.isopen81 == 'hide') {
         this.isopen81 = '';
@@ -2108,7 +2040,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen81 = 'hide';
       }
     }
-
     if(target.className == 'thumb82'){
       if (this.isopen82 == 'hide') {
         this.isopen82 = '';
@@ -2125,7 +2056,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen82 = 'hide';
       }
     }
-
     if(target.className == 'thumb83'){
       if (this.isopen83 == 'hide') {
         this.isopen83 = '';
@@ -2142,7 +2072,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen83 = 'hide';
       }
     }
-
     if(target.className == 'thumb84'){
       if (this.isopen84 == 'hide') {
         this.isopen84 = '';
@@ -2159,7 +2088,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen84 = 'hide';
       }
     }
-
     if(target.className == 'thumb85'){
       if (this.isopen85 == 'hide') {
         this.isopen85 = '';
@@ -2176,7 +2104,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen85 = 'hide';
       }
     }
-
     if(target.className == 'thumb86'){
       if (this.isopen86 == 'hide') {
         this.isopen86 = '';
@@ -2193,7 +2120,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen86 = 'hide';
       }
     }
-
     if(target.className == 'thumb87'){
       if (this.isopen87 == 'hide') {
         this.isopen87 = '';
@@ -2210,7 +2136,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen87 = 'hide';
       }
     }
-
     if(target.className == 'thumb88'){
       if (this.isopen88 == 'hide') {
         this.isopen88 = '';
@@ -2227,7 +2152,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen88 = 'hide';
       }
     }
-
     if(target.className == 'thumb89'){
       if (this.isopen89 == 'hide') {
         this.isopen89 = '';
@@ -2244,7 +2168,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen89 = 'hide';
       }
     }
-
     if(target.className == 'thumb90'){
       if (this.isopen90 == 'hide') {
         this.isopen90 = '';
@@ -2261,7 +2184,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen90 = 'hide';
       }
     }
-
     if(target.className == 'thumb91'){
       if (this.isopen91 == 'hide') {
         this.isopen91 = '';
@@ -2278,7 +2200,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen91 = 'hide';
       }
     }
-
     if(target.className == 'thumb92'){
       if (this.isopen92 == 'hide') {
         this.isopen92 = '';
@@ -2311,7 +2232,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen93 = 'hide';
       }
     }
-
     if(target.className == 'thumb94'){
       if (this.isopen94 == 'hide') {
         this.isopen94 = '';
@@ -2328,7 +2248,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen94 = 'hide';
       }
     }
-
     if(target.className == 'thumb96'){
       if (this.isopen96 == 'hide') {
         this.isopen96 = '';
@@ -2345,7 +2264,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen96 = 'hide';
       }
     }
-
     if(target.className == 'thumb97'){
       if (this.isopen97 == 'hide') {
         this.isopen97 = '';
@@ -2362,7 +2280,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen97 = 'hide';
       }
     }
-
     if(target.className == 'thumb98'){
       if (this.isopen98 == 'hide') {
         this.isopen98 = '';
@@ -2379,7 +2296,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen98 = 'hide';
       }
     }
-
     if(target.className == 'thumb99'){
       if (this.isopen99 == 'hide') {
         this.isopen99 = '';
@@ -2396,7 +2312,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen99 = 'hide';
       }
     }
-
     if(target.className == 'thumb100'){
       if (this.isopen100 == 'hide') {
         this.isopen100 = '';
@@ -2413,7 +2328,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen100 = 'hide';
       }
     }
-
     if(target.className == 'thumb101'){
       if (this.isopen101 == 'hide') {
         this.isopen101 = '';
@@ -2430,7 +2344,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen101 = 'hide';
       }
     }
-
     if(target.className == 'thumb102'){
       if (this.isopen102 == 'hide') {
         this.isopen102 = '';
@@ -2447,7 +2360,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen102 = 'hide';
       }
     }
-
     if(target.className == 'thumb103'){
       if (this.isopen103 == 'hide') {
         this.isopen103 = '';
@@ -2464,7 +2376,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen103 = 'hide';
       }
     }
-
     if(target.className == 'thumb104'){
       if (this.isopen104 == 'hide') {
         this.isopen104 = '';
@@ -2481,7 +2392,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen104 = 'hide';
       }
     }
-
     if(target.className == 'thumb105'){
       if (this.isopen105 == 'hide') {
         this.isopen105 = '';
@@ -2498,7 +2408,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen105 = 'hide';
       }
     }
-
     if(target.className == 'thumb106'){
       if (this.isopen106 == 'hide') {
         this.isopen106 = '';
@@ -2515,7 +2424,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen106 = 'hide';
       }
     }
-
     if(target.className == 'thumb107'){
       if (this.isopen107 == 'hide') {
         this.isopen107 = '';
@@ -2532,7 +2440,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen107 = 'hide';
       }
     }
-
     if(target.className == 'thumb108'){
       if (this.isopen108 == 'hide') {
         this.isopen108 = '';
@@ -2549,7 +2456,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen108 = 'hide';
       }
     }
-
     if(target.className == 'thumb109'){
       if (this.isopen109 == 'hide') {
         this.isopen109 = '';
@@ -2566,7 +2472,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen109 = 'hide';
       }
     }
-
     if(target.className == 'thumb110'){
       if (this.isopen110 == 'hide') {
         this.isopen110 = '';
@@ -2583,7 +2488,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen110 = 'hide';
       }
     }
-
     if(target.className == 'thumb111'){
       if (this.isopen111 == 'hide') {
         this.isopen111 = '';
@@ -2600,7 +2504,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen111 = 'hide';
       }
     }
-
     if(target.className == 'thumb112'){
       if (this.isopen112 == 'hide') {
         this.isopen112 = '';
@@ -2617,7 +2520,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen112 = 'hide';
       }
     }
-
     if(target.className == 'thumb113'){
       if (this.isopen113 == 'hide') {
         this.isopen113 = '';
@@ -2634,7 +2536,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen113 = 'hide';
       }
     }
-
     if(target.className == 'thumb114'){
       if (this.isopen114 == 'hide') {
         this.isopen114 = '';
@@ -2651,7 +2552,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen114 = 'hide';
       }
     }
-
     if(target.className == 'thumb115'){
       if (this.isopen115 == 'hide') {
         this.isopen115 = '';
@@ -2668,7 +2568,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen115 = 'hide';
       }
     }
-
     if(target.className == 'thumb116'){
       if (this.isopen116 == 'hide') {
         this.isopen116 = '';
@@ -2685,7 +2584,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen116 = 'hide';
       }
     }
-
     if(target.className == 'thumb117'){
       if (this.isopen117 == 'hide') {
         this.isopen117 = '';
@@ -2702,7 +2600,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen117 = 'hide';
       }
     }
-
     if(target.className == 'thumb118'){
       if (this.isopen118 == 'hide') {
         this.isopen118 = '';
@@ -2719,7 +2616,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen118 = 'hide';
       }
     }
-
     if(target.className == 'thumb119'){
       if (this.isopen119 == 'hide') {
         this.isopen119 = '';
@@ -2736,7 +2632,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen119 = 'hide';
       }
     }
-
     if(target.className == 'thumb120'){
       if (this.isopen120 == 'hide') {
         this.isopen120 = '';
@@ -2753,7 +2648,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen120 = 'hide';
       }
     }
-
     if(target.className == 'thumb121'){
       if (this.isopen121 == 'hide') {
         this.isopen121 = '';
@@ -2770,7 +2664,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen121 = 'hide';
       }
     }
-
     if(target.className == 'thumb122'){
       if (this.isopen122 == 'hide') {
         this.isopen122 = '';
@@ -2787,7 +2680,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen122 = 'hide';
       }
     }
-
     if(target.className == 'thumb123'){
       if (this.isopen123 == 'hide') {
         this.isopen123 = '';
@@ -2804,7 +2696,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen123 = 'hide';
       }
     }
-
     if(target.className == 'thumb124'){
       if (this.isopen124 == 'hide') {
         this.isopen124 = '';
@@ -2821,7 +2712,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen124 = 'hide';
       }
     }
-
     if(target.className == 'thumb125'){
       if (this.isopen125 == 'hide') {
         this.isopen125 = '';
@@ -2838,7 +2728,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen125 = 'hide';
       }
     }
-
     if(target.className == 'thumb126'){
       if (this.isopen126 == 'hide') {
         this.isopen126 = '';
@@ -2855,7 +2744,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen126 = 'hide';
       }
     }
-
     if(target.className == 'thumb127'){
       if (this.isopen127 == 'hide') {
         this.isopen127 = '';
@@ -2872,7 +2760,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen127 = 'hide';
       }
     }
-
     if(target.className == 'thumb128'){
       if (this.isopen128 == 'hide') {
         this.isopen128 = '';
@@ -2889,7 +2776,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen128 = 'hide';
       }
     }
-
     if(target.className == 'thumb129'){
       if (this.isopen129 == 'hide') {
         this.isopen129 = '';
@@ -2906,7 +2792,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen129 = 'hide';
       }
     }
-
     if(target.className == 'thumb130'){
       if (this.isopen130 == 'hide') {
         this.isopen130 = '';
@@ -2923,7 +2808,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen130 = 'hide';
       }
     }
-
     if(target.className == 'thumb131'){
       if (this.isopen131 == 'hide') {
         this.isopen131 = '';
@@ -2940,7 +2824,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen131 = 'hide';
       }
     }
-
     if(target.className == 'thumb132'){
       if (this.isopen132 == 'hide') {
         this.isopen132 = '';
@@ -2957,7 +2840,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen132 = 'hide';
       }
     }
-
     if(target.className == 'thumb133'){
       if (this.isopen133 == 'hide') {
         this.isopen133 = '';
@@ -2974,7 +2856,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen133 = 'hide';
       }
     }
-
     if(target.className == 'thumb134'){
       if (this.isopen134 == 'hide') {
         this.isopen134 = '';
@@ -2991,7 +2872,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen134 = 'hide';
       }
     }
-
     if(target.className == 'thumb135'){
       if (this.isopen135 == 'hide') {
         this.isopen135 = '';
@@ -3008,7 +2888,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen135 = 'hide';
       }
     }
-
     if(target.className == 'thumb136'){
       if (this.isopen136 == 'hide') {
         this.isopen136 = '';
@@ -3025,7 +2904,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen136 = 'hide';
       }
     }
-
     if(target.className == 'thumb137'){
       if (this.isopen137 == 'hide') {
         this.isopen137 = '';
@@ -3042,7 +2920,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen137 = 'hide';
       }
     }
-
     if(target.className == 'thumb138'){
       if (this.isopen138 == 'hide') {
         this.isopen138 = '';
@@ -3059,7 +2936,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen138 = 'hide';
       }
     }
-
     if(target.className == 'thumb139'){
       if (this.isopen139 == 'hide') {
         this.isopen139 = '';
@@ -3076,7 +2952,6 @@ export class SimplesolutionComponent implements OnInit {
         this.isopen139 = 'hide';
       }
     }
-
     if(target.className == 'thumb140'){
       if (this.isopen140 == 'hide') {
         this.isopen140 = '';
@@ -3095,10 +2970,9 @@ export class SimplesolutionComponent implements OnInit {
     }
 
 
-
   }
-  allcheck(event:any) {
 
+  allcheck(event:any) {
 
     let target = event.target || event.srcElement || event.currentTarget;
     console.log(target);
@@ -3146,7 +3020,6 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-
     if(target.id == 'page_context_108'){
       if (this.audiences_finance == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3155,7 +3028,6 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-
     if(target.id == 'page_context_159'){
       if (this.audiences_healthpharma == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3164,7 +3036,6 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-
     if(target.id == 'page_context_196'){
       if (this.audiences_internationalinterest == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3173,7 +3044,6 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-
     if(target.id == 'page_context_204'){
       if (this.audiences_issues == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3182,7 +3052,6 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-
     if(target.id == 'page_context_217'){
       if (this.audiences_lifestages == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3191,7 +3060,6 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-
     if(target.id == 'page_context_231'){
       if (this.audiences_misce == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3200,7 +3068,6 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-
     if(target.id == 'page_context_261'){
       if (this.audiences_politics == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3209,7 +3076,6 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-
     if(target.id == 'page_context_262'){
       if (this.audiences_retail == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3218,7 +3084,6 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-
     if(target.id == 'page_context_324'){
       if (this.audiences_buisness == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3467,7 +3332,7 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-      if(target.id == 'page_context_440'){
+    if(target.id == 'page_context_440'){
       if (this.audiences_finance_insurance_travel_destination_europe == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
       }
@@ -3587,7 +3452,6 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-
     if(target.id == 'page_context_496'){
       if (this.audiences_finance_insurance_travel_destination_northamarica_us_illinois == false) {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
@@ -3884,7 +3748,7 @@ export class SimplesolutionComponent implements OnInit {
         $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
       }
     }
-      if(target.id == 'page_context_225'){
+    if(target.id == 'page_context_225'){
         if (this.audiences_lifestages_parenting == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3892,7 +3756,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_236'){
+    if(target.id == 'page_context_236'){
         if (this.audiences_misce_hobbies == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3900,7 +3764,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_238'){
+    if(target.id == 'page_context_238'){
         if (this.audiences_misce_holidays == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3908,7 +3772,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_246'){
+    if(target.id == 'page_context_246'){
         if (this.audiences_misce_law == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3916,7 +3780,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_249'){
+    if(target.id == 'page_context_249'){
         if (this.audiences_misce_news == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3924,7 +3788,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_251'){
+    if(target.id == 'page_context_251'){
         if (this.audiences_misce_poeple == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3932,7 +3796,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_256'){
+    if(target.id == 'page_context_256'){
         if (this.audiences_misce_religion == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3940,7 +3804,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_263'){
+    if(target.id == 'page_context_263'){
         if (this.audiences_retail_apparel == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3948,7 +3812,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_272'){
+    if(target.id == 'page_context_272'){
         if (this.audiences_retail_etailer == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3956,7 +3820,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_275'){
+    if(target.id == 'page_context_275'){
         if (this.audiences_retail_merchandise == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3964,7 +3828,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_278'){
+    if(target.id == 'page_context_278'){
         if (this.audiences_retail_gifts == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3972,7 +3836,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_282'){
+    if(target.id == 'page_context_282'){
         if (this.audiences_retail_home == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3980,7 +3844,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_289'){
+    if(target.id == 'page_context_289'){
         if (this.audiences_retail_home_improve == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3988,7 +3852,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_292'){
+    if(target.id == 'page_context_292'){
         if (this.audiences_retail_goods == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -3996,7 +3860,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_295'){
+    if(target.id == 'page_context_295'){
         if (this.audiences_retail_resturents == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4004,7 +3868,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_297'){
+    if(target.id == 'page_context_297'){
         if (this.audiences_retail_retailers == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4012,7 +3876,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_298'){
+    if(target.id == 'page_context_298'){
         if (this.audiences_retail_retailers_dshoes == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4020,7 +3884,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_303'){
+    if(target.id == 'page_context_303'){
         if (this.audiences_retail_retailers_electronics == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4028,7 +3892,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_307'){
+    if(target.id == 'page_context_307'){
         if (this.audiences_retail_retailers_homeimp == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4036,7 +3900,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_310'){
+    if(target.id == 'page_context_310'){
         if (this.audiences_retail_retailers_massmerchants == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4044,7 +3908,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_314'){
+    if(target.id == 'page_context_314'){
         if (this.audiences_retail_retailers_officesupply == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4052,7 +3916,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_316'){
+    if(target.id == 'page_context_316'){
         if (this.audiences_retail_retailers_apparel == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4060,7 +3924,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_320'){
+    if(target.id == 'page_context_320'){
         if (this.audiences_retail_retailers_clubs == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4068,7 +3932,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_325'){
+    if(target.id == 'page_context_325'){
         if (this.audiences_buisness_b2b == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4076,7 +3940,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_326'){
+    if(target.id == 'page_context_326'){
         if (this.audiences_buisness_b2b_corp == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4084,7 +3948,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_327'){
+    if(target.id == 'page_context_327'){
         if (this.audiences_buisness_b2b_corp_human == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4092,7 +3956,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_328'){
+    if(target.id == 'page_context_328'){
         if (this.audiences_buisness_b2b_corp_human_recruit == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4100,7 +3964,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_329'){
+    if(target.id == 'page_context_329'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4108,7 +3972,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_374'){
+    if(target.id == 'page_context_374'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4116,7 +3980,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_378'){
+    if(target.id == 'page_context_378'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_peri == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4124,7 +3988,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_383'){
+    if(target.id == 'page_context_383'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_compsoftware == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4132,7 +3996,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_386'){
+    if(target.id == 'page_context_386'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_compelec == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4140,7 +4004,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_387'){
+    if(target.id == 'page_context_387'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_compelec_audio == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4148,7 +4012,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_389'){
+    if(target.id == 'page_context_389'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_compelec_cart == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4156,7 +4020,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_391'){
+    if(target.id == 'page_context_391'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_compelec_communication == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4164,8 +4028,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-
-      if(target.id == 'page_context_392'){
+    if(target.id == 'page_context_392'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_compelec_communication_mobile == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4173,7 +4036,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_393'){
+    if(target.id == 'page_context_393'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_compelec_communication_mobile_cellular == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4181,7 +4044,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_397'){
+    if(target.id == 'page_context_397'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_compelec_homevideo == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4189,7 +4052,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_400'){
+    if(target.id == 'page_context_400'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_internetservices == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4197,7 +4060,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_402'){
+    if(target.id == 'page_context_402'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_internetservices_community == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4205,7 +4068,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_408'){
+    if(target.id == 'page_context_408'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_ithardware == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4213,7 +4076,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_410'){
+    if(target.id == 'page_context_410'){
         if (this.audiences_buisness_b2b_corp_human_recruit_technology_comphardware_itsoftware == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4221,7 +4084,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_331'){
+    if(target.id == 'page_context_331'){
         if (this.audiences_buisness_employment_account == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4229,7 +4092,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_352'){
+    if(target.id == 'page_context_352'){
         if (this.audiences_buisness_employment_tele == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4237,7 +4100,7 @@ export class SimplesolutionComponent implements OnInit {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", true);
         }
       }
-      if(target.id == 'page_context_354'){
+    if(target.id == 'page_context_354'){
         if (this.audiences_buisness_small == false) {
           $(target).parent().find("ul").eq(0).find("input").prop("checked", false);
         }
@@ -4262,9 +4125,9 @@ export class SimplesolutionComponent implements OnInit {
     setTimeout(() => {
         console.log("hey");
         $( '.audience-list').find('input').attr('class','boxvalues');
-       console.log($( '.audience-list').find('input').length);
-       //console.log($( '.audience-list').find('input').;
-      $('.boxvalues').each(function () {
+        console.log($( '.audience-list').find('input').length);
+        //console.log($( '.audience-list').find('input').;
+        $('.boxvalues').each(function () {
         console.log($(this).find('ul').length);
       });
 
@@ -4275,36 +4138,23 @@ export class SimplesolutionComponent implements OnInit {
       $('.boxvalues').parent().each(function () {
         console.log($(this).find('ul').length);
         if($(this).find('ul').length>0){
-
           $(this).addClass('collapsed');
         }
       });
 
-
-
     }, 3000);
+
     setTimeout(() => {
       $('.collapsed').click(function () {
-
-
           $(this).toggleClass('expanded');
-
       });
-
-
 
     }, 3200);
 
    /* setTimeout(() => {
       $('.active').click(function () {
-
-
         $(this).toggleClass('expanded');
-
       });
-
-
-
     }, 3200);*/
   }
 
@@ -4324,7 +4174,7 @@ export class SimplesolutionComponent implements OnInit {
   haserrorcls(cntrlname) {
 
       if (cntrlname == 'Simply_Solutions__c') {
-        if (this.simply_geo != undefined || this.simply_premium != undefined || this.simply_audiences != undefined || this.simply_intent != undefined || this.simply_reach       != undefined) {
+        if (this.simply_geo != undefined || this.simply_premium != undefined || this.simply_audiences != undefined || this.simply_intent != undefined || this      .simply_reach != undefined) {
           return '';
         }
         else {
@@ -4340,7 +4190,7 @@ export class SimplesolutionComponent implements OnInit {
         }
       }
       if (cntrlname == 'Solution_Premium_Details__c') {
-        if (this.premium_news == true || this.premium_buisness == true || this.premium_politics == true || this.premium_sports == true || this.premium_arts == true ||           this.premium_shopping == true) {
+      if (this.premium_news == true || this.premium_buisness == true || this.premium_politics == true || this.premium_sports == true || this.premium_arts == true         ||  this.premium_shopping == true) {
           return '';
         }
         else {
@@ -4369,7 +4219,7 @@ export class SimplesolutionComponent implements OnInit {
     else {
 
       if (cntrlname == 'Simply_Solutions__c') {
-        if (this.simply_geo != undefined || this.simply_premium != undefined || this.simply_audiences != undefined || this.simply_intent != undefined || this.simply_reach       != undefined) {
+        if (this.simply_geo != undefined || this.simply_premium != undefined || this.simply_audiences != undefined || this.simply_intent != undefined || this.simply_reach != undefined) {
           return 'hide';
         }
         else {
@@ -5002,19 +4852,16 @@ export class SimplesolutionComponent implements OnInit {
       reach_geofencing: this.reach_geofencing,
       reach_audiencemirror: this.reach_audiencemirror
     };
+
    /* this._http.post(link, data)
         .subscribe(res => {*/
-   console.log("intent type");
-   console.log(this.intent_audiencetype);
+
    console.log(data);
          for (let i in data) {
         if(data[i]!= undefined){
          /*var validdata = data[i];*/
          this.datareq[i]=data[i];
-
       }
-
-        /*console.log(validdata);*/
       }
       console.log(this.datareq);
       console.log("value");
@@ -5022,13 +4869,13 @@ export class SimplesolutionComponent implements OnInit {
      // $('.nav nav-wizard').find('li').eq(0).removeClass('active');
      // $('.nav nav-wizard').find('li').eq(1).addClass('active');
           this.router.navigate(['/basicinformation']);
-
-
-
        /* }, error => {
           console.log("Oooops!");
         });*/
   }
+  else{
+      this.router.navigate(['/']);
+    }
 }
 
 }
