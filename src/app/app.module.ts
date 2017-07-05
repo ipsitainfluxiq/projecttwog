@@ -12,6 +12,8 @@ import { TrialComponent } from './trial/trial.component';
 import { CampaignsettingsComponent } from './campaignsettings/campaignsettings.component';
 import {DatepickerModule} from 'ngx-bootstrap/datepicker';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { CreateAudienceComponent } from './create-audience/create-audience.component';
+import { OnlyNumberDirective } from './directives/only_number';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
     ConfirmationComponent,
     TrialComponent,
     CampaignsettingsComponent,
+    CreateAudienceComponent,
+    OnlyNumberDirective
 
   ],
   imports: [

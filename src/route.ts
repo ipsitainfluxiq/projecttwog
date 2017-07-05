@@ -13,6 +13,7 @@ import {BasicinformationComponent} from 'app/basicinformation/basicinformation.c
 import {ConfirmationComponent} from 'app/confirmation/confirmation.component';
 import {TrialComponent} from 'app/trial/trial.component';
 import {CampaignsettingsComponent} from 'app/campaignsettings/campaignsettings.component';
+import {CreateAudienceComponent} from 'app/create-audience/create-audience.component';
 
 
 const appRoutes: Routes = [
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
     { path: 'confirmation', component: ConfirmationComponent},
     { path: 'trial', component: TrialComponent},
     { path: 'campaignsettings', component: CampaignsettingsComponent},
+    { path: 'createaudience', component: CreateAudienceComponent},
 
 ];
 
