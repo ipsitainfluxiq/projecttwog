@@ -14,6 +14,7 @@ import {ConfirmationComponent} from 'app/confirmation/confirmation.component';
 import {TrialComponent} from 'app/trial/trial.component';
 import {CampaignsettingsComponent} from 'app/campaignsettings/campaignsettings.component';
 import {CreateAudienceComponent} from 'app/create-audience/create-audience.component';
+import {CampaignlistComponent} from 'app/campaignlist/campaignlist.component';
 
 
 const appRoutes: Routes = [
@@ -23,9 +24,10 @@ const appRoutes: Routes = [
     { path: '', component: SimplesolutionComponent},
     { path: 'basicinformation', component: BasicinformationComponent},
     { path: 'confirmation', component: ConfirmationComponent},
-    { path: 'trial', component: TrialComponent},
+    { path: 'trail', component: TrialComponent},
     { path: 'campaignsettings', component: CampaignsettingsComponent},
     { path: 'createaudience', component: CreateAudienceComponent},
+    { path: 'campaignlist', component: CampaignlistComponent},
 
 ];
 

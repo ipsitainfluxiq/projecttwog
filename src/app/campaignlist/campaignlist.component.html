@@ -1,0 +1,41 @@
+<div class="givecolor">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <th>#</th>
+            <th>id</th>
+            <th>Campaign Name</th>
+            <!--<th>Flight Start date</th>
+            <th>Flight End date</th>
+            <th>Bid name</th>
+            <th>Bid Amount</th>
+            <th>daily_budget</th>
+            <th>monthly_budget</th>
+            <th>total_budget</th>
+            <th>impression_cap</th>
+            <th>daily_impression_cap</th>
+            <th>monthly_impression_cap</th>
+            <th>how_many_times</th>
+            <th>hours</th>
+            <th>oba_provider</th>-->
+        </tr>
+
+        <tr *ngFor="let item of datalist; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.id}}</td>
+            <td>{{item.name}} </td>
+<!--            <td>{{item.start_date}}</td>
+            <td>{{item.end_date}}</td>
+            <td>{{item.bid_type.name}}</td>
+            <td>{{item.bid}}</td>
+            <td>{{item.daily_budget}}</td>
+            <td>{{item.monthly_budget}}</td>
+            <td>{{item.total_budget}}</td>
+            <td>{{item.impression_cap}}</td>
+            <td>{{item.daily_impression_cap}}</td>
+            <td>{{item.monthly_impression_cap}}</td>
+            <td>{{item.frequency_capping.how_many_times}}</td>
+            <td>{{item.frequency_capping.hours}}</td>
+           <td>{{item.oba_provider}}</td>-->
+        </tr>
+    </table>
+</div>

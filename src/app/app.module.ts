@@ -11,9 +11,12 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { TrialComponent } from './trial/trial.component';
 import { CampaignsettingsComponent } from './campaignsettings/campaignsettings.component';
 import {DatepickerModule} from 'ngx-bootstrap/datepicker';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { CreateAudienceComponent } from './create-audience/create-audience.component';
 import { OnlyNumberDirective } from './directives/only_number';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { CampaignlistComponent } from './campaignlist/campaignlist.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { OnlyNumberDirective } from './directives/only_number';
     TrialComponent,
     CampaignsettingsComponent,
     CreateAudienceComponent,
-    OnlyNumberDirective
+    OnlyNumberDirective,
+    CampaignlistComponent
 
   ],
   imports: [
@@ -34,6 +38,8 @@ import { OnlyNumberDirective } from './directives/only_number';
     HttpModule,
     routing,
     DatepickerModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot()
 
   ],
   providers: [CookieService],

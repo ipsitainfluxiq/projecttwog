@@ -6,6 +6,19 @@
 
     <a href="#" class="top_bannerbtn">Ad Marketing Pros</a>
 
+    <div class="topnew_menu">
+      <div class="btn-group" dropdown>
+        <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+          <span class="glyphicon glyphicon-menu-hamburger"></span> <span class="caret"></span>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu" role="menu">
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/campaignsettings']"><h2>Create Campaigns </h2></a></li>
+
+
+        </ul>
+      </div>
+    </div>
+
 
     <div class="clearfix"></div>
   </div>
@@ -32,7 +45,7 @@
   Introducing Simple Solutions™, a simple way to grow your digital revenues by offering your local advertisers advanced audience targeting, powered by unstructured data. Simple Solutions is a suite of products designed to make selling and ordering on the Simpli.fi platform easy and profitable.
 </h6>
 <!--<form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">-->
-<div *ngIf="b==true" class="allradios">
+<div *ngIf="b==true" class="allradios" class="labelinputtext">
   <div ngClass="{{haserrorcls('Simply_Solutions__c')}}">
     <div class="showerror" ngClass="{{showerrorcls('Simply_Solutions__c')}}">You must choose a Simple Solution.</div>
 <input id="Simply_Geo__c" name="Simply_Solutions__c" type="radio" value="Simply Geo" (click)="sendtype(0)" [(ngModel)]="simply_geo">

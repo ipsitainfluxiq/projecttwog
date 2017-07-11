@@ -2,13 +2,29 @@
 <div class="content" id="basic_information">
 <!--<input appOnlyNumber="true" type="text">-->
   <div class="top_banner_body">
+
+
+
     <div class="top_banner_wrapper">
+
+
       <img src="../../assets/images/geoai_logo.jpg"  class="geoai_logo"/>
       <img src="../../assets/images/geoai_top_banner.jpg" class="geoai_top_banner" />
 
       <a href="#" class="top_bannerbtn">Ad Marketing Pros</a>
 
+      <div class="topnew_menu">
+        <div class="btn-group" dropdown>
+          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+            <span class="glyphicon glyphicon-menu-hamburger"></span> <span class="caret"></span>
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/campaignsettings']"><h2>Create Campaigns </h2></a></li>
 
+
+          </ul>
+        </div>
+      </div>
       <div class="clearfix"></div>
     </div>
   </div>
@@ -20,9 +36,9 @@
 
       <ul class='nav nav-wizard campaignmenu'>
 
-        <li><a ><span>1</span> Campaign Settings </a></li>
+        <li class='active'><a ><span>1</span> Campaign Settings </a></li>
 
-        <li class='active'><a><span>2</span>  Create Audience</a></li>
+        <li><a><span>2</span>  Create Audience</a></li>
 
         <li><a><span>3</span>  Creatives </a></li>
         <li><a><span>4</span>  Summary and Launch </a></li>
@@ -38,9 +54,8 @@
 
         <div class="campaign_settings_box1">
           <label>Name</label>
-          <div *ngIf="error">{{error}}</div>
-          <input type="text" value="{{showname}}" (blur)="updatename()" [(ngModel)]="name"/>
-
+          <div  class="errorclass" *ngIf="error">{{error}}</div>
+          <input type="text" (blur)="updatename()" [(ngModel)]="name"/>
         </div>
 
         <div class="campaign_settings_box2">
@@ -49,17 +64,47 @@
 
             <div class="campaign_settings_cell_top">
 
-              <label (click)="sendtype(7)">campaign Type <span>unsaved</span></label>
+              <label (click)="sendtype(7)">campaign Type </label>
               <b>{{geoname}}</b>
               <div *ngIf="divshow7">
               <div class="clearfix"></div>
+                <div class="create_audience_wrapper">
 
-              <label (click)="gettype(1)">Search</label>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td [ngClass]="geoid ==1 ? 'activetd' : ''" (click)="gettype(1)"><img src="../../assets/images/campaign_icon1.png"  alt="#"/>
+                        <h1 >Search </h1>
+                      </td>
+                      <td [ngClass]="geoid ==2 ? 'activetd' : ''" (click)="gettype(2)"><img src="../../assets/images/campaign_icon2.png"  alt="#"/>
+                        <h1>Contextual</h1>
+                      </td>
+                      <td [ngClass]="geoid ==3 ? 'activetd' : ''"  (click)="gettype(3)"><img src="../../assets/images/campaign_icon3.png"  alt="#"/>
+                        <h1>Site Retargeting</h1>
+                      </td>
+                      <td [ngClass]="geoid ==4 ? 'activetd' : ''"  (click)="gettype(4)"><img src="../../assets/images/campaign_icon4.png"  alt="#"/>
+                        <h1>IP Targeting</h1>
+                      </td>
+                      <td [ngClass]="geoid ==5 ? 'activetd' : ''"  (click)="gettype(5)"><img src="../../assets/images/campaign_icon5.png"  alt="#"/>
+                        <h1>Geo Optimized</h1>
+                      </td>
+                    </tr>
+
+                  </table>
+
+
+
+                </div>
+             <!-- <label (click)="gettype(1)">Search</label>
               <label (click)="gettype(2)">Contextual</label>
               <label (click)="gettype(3)">Site Retargeting</label>
               <label (click)="gettype(4)">IP Targeting</label>
-              <label (click)="gettype(5)">Geo Optimized</label>
-                <input type="button" value="OK" (click)="updategeo()">
+              <label (click)="gettype(5)">Geo Optimized</label>-->
+
+
+                <div class="budget_formdiv_btn">
+                  <input type="button" value="OK" (click)="updategeo()">
+                  <input type="button"  value="Cancel"/>
+                </div>
             </div>
             </div>
 
@@ -75,32 +120,56 @@
               <label (click)="sendtype(0)">Flight </label>
 
               <b>{{dateforstart}}to{{dateforend}}</b>
-              <div *ngIf="divshow0">
-                <div>
-                  <div *ngIf="error1">{{error1}}</div>
 
-                  <pre class="card-block card-header">Start date: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
+              <div class="clearfix"></div>
+
+            </div>
+            <div *ngIf="divshow0">
+            <div class="budget_wrapper">
+
+
+                  <div  class="errorclass" *ngIf="error1">{{error1}}</div>
+              <div class="budget_formdiv_left">
+
+                 <div class="budget_forminput">
+                   <pre class="preformcontrol">Start date: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
+                 <!-- <input class="form-control2" type="text" >Start date: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em>-->
+
+                 </div>
                   <div class="clearfix"></div>
                   <!--</div>-->
 
                   <div style="display:inline-block; min-height:290px;">
-                    <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+                    <datepicker [(ngModel)]="dt"></datepicker>
                   </div>
 
-                  <pre class="card-block card-header">End date: <em *ngIf="enddate">{{ getendDate() | date:'fullDate'}}</em></pre>
+              </div>
+
+              <div class="budget_formdiv_right">
+                  <pre class="preformcontrol">End date: <em *ngIf="enddate">{{ getendDate() | date:'fullDate'}}</em></pre>
 
                   <div class="clearfix"></div>
 
                   <div style="display:inline-block; min-height:290px;">
-                    <datepicker [(ngModel)]="enddate" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+                    <datepicker [(ngModel)]="enddate"></datepicker>
                   </div>
+                <div class="clearfix"></div>
+              </div>
 
-                  <input type="button" value="OK" (click)="updatedate()">
-                </div>
+              <div class="clearfix"></div>
+
+
+
+
+              <div class="budget_formdiv_btn">
+                <input type="button" value="OK" (click)="updatedate()">
+                <input type="button"  value="Cancel"/>
+              </div>
+
               </div>
 
             </div>
-            <div class="clearfix"></div>
+
             <div class="clearfix"></div>
           </div>
 
@@ -117,40 +186,40 @@
             </div>
            <!-- <div [ngClass]="{'active': isActive[1], 'disabled': isDisabled[1]}">-->
             <div *ngIf="divshow">
-              <div *ngIf="error2">
+              <div class="errorclass" *ngIf="error2">
                 <b>There were errors with your request:</b> {{error2}}</div>
-              <div *ngIf="error3">{{error3}}</div>
-              <div *ngIf="error4">{{error4}}</div>
-              <div *ngIf="error5">{{error5}}</div>
+              <div class="errorclass" *ngIf="error3">{{error3}}</div>
+              <div class="errorclass" *ngIf="error4">{{error4}}</div>
+              <div class="errorclass" *ngIf="error5">{{error5}}</div>
             <div class="budget_wrapper">
               <div class="budget_formdiv_left">
                 <div class="budget_formdiv">
-                <label>Campaign Budget<img src="assets/images/budget_formicon.png" alt="#" /></label>
+                <label>Campaign Budget<img src="../../assets/images/budget_formicon.png" alt="#" /></label>
                   <div class="clearfix"></div>
                   <div class="budget_forminput">
                     <span>$</span>
-              <input appOnlyNumber="true" id="campaign_budget"  name="campaign_budget" type="number" [(ngModel)]="campaign_budget">
+              <input appOnlyNumber="true" id="campaign_budget" class="form-control"  name="campaign_budget" type="number" [(ngModel)]="campaign_budget">
                     <div class="clearfix"></div>
                   </div>
                 </div>
 
 
                 <div class="budget_formdiv">
-                <label>Monthly Budget<img src="assets/images/budget_formicon.png" alt="#" /></label>
+                <label>Monthly Budget<img src="../../assets/images/budget_formicon.png" alt="#" /></label>
                   <div class="clearfix"></div>
                   <div class="budget_forminput">
                     <span>$</span>
-                <input appOnlyNumber="true" id="monthly_budget"  name="monthly_budget" type="number" [(ngModel)]="monthly_budget">
+                <input appOnlyNumber="true" id="monthly_budget"  class="form-control"  name="monthly_budget" type="number" [(ngModel)]="monthly_budget">
                     <div class="clearfix"></div>
                   </div>
                 </div>
 
                 <div class="budget_formdiv">
-                <label>Daily Spend Target <img src="assets/images/budget_formicon.png" alt="#" /> </label>
+                <label>Daily Spend Target <img src="../../assets/images/budget_formicon.png" alt="#" /> </label>
                   <div class="clearfix"></div>
                   <div class="budget_forminput">
                     <span>$</span>
-                <input appOnlyNumber="true" id="daily_spend_target"  name="daily_spend_target" type="number" [(ngModel)]="daily_spend_target">
+                <input appOnlyNumber="true" id="daily_spend_target"  class="form-control"  name="daily_spend_target" type="number" [(ngModel)]="daily_spend_target">
                     <div class="clearfix"></div>
                   </div>
                 </div>
@@ -158,10 +227,10 @@
 
               <div class="budget_formdiv_right">
                 <div class="budget_formdiv">
-              <label>Bidding Type <img src="assets/images/budget_formicon.png" alt="#" /></label>
+              <label>Bidding Type <img src="../../assets/images/budget_formicon.png" alt="#" /></label>
                   <div class="clearfix"></div>
                   <div class="budget_forminput">
-                    <select id="bidding_type"  name="bidding_type" [(ngModel)]="bidding_type" >
+                    <select id="bidding_type"  class="form-control2"  name="bidding_type" [(ngModel)]="bidding_type" >
                       <option value="cpm_bidding">CPM Bidding</option>
                       <option value="cpc_bidding">CPC Bidding</option>
                     </select>
@@ -174,11 +243,11 @@
               </select>-->
 
                 <div class="budget_formdiv">
-              <label>Bidding Amount<img src="assets/images/budget_formicon.png" alt="#" /> </label>
+              <label>Bidding Amount<img src="../../assets/images/budget_formicon.png" alt="#" /> </label>
                   <div class="clearfix"></div>
                   <div class="budget_forminput">
                     <span>$</span>
-              <input appOnlyNumber="true" id="bidding_amount"  name="bidding_amount" type="number" [(ngModel)]="bidding_amount">
+              <input appOnlyNumber="true" id="bidding_amount"  class="form-control"  name="bidding_amount" type="number" [(ngModel)]="bidding_amount">
                     <div class="clearfix"></div>
                   </div>
                 </div>
@@ -207,12 +276,68 @@
               <b>{{daily_impression}} Daily, {{monthly_impression}} Monthly, {{impressions_c}} Total , {{impressions_f}} impressions per {{p_hour}} hours</b>
               <div class="clearfix"></div>
               <div *ngIf="divshow2">
-              <div *ngIf="error6">
-                <b>There were errors with your request:</b> {{error6}}</div>
-              <div *ngIf="error7">{{error7}}</div>
-              <div *ngIf="error8">{{error8}}</div>
-              <div *ngIf="error9">{{error9}}</div>
-              <label>Impression Capping</label>
+              <div class="errorclass" *ngIf="error6">{{error6}}</div>
+              <div class="errorclass" *ngIf="error7">{{error7}}</div>
+              <div class="errorclass" *ngIf="error8">{{error8}}</div>
+              <div class="errorclass" *ngIf="error9">{{error9}}</div>
+                <div class="budget_wrapper">
+                  <div class="budget_formdiv_left">
+                    <div class="budget_formdiv">
+                      <h1>Impression Capping </h1>
+                      <div class="clearfix"></div>
+                      <label>Impressions <img src="../../assets/images/budget_formicon.png" alt="#" /></label>
+                      <div class="clearfix"></div>
+                      <div class="budget_forminput">
+                        <input class="form-control2" appOnlyNumber="true" id="impressions_c"  name="impressions_c" type="text" [(ngModel)]="impressions_c">
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                    <div class="budget_formdiv">
+                      <label>Monthly Impression Capping <img src="../../assets/images/budget_formicon.png" alt="#" /></label>
+                      <div class="clearfix"></div>
+                      <div class="budget_forminput">
+                        <input class="form-control2"  appOnlyNumber="true" id="monthly_impression"  name="monthly_impression" type="text" [(ngModel)]="monthly_impression">
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                    <div class="budget_formdiv">
+                      <label>Daily Impression Capping  <img src="../../assets/images/budget_formicon.png" alt="#" /> </label>
+                      <div class="clearfix"></div>
+                      <div class="budget_forminput">
+                        <input class="form-control2"  appOnlyNumber="true" id="daily_impression"  name="daily_impression" type="text" [(ngModel)]="daily_impression">
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="budget_formdiv_right">
+                    <div class="budget_formdiv">
+                      <h1>Frequency Capping <img src="../../assets/images/budget_formicon.png" alt="#" /></h1>
+                      <div class="clearfix"></div>
+                      <div class="budget_forminput">
+                        <div class="budget_forminput_sub1">
+                          <label>Impressions</label>
+                          <input  class="form-control2"  appOnlyNumber="true" id="impressions_f"  name="impressions_f" type="text" [(ngModel)]="impressions_f">
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="budget_forminput_sub2">
+                          <label>Per Hours</label>
+                          <select  class="form-control2" id="p_hour"  name="p_hour" [(ngModel)]="p_hour" >
+                            <option *ngFor="let item of items; let i=index" value="{{item}}">{{item}}</option>
+                          </select>
+                          <div class="clearfix"></div>
+                        </div>
+                        <a href="javascript:void(0)"  class="clearbtn">Clear</a>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="budget_formdiv_btn">
+                    <input type="button"  value="OK" (click)="updatecapping()"/>
+                    <input type="button"  value="Cancel"/>
+                  </div>
+                </div>
+            <!--  <label>Impression Capping</label>
               <label>Impressions</label>
               <input appOnlyNumber="true" id="impressions_c"  name="impressions_c" type="text" [(ngModel)]="impressions_c">
               <label>Monthly Impression Capping</label>
@@ -226,7 +351,7 @@
               <select id="p_hour"  name="p_hour" [(ngModel)]="p_hour" >
                 <option *ngFor="let item of items; let i=index" value="{{item}}">{{item}}</option>
               </select>
-              <input type="button" value="OK" (click)="updatecapping()">
+              <input type="button" value="OK" (click)="updatecapping()">-->
               </div>
             </div>
 
@@ -240,6 +365,13 @@
               <b>None</b>
               <div class="clearfix"></div>
               <div *ngIf="divshow3">
+                  <tabset>
+                    <tab heading="Site Conversions">
+                      <label>CPA Settings</label><br>
+                      <p>View Thru Percentage</p>
+                    </tab>
+                    <tab heading="Geo Conversions"></tab>
+                  </tabset>
               </div>
             </div>
           </div>
@@ -250,30 +382,74 @@
             <div class="campaign_settings_cell_top">
 
               <label (click)="sendtype(4)">Goals </label>
-              <b>Off</b>
+              <b *ngIf="goals=='cpc'">{{goals}}${{impressions_goals}}</b>
+              <b *ngIf="goals=='ctr'">{{goals}}%{{impressions_goals}}</b>
+              <b *ngIf="goals=='cpa'">{{goals}}${{impressions_goals}}</b>
               <div class="clearfix"></div>
+            </div>
+
+
               <div *ngIf="divshow4">
-                <div *ngIf="error10"><b><br>There were errors with your request: </b>{{error10}}</div>
-              <label>Campaign Goals</label>
+                <div class="budget_wrapper">
+
+
+                <div  class="errorclass" *ngIf="error10"><b><br>There were errors with your request: </b>{{error10}}</div>
+
+                  <div class="budget_formdiv_left">
+              <label>Campaign Goals <img src="assets/images/budget_formicon.png" alt="#" /></label>
               <br>
-              <input type="radio" name="goals" value="None">None<br>
-              <input type="radio" name="goals" value="cpc" (click)="callfunction(1)" [(ngModel)]="goals">CPC<br>
-              <input type="radio" name="goals" value="ctr" (click)="callfunction(2)" [(ngModel)]="goals">CTR<br>
-              <input type="radio" name="goals" value="cpa" (click)="callfunction(3)"[(ngModel)]="goals">CPA<br>
+              <input type="radio" name="goals" value="none" (click)="callfunction(0)" [disabled]="valcpc" [(ngModel)]="goals">&nbsp;&nbsp;None<br>
+              <input type="radio" name="goals" value="cpc" (click)="callfunction(1)" [(ngModel)]="goals">&nbsp;&nbsp;CPC<br>
+              <input type="radio" name="goals" value="ctr"  [disabled]="valcpc" (click)="callfunction(2)" [(ngModel)]="goals">&nbsp;&nbsp;CTR<br>
+              <input type="radio" name="goals" value="cpa" (click)="callfunction(3)"[(ngModel)]="goals">&nbsp;&nbsp;CPA<br>
+                  </div>
+                  <div class="budget_formdiv_right">
+
               <div *ngIf="calforcpc">
-                <label>Campaign Goal Value</label>
-                <span>$</span><input type="text" appOnlyNumber="true" id="impressions_goals"  name="impressions_goals" [(ngModel)]="impressions_goals">
+                <div class="budget_forminput">
+                <label>Campaign Goal Value <img src="assets/images/budget_formicon.png" alt="#" /></label>
+                <div class="clearfix"></div>
+
+                <span>$</span><input type="text" class="form-control" appOnlyNumber="true"   name="impressions_goals" [(ngModel)]="impressions_goals">
+                  <div class="clearfix"></div>
+                </div>
+
               </div>
               <div *ngIf="calforctr">
-                <label>Campaign Goal Value</label>
-                <input type="text" appOnlyNumber="true" id="impressions_goals"  name="impressions_goals" [(ngModel)]="impressions_goals"><span>%</span>
+                <div class="budget_forminput">
+                <label>Campaign Goal Value <img src="assets/images/budget_formicon.png" alt="#" /></label>
+                <div class="clearfix"></div>
+
+                <input type="text" class="form-control" appOnlyNumber="true"   name="impressions_goals" [(ngModel)]="impressions_goals"><span>%</span>
+                  <div class="clearfix"></div>
+
+                </div>
               </div>
+
               <div *ngIf="calforcpa">
-                <label>Campaign Goal Value</label>
-                <span>$</span><input type="text" appOnlyNumber="true" id="impressions_goals"  name="impressions_goals" [(ngModel)]="impressions_goals">
+                <div class="budget_forminput">
+                <label>Campaign Goal Value <img src="assets/images/budget_formicon.png" alt="#" /></label>
+                  <div class="clearfix"></div>
+                <span>$</span><input class="form-control" type="text" appOnlyNumber="true" name="impressions_goals" [(ngModel)]="impressions_goals">
+                  <div class="clearfix"></div>
+                </div>
               </div>
-              <input type="button" value="OK" (click)="updategoal()">
-              </div>
+                  </div>
+
+                  <div class="clearfix"></div>
+
+
+
+              <!--<input type="button" value="OK" (click)="updategoal()">-->
+
+                  <div class="budget_formdiv_btn">
+                    <input type="button" value="OK" [disabled]="disableokforcpc" [ngClass]="disableokforcpc ==true ? 'disabled_class' : ''" (click)="updategoal()">
+                    <input type="button"  value="Cancel"/>
+                  </div>
+
+
+
+                </div>
             </div>
           </div>
 
@@ -283,12 +459,26 @@
               <label (click)="sendtype(5)">OBA Compliance </label>
               <b>{{oba}}</b>
               <div class="clearfix"></div>
+            </div>
+
+
+
+
               <div *ngIf="divshow5">
-              <p>OBA compliance provides users with quick and easy access to opt-out of receiving advertisements. Choose from two OBA compliance providers (Truste and Evidon), OR choose 'already present' for third-party ads with their own opt-out</p>
-              <select id="oba"  name="oba" [(ngModel)]="oba" (click)="selectoba()">
+                <div class="budget_wrapper">
+              <h6 class="complianceh6text">OBA compliance provides users with quick and easy access to opt-out of receiving advertisements. Choose from two OBA compliance providers (Truste and Evidon), OR choose 'already present' for third-party ads with their own opt-out</h6>
+
+                  <div class="budget_forminput newforminput2">
+              <select id="oba"  name="oba" [(ngModel)]="oba" (click)="selectoba()"  class="form-control2">
                 <option *ngFor="let item of obas; let i=index" value="{{item}}">{{item}}</option>
               </select>
-              <input type="button" [disabled]="isokDisabled" id="obaid" value="OK" (click)="updateoba()">
+                  <div class="clearfix"></div>
+                  </div>
+                  <div class="budget_formdiv_btn">
+                    <input type="button" [disabled]="isokDisabled" id="obaid" value="OK" (click)="updateoba()">
+                    <input type="button"  value="Cancel"/>
+                  </div>
+
               </div>
             </div>
 
@@ -300,17 +490,17 @@
 
               <label>Retail Markup </label>
               <b>None</b>
-              <div class="clearfix"></div>
+   <!--           <div class="clearfix"></div>
               <label>Campaign Specific Markups</label>
               <p>No Campaign Specific Markups currently exist</p>
               <label (click)="sendtype(6)">New Markup</label>
                 <div [ngClass]="{'active': isActive[0], 'disabled': isDisabled[0]}">
-                  <div *ngIf="error11"> <b>There were errors with your request: </b>{{error11}}</div>
-                  <div *ngIf="error12">{{error12}}</div>
+                  <div class="errorclass" *ngIf="error11"> <b>There were errors with your request: </b>{{error11}}</div>
+                  <div class="errorclass" *ngIf="error12">{{error12}}</div>
                   <label>Fee Name</label>
                   <input type="text" id="fee"  name="fee" [(ngModel)]="fee">
                   <label>Enter Markup Amount</label>
-                 <!-- <select id="m_name"  name="m_name" [(ngModel)]="m_name" (click)="selectm_name()">-->
+                 &lt;!&ndash; <select id="m_name"  name="m_name" [(ngModel)]="m_name" (click)="selectm_name()">&ndash;&gt;
                   <select id="m_name"  name="m_name" [(ngModel)]="m_name" (click)="selectm_name()">
                     <option value="by_CPM" >by CPM</option>
                     <option value="by_Percent_Media" >by Percent (Media)</option>
@@ -331,28 +521,11 @@
                   </div>
 
 
-                 <!-- <pre class="card-block card-header">Start date: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
-                  <div class="clearfix"></div>
-                  &lt;!&ndash;</div>&ndash;&gt;
-
-                  <div style="display:inline-block; min-height:290px;">
-                    <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
-                  </div>
-
-                  <pre class="card-block card-header">End date: <em *ngIf="enddate">{{ getendDate() | date:'fullDate'}}</em></pre>
-
-                  <div class="clearfix"></div>
-
-                  <div style="display:inline-block; min-height:290px;">
-                    <datepicker [(ngModel)]="enddate" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
-                  </div>-->
-
-
               </div>
               <input type="button" value="Add" (click)="updatemarkup()">
             </div>
           </div>
-
+-->
           <a href="javascript:void(0)"  class="createaudience_link">Create Audience &#9658;</a>
 
           <div class="clearfix"></div>
@@ -364,10 +537,18 @@
 
       </div>
 
-    </fieldset>
+  
 
 
 
   </div>
 </div>
+    </fieldset>
+  </div>
+</div>
 
+<div *ngIf="loadervalue" class="loder_body">
+  <div class="loder_wrapper">
+<div class="loader"></div>
+</div>
+</div>

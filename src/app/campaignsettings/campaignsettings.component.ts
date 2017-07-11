@@ -16,9 +16,9 @@ export class CampaignsettingsComponent implements OnInit {
   public result;
   public updateresult;
   public getresult;
-  public newcreatedcampaignid;
-  public newcreatedcampaignname;
-  public name;
+  public newcreatedcampaignid: any;
+  public newcreatedcampaignname: any;
+  public name: any;
   public error;
   public error1;
   public error2;
@@ -37,47 +37,49 @@ export class CampaignsettingsComponent implements OnInit {
   public startdt;
   public enddt;
   public currentdate;
-  public campaign_budget;
-  public bidding_type;
-  public monthly_budget;
-  public daily_spend_target;
-  public bidding_amount;
-  public impressions_c;
-  public monthly_impression;
-  public daily_impression;
-  public impressions_f;
-  public p_hour;
-  public calforcpc;
-  public calforctr;
-  public calforcpa;
-  public impressions_goals;
-  public goals;
-  public oba;
-  public obaid;
-  public divshow0;
-  public divshow;
-  public divshow2;
-  public divshow3;
-  public divshow4;
-  public divshow5;
-  public divshow6;
-  public divshow7;
+  public campaign_budget: any;
+  public bidding_type: any;
+  public monthly_budget: any;
+  public daily_spend_target: any;
+  public bidding_amount: any;
+  public impressions_c: any;
+  public monthly_impression: any;
+  public daily_impression: any;
+  public impressions_f: any;
+  public p_hour: any;
+  public calforcpc: any;
+  public calforctr: any;
+  public calforcpa: any;
+  public impressions_goals: any;
+  public goals: any;
+  public disableokforcpc = false;
+  public oba: any;
+  public obaid: any;
+  public divshow0: any;
+  public divshow: any;
+  public divshow2: any;
+  public divshow3: any;
+  public divshow4: any;
+  public divshow5: any;
+  public divshow6: any;
+  public divshow7: any;
   public isokDisabled;
   public submitedval;
-  public fee;
-  public m_name;
-  public bymedia;
-  public bycpm;
-  public byspeed;
-  public m_cpm;
-  public m_media;
-  public m_speed;
-  public bidid;
-  public bid_value;
-  public geoid;
-  public geoname;
-  public auto;
-  public showname;
+  public fee: any;
+  public m_name: any;
+  public bymedia: any;
+  public bycpm: any;
+  public byspeed: any;
+  public m_cpm: any;
+  public m_media: any;
+  public m_speed: any;
+  public bidid: any;
+  public bid_value: any;
+  public geoid: any;
+  public geoname: any;
+  public valcpc: any;
+  public auto: any;
+  public loadervalue : any;
   public dateforstart;
   public dateforend;
   public obas: any = [];
@@ -89,42 +91,160 @@ export class CampaignsettingsComponent implements OnInit {
 
 
   constructor(addcookie: CookieService, private _http: Http) {
-      if(this.auto == undefined){
+      if (this.auto == undefined) {
           this.auto = false;
       }
     this.addcookie = addcookie ;
     this.cookiedetails = this.addcookie.getObject('cookiedetails');
+    console.log('cookiedetails');
+    console.log('get id from saved cookie ->  '+this.cookiedetails);
 
-      this.link = 'http://simplyfi.influxiq.com/get_campaign.php';
-      this._http.get(this.link)
-          .subscribe(res => {
-              this.getresult = res.json();
-              console.log('this.getresult');
-              console.log(this.getresult);
-              console.log(this.getresult.campaigns[0].campaign_type.name);
-              this.name = this.getresult.campaigns[0].name;
-              this.daily_spend_target = this.getresult.campaigns[0].daily_budget;
-              this.monthly_budget = this.getresult.campaigns[0].monthly_budget;
-              this.campaign_budget = this.getresult.campaigns[0].total_budget;
-              this.daily_impression = this.getresult.campaigns[0].daily_impression_cap;
-              this.monthly_impression = this.getresult.campaigns[0].monthly_impression_cap;
-              this.impressions_c = this.getresult.campaigns[0].impression_cap;
-              this.impressions_f = this.getresult.campaigns[0].frequency_capping.how_many_times;
-              this.p_hour = this.getresult.campaigns[0].frequency_capping.hours;
-              this.geoname = this.getresult.campaigns[0].campaign_type.name;
-              this.dateforstart = this.getresult.campaigns[0].start_date;
-              this.dateforend = this.getresult.campaigns[0].end_date;
-              this.oba = this.getresult.campaigns[0].oba_provider.name;
-              this.bidding_amount = this.getresult.campaigns[0].bid;
-              this.bid_value = this.getresult.campaigns[0].bid_type.name;
+      if (this.cookiedetails == null || this.cookiedetails=='' || typeof (this.cookiedetails) == 'undefined') {
+          this.loadervalue = true;
+          console.log('create it');
+          this.createcampaign();
+      }else {
+          this.loadervalue = false;
+          console.log('do nothing');
+          this.link = 'http://simplyfi.influxiq.com/get_campaign.php?id='+this.cookiedetails;
+          this._http.get(this.link)
+              .subscribe(res => {
+                  this.getresult = res.json();
+                  console.log('this.getresult');
+                  console.log(this.getresult);
+                  //console.log(this.getresult.campaigns[0].campaign_type.name);
+                  if((typeof (this.getresult.campaigns[0].id)!='undefined' && (this.getresult.campaigns[0].id)!=null))
+                  this.geoid = (this.getresult.campaigns[0].id);
+                  else {
+                      this.geoid = '';
+                  }
 
-     /* setInterval(() => {
-          this.bid_value = this.getresult.campaigns[0].bid_type.name;
-      }, 2000);*/
-          });
+                  if ( (typeof (this.getresult.campaigns[0].name) != 'undefined' && ( this.getresult.campaigns[0].name)!= null )) {
+                     this.name = this.getresult.campaigns[0].name;
+                  } else {
+                      this.name = '';
+                  }
 
-console.log(this.bid_value);
-console.log('bid_value');
+                  if ( (typeof (this.getresult.campaigns[0].daily_budget) != 'undefined' && ( this.getresult.campaigns[0].daily_budget)!= null )) {
+                      this.daily_spend_target = this.getresult.campaigns[0].daily_budget;
+                  } else {
+                      this.daily_spend_target = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].monthly_budget) != 'undefined' && ( this.getresult.campaigns[0].monthly_budget)!= null )) {
+                      this.monthly_budget = this.getresult.campaigns[0].monthly_budget;
+                  } else {
+                      this.monthly_budget = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].total_budget) != 'undefined' && ( this.getresult.campaigns[0].total_budget)!= null )) {
+                      this.campaign_budget = this.getresult.campaigns[0].total_budget;
+                  } else {
+                      this.campaign_budget = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].daily_impression_cap) != 'undefined' && ( this.getresult.campaigns[0].daily_impression_cap)!= null )) {
+                      this.daily_impression = this.getresult.campaigns[0].daily_impression_cap;
+                  } else {
+                      this.daily_impression = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].monthly_impression_cap) != 'undefined' && ( this.getresult.campaigns[0].monthly_impression_cap)!= null )) {
+                      this.monthly_impression = this.getresult.campaigns[0].monthly_impression_cap;
+                  } else {
+                      this.monthly_impression = '';
+                  }
+                  if ( (typeof (this.getresult.campaigns[0].impression_cap) != 'undefined' && ( this.getresult.campaigns[0].impression_cap)!= null )) {
+                      this.impressions_c = this.getresult.campaigns[0].impression_cap;
+                  } else {
+                      this.impressions_c = '';
+                  }
+                  if ( (typeof (this.getresult.campaigns[0].frequency_capping.how_many_times) != 'undefined' && ( this.getresult.campaigns[0].frequency_capping.how_many_times)!= null )) {
+                      this.impressions_f = this.getresult.campaigns[0].frequency_capping.how_many_times;
+                  } else {
+                      this.impressions_f = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].frequency_capping.hours) != 'undefined' && ( this.getresult.campaigns[0].frequency_capping.hours)!= null )) {
+                      this.p_hour = this.getresult.campaigns[0].frequency_capping.hours;
+                  } else {
+                      this.p_hour = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].campaign_type) != 'undefined' && ( this.getresult.campaigns[0].campaign_type)!= null )) {
+                      this.geoname = this.getresult.campaigns[0].campaign_type.name;
+                  } else {
+                      this.geoname = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].start_date) != 'undefined' && ( this.getresult.campaigns[0].start_date)!= null )) {
+                      this.dateforstart = this.getresult.campaigns[0].start_date;
+                  } else {
+                      this.dateforstart = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].end_date) != 'undefined' && ( this.getresult.campaigns[0].end_date)!= null )) {
+                      this.dateforend = this.getresult.campaigns[0].end_date;
+                  } else {
+                      this.dateforend = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].oba_provider) != 'undefined' && ( this.getresult.campaigns[0].oba_provider)!= null )) {
+                      this.oba = this.getresult.campaigns[0].oba_provider.name;
+                  } else {
+                      this.oba = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].bid) != 'undefined' && ( this.getresult.campaigns[0].bid)!= null )) {
+                      this.bidding_amount = this.getresult.campaigns[0].bid;
+                  } else {
+                      this.bidding_amount = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].bid_type) != 'undefined' && ( this.getresult.campaigns[0].bid_type)!= null )) {
+                      this.bid_value = this.getresult.campaigns[0].bid_type.name;
+                  } else {
+                      this.bid_value = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].campaign_goal) != 'undefined' && ( this.getresult.campaigns[0].campaign_goal)!= null )) {
+                      this.goals = this.getresult.campaigns[0].campaign_goal.goal_type;
+                  } else {
+                      this.goals = '';
+                  }
+
+                  if ( (typeof (this.getresult.campaigns[0].campaign_goal) != 'undefined' && ( this.getresult.campaigns[0].campaign_goal)!= null )) {
+                      this.impressions_goals = this.getresult.campaigns[0].campaign_goal.goal_value;
+                  } else {
+                      this.impressions_goals = '';
+                  }
+                  //this.geoid = this.getresult.campaigns[0].campaign_type.id;
+                  /*this.daily_spend_target = this.getresult.campaigns[0].daily_budget;
+                  this.monthly_budget = this.getresult.campaigns[0].monthly_budget;
+                  this.campaign_budget = this.getresult.campaigns[0].total_budget;
+                  this.daily_impression = this.getresult.campaigns[0].daily_impression_cap;
+                  this.monthly_impression = this.getresult.campaigns[0].monthly_impression_cap;
+                  this.impressions_c = this.getresult.campaigns[0].impression_cap;
+                  this.impressions_f = this.getresult.campaigns[0].frequency_capping.how_many_times;
+                  this.p_hour = this.getresult.campaigns[0].frequency_capping.hours;
+                  this.geoname = this.getresult.campaigns[0].campaign_type.name;
+                  this.dateforstart = this.getresult.campaigns[0].start_date;
+                  this.dateforend = this.getresult.campaigns[0].end_date;
+                  this.oba = this.getresult.campaigns[0].oba_provider.name;
+                  this.bidding_amount = this.getresult.campaigns[0].bid;
+                  this.bid_value = this.getresult.campaigns[0].bid_type.name;
+                  this.goals = this.getresult.campaigns[0].campaign_goal.goal_type;
+                  this.impressions_goals = this.getresult.campaigns[0].campaign_goal.goal_value;*/
+
+                  /* setInterval(() => {
+                   this.bid_value = this.getresult.campaigns[0].bid_type.name;
+                   }, 2000);*/
+              });
+      }
+
+
+
+
 
       for (let i = 0; i <= 1; i++) {
           this.isActive.push(false);
@@ -142,14 +262,15 @@ console.log('bid_value');
   }
 
   ngOnInit() {
-    if (this.cookiedetails == undefined) {
+  /*  if (this.cookiedetails == null || this.cookiedetails=='' || typeof (this.cookiedetails) == 'undefined') {
       console.log('create it');
       this.createcampaign();
     }
     else {
-        console.log(this.cookiedetails);
+       console.log('cookiedetails');
+       console.log(this.cookiedetails);
        console.log('do nothing');
-    }
+    }*/
 
       this.items = ['Select', 1 , 2 , 3 , 4 , 5, 6 , 7 , 8 , 9 , 10  , 11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20 , 21 , 22 , 23 , 24];
       this.p_hour = 'Select';
@@ -169,18 +290,22 @@ console.log('bid_value');
     }
 
   createcampaign() {
-    this.link = 'http://simplyfi.influxiq.com/create_campaign.php' ;
+    this.link = 'http://simplyfi.influxiq.com/create_campaign1.php' ;
     this.data = {} ;
     this._http.get(this.link)
         .subscribe(res => {
           this.result = res.json();
+          console.log('created');
           console.log(this.result);
+          this.loadervalue = false;
           this.addcookie.putObject('cookiedetails', this.result.campaigns[0].id);
+          this.cookiedetails = this.addcookie.getObject('cookiedetails');
+          console.log('after putobject '+this.cookiedetails);
           this.newcreatedcampaignid = this.result.campaigns[0].id;
           this.newcreatedcampaignname = this.result.campaigns[0].name;
          // console.log(this.newcreatedcampaignname);
-          console.log(this.newcreatedcampaignid);
-        }, error2 => {
+          console.log('id of new created campaign ->  '+this.newcreatedcampaignid);
+        }, err => {
           console.log('Ooops');
         } );
   }
@@ -192,6 +317,7 @@ console.log('bid_value');
       }
       if (val == 2) {
           this.geoid = 2;
+           //$(this).attr('#con1').addClass('activetd');
           this.geoname = 'Contextual';
       }
       if (val == 3) {
@@ -210,6 +336,7 @@ console.log('bid_value');
     }
 
     updategeo() {
+        this.divshow7=false;
         let data: any = {
             id: this.cookiedetails,
             campaigndetails: {
@@ -223,7 +350,7 @@ console.log('bid_value');
         this.doupdate(data);
     }
     updatename() {
-      if (this.name == '' || this.name == undefined) {
+      if (this.name == null || this.name == '') {
         this.error = 'Sorry! Please provide a name.';
       }
       else {
@@ -266,20 +393,38 @@ console.log('bid_value');
     }
 
     updatedate() {
-        this.currentdate = new Date();
-        this.currentdate = this.currentdate.getTime();
-
-        if (this.startdt < this.currentdate) {
+        this.error1 = '';
+        console.log("updatedate error "+this.error1);
+        console.log("startdate"+this.startdt);
+        console.log("enddate "+this.enddt);
+        this.currentdate = new Date().getTime();
+       // this.currentdate = this.currentdate.getTime();
+        console.log("currentdate "+this.currentdate);
+       /* if (this.startdt < this.currentdate) {
             this.error1 = 'Provide a proper Start date..!';
+            console.log("go");
+        }*/
+        if (this.startdt > this.enddt) {
+            this.error1 = 'End date must be on or after start date..!';
+            console.log("go");
         }
-        if (this.startdt == this.currentdate) {
+        if (this.startdt == this.enddt) {
             this.error1 = 'Start date & End date cannot be equal..!';
+            console.log("go1");
         }
-        if (this.enddt < this.currentdate || this.enddt < this.startdt) {
+      /*  if (this.startdt > this.enddt || this.startdt == this.currentdate) {
+            this.error1 = 'Provide a proper Start date..!';
+            console.log("go1");
+        }*/
+
+      //  if (this.enddt < this.currentdate || this.enddt < this.startdt) {
+        if (this.enddt < this.startdt) {
+            console.log("go2");
             this.error1 = 'Please provide proper End date..!';
         }
-        else {
-            this.error1 = '';
+        console.log('else part '+this.error1);
+        if(this.error1=='') {
+            this.divshow0=false;
             let data: any = {
                 id: this.cookiedetails,
                 campaigndetails: {
@@ -311,7 +456,15 @@ console.log('bid_value');
         }
     }
     updatebudget() {
-        if (this.bidding_type == 'cpm_bidding' && (this.bidding_amount == undefined || this.bidding_amount == '' )) {
+        this.error2 = '';
+        this.error3 = '';
+        this.error4 = '';
+        this.error5 = '';
+        console.log('amt'+this.bidding_amount);
+        console.log('auto'+this.auto);
+        console.log(this.bidding_type);
+        console.log(this.daily_spend_target);
+        if ((this.bidding_type == 'cpm_bidding') && (this.bidding_amount == null )) {
             this.error2 = 'Max bid is not a number';
         }
         if (this.bidding_amount > 99) {
@@ -326,24 +479,30 @@ console.log('bid_value');
         if ( this.monthly_budget < this.daily_spend_target ) {
             this.error5 = 'Monthly budget must be greater than or equal to daily spend target';
         }
-        if (this.bidding_type == 'cpc_bidding' && (this.bidding_amount == undefined || this.bidding_amount == '') ) {
+        if (this.bidding_type == 'cpc_bidding' && (this.bidding_amount == null) ) {
             this.error2 = 'Goal value cannot be blank';
         }
-        else {
-            console.log(this.bidding_type);
+        if(this.error2=='' && this.error3=='' && this.error4=='' && this.error5=='' ) {
+            this.divshow=false;
+            console.log("what is going on "+this.bidding_type);
+            console.log("what is going on "+this.bidding_amount);
             if(this.bidding_type == 'cpm_bidding'){
                 this.bidid= 1;
                 this.bid_value='CPM';
+                this.valcpc=false;
             }
             if(this.bidding_type == 'cpc_bidding'){
                 console.log('inside');
                 this.bidid= 2;
                 this.bid_value='CPC';
+                this.valcpc=true;
+
+                if(this.valcpc == true &&(this.goals=='none' || this.goals=='ctr')){
+                    console.log('????????????????????????????');
+                    this.disableokforcpc = true;
+                }
             }
-            this.error2 = '';
-            this.error3 = '';
-            this.error4 = '';
-            this.error5 = '';
+
             this.submitedval=1;
             let data: any = {
                 id: this.cookiedetails,
@@ -356,33 +515,40 @@ console.log('bid_value');
                     auto_adjust_daily_budget: this.auto,
                 },
             }
-            console.log('show data-> '+data);
             this.doupdate(data);
         }
     }
 
     updatecapping() {
-        console.log("cal");
-        if (this.impressions_c < this.monthly_impression){
-            this.error6 = 'Impression cap must be greater than or equal to monthly impression cap';
+        this.error6 = '';
+        this.error7 = '';
+        this.error8 = '';
+        this.error9 = '';
+        console.log("call");
+        console.log("impresion_c "+this.impressions_c);
+        console.log("monthly "+this.monthly_impression);
+        console.log("daily "+this.daily_impression);
+        console.log("impressn f "+this.impressions_f);
+        console.log("hour "+this.p_hour);
+        if (parseFloat(this.impressions_c) < parseFloat(this.monthly_impression)) {
+            console.log('if-1');
+            this.error7 = 'Impression cap must be greater than or equal to monthly impression cap';
         }
-        if (this.impressions_c < this.daily_impression){
-            this.error7 = 'Impression cap must be greater than or equal to daily impression cap';
+        if (parseFloat(this.impressions_c) < parseFloat(this.daily_impression)) {
+            console.log('if-2');
+            this.error8 = 'Impression cap must be greater than or equal to daily impression cap';
         }
-        if (this.monthly_impression < this.daily_impression){
-            this.error8 = 'Monthly impression cap must be greater than or equal to daily impression cap';
+        if (parseFloat(this.monthly_impression) < parseFloat(this.daily_impression)) {
+            console.log('if-3');
+            this.error9 = 'Monthly impression cap must be greater than or equal to daily impression cap';
         }
-        if (((this.impressions_f != undefined ||this.impressions_f != '' ) && this.p_hour == 'Select')||((this.impressions_f == undefined || this.impressions_f == '') && this.p_hour != 'Select') ) {
-            this.error9 = 'Frequency capping impressions and per hour must both be blank or non-zero';
+        if ( (this.impressions_f=='' && this.p_hour!='Select') || (this.impressions_f!='' && this.p_hour=='Select') ) {
+            console.log('if-4');
+            this.error6 = 'Frequency capping impressions and per hour must both be blank or non-zero';
         }
-        else {
-            console.log("what is going on");
-            console.log(this.impressions_f);
-            console.log(this.p_hour);
-            this.error6 = '';
-            this.error7 = '';
-            this.error8 = '';
-            this.error9 = '';
+        if (this.error7=='' && this.error6=='' && this.error8=='' && this.error9==''){
+            console.log('done');
+            this.divshow2=false;
             let data: any = {
                 id: this.cookiedetails,
                 campaigndetails: {
@@ -400,12 +566,19 @@ console.log('bid_value');
     }
 
     callfunction(type){
-      //console.log(type);
+      if(type==0){
+          console.log("0");
+          this.calforcpc='';
+          this.calforctr='';
+          this.calforcpa='';
+          this.impressions_goals='';
+      }
       if(type==1){
           console.log("1");
           this.calforcpc=1;
           this.calforcpa='';
           this.calforctr='';
+          this.disableokforcpc = false;
       }
       if(type==2){
           console.log("2");
@@ -418,23 +591,29 @@ console.log('bid_value');
           this.calforcpa=1;
           this.calforcpc='';
           this.calforctr='';
+          this.disableokforcpc = false;
       }
     }
 
     updategoal(){
-        if (this.impressions_goals == '') {
-        this.error10 = 'Goal value cannot be blank';
+        this.error10 = '';
+        console.log('goal val'+this.goals);
+        console.log('impresn goal val'+this.impressions_goals);
+        if (this.goals != 'none' && (this.impressions_goals == null || this.impressions_goals == '')) {
+            this.error10 = 'Goal value cannot be blank';
         }
-        if (this.calforctr==1 && this.impressions_goals > 1) {
-            console.log("occured");
+        if (this.goals=='ctr' && this.impressions_goals > 1) {
             this.error10 = 'Goal value must be less than or equal to 1.0';
         }
-        else{
+        if(this.goals=='none'){
             this.error10 = '';
+        }
+        if(this.error10 == '') {
+            this.divshow4=false;
             let data: any = {
                 id: this.cookiedetails,
                 campaigndetails: {
-                    campaign_goal:{
+                    campaign_goal: {
                         goal_type: this.goals,
                         goal_value: this.impressions_goals,
                     }
@@ -464,6 +643,7 @@ console.log('bid_value');
         if(this.oba == 'OBA Compliance already present'){
             this.obaid= 3;
         }
+        this.divshow5=false;
         let data: any = {
             id: this.cookiedetails,
             campaigndetails: {
@@ -473,10 +653,10 @@ console.log('bid_value');
         this.doupdate(data);
     }
     updatemarkup(){
-        if(this.fee=='' || this.fee==undefined){
+        if(this.fee==null || this.fee==''){
             this.error11='Name is too short (minimum is 1 character)';
         }
-        if(this.m_name=='' || this.m_name==undefined){
+        if(this.m_name==null || this.m_name==''){
             this.error12='Markup is not a number';
         }
         else{
