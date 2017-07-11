@@ -552,6 +552,33 @@ body{ margin:0!important; padding:0 0 50px 0!important; background: #1d70a3 url(
     font-size: 20px; color:#008cba!important; text-decoration:none!important; margin:40px 0 0 0;}
 
 
+.settingblock{ padding: 20px 0 0 0;}
+.settingblock h1{ padding-bottom: 0px;}
+
+ .settingblockptext{     display: block!important; font-weight: normal!important;
+    width: 100%!important;
+    padding:15px 0 8px 0!important;
+    color: #666!important;
+    font-size: 18px!important;
+    cursor: inherit!important;}
+
+
+.irs-slider {
+    width: 22px!important;
+    height: 22px!important;
+    top: 18px!important;
+    background-position: 0 -120px!important;
+}
+
+
+.irs-from:after, .irs-to:after, .irs-single:after{    border-top-color: #008cba!important;}
+.irs-from, .irs-to, .irs-single{    background:#008cba!important;}
+/*----------------------------------------*/
+/*-------------media----------------------*/
+/*----------------------------------------*/
+
+
+
 @media (max-width: 1580px) {
     .nav-wizard li a{ font-size:20px;}
 }

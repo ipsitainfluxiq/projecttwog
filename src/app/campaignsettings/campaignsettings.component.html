@@ -66,8 +66,11 @@
 
               <label (click)="sendtype(7)">campaign Type </label>
               <b>{{geoname}}</b>
-              <div *ngIf="divshow7">
+
               <div class="clearfix"></div>
+            </div>
+              <div *ngIf="divshow7">
+                <div class="budget_wrapper">
                 <div class="create_audience_wrapper">
 
                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -275,11 +278,14 @@
               <label (click)="sendtype(2)">Capping </label>
               <b>{{daily_impression}} Daily, {{monthly_impression}} Monthly, {{impressions_c}} Total , {{impressions_f}} impressions per {{p_hour}} hours</b>
               <div class="clearfix"></div>
+
+            </div>
               <div *ngIf="divshow2">
               <div class="errorclass" *ngIf="error6">{{error6}}</div>
               <div class="errorclass" *ngIf="error7">{{error7}}</div>
               <div class="errorclass" *ngIf="error8">{{error8}}</div>
               <div class="errorclass" *ngIf="error9">{{error9}}</div>
+
                 <div class="budget_wrapper">
                   <div class="budget_formdiv_left">
                     <div class="budget_formdiv">
@@ -355,7 +361,7 @@
               </div>
             </div>
 
-          </div>
+
 
           <div class="campaign_settings_cell">
 
@@ -364,15 +370,88 @@
               <label (click)="sendtype(3)">Conversions </label>
               <b>None</b>
               <div class="clearfix"></div>
+
+            </div>
               <div *ngIf="divshow3">
+                <div class="budget_wrapper">
+
                   <tabset>
                     <tab heading="Site Conversions">
-                      <label>CPA Settings</label><br>
-                      <p>View Thru Percentage</p>
                     </tab>
                     <tab heading="Geo Conversions"></tab>
                   </tabset>
+
+                  <div class="budget_formdiv_left settingblock">
+                      <h1>CPA Settings <img src="../../assets/images/budget_formicon.png" alt="#" /></h1>
+                    <p class="settingblockptext"><strong>View Thru Percentage</strong></p>
+                      <div>
+                          <ion-range-slider #viewthrupercentage
+                                            disable=slidedisable
+                                            type="single"
+                                            [min]="0"
+                                            max="100"
+                                            from="0"
+                                            (onUpdate)="myOnUpdate($event,1)"
+                                            (onChange)="myOnChange($event,1)"
+                                            (onFinish)="myOnFinish($event,1)"
+                          ></ion-range-slider>
+                      </div>
+
+
+
+                    <p class="settingblockptext"><strong>Click Thru Percentage</strong></p>
+                  <ion-range-slider #clickthrupercentage
+                                    disable=slidedisable
+                                    type="single"
+                                    [min]="0"
+                                    max="100"
+                                    from="0"
+                                    (onUpdate)="myOnUpdate($event,2)"
+                                    (onChange)="myOnChange($event,2)"
+                                    (onFinish)="myOnFinish($event,2)"
+                  ></ion-range-slider>
+
+
+</div>
+
+
+                  <div class="budget_formdiv_right settingblock">
+
+                  <h1>Attribution Settings</h1>
+                    <p class="settingblockptext"><strong>View Attribution Window by Days</strong></p>
+                  <ion-range-slider #viewattr
+                                    type="single"
+                                    [min]="0"
+                                    max="30"
+                                    from="30"
+                                    (onUpdate)="myOnUpdate($event,3)"
+                                    (onChange)="myOnChange($event,3)"
+                                    (onFinish)="myOnFinish($event,3)"
+                  ></ion-range-slider>
+                    <p class="settingblockptext"><strong>Click Attribution Window by Days</strong></p>
+                  <ion-range-slider #clickattr
+                                    type="single"
+                                    [min]="0"
+                                    max="30"
+                                    from="30"
+                                    (onUpdate)="myOnUpdate($event,4)"
+                                    (onChange)="myOnChange($event,4)"
+                                    (onFinish)="myOnFinish($event,4)"
+                  ></ion-range-slider>
+
+                  </div>
+                  <div class="clearfix"></div>
+
+                  <div class="budget_formdiv_btn">
+                  <input type="button"  value="Save" (click)="updateslider()"/>
+                    <input type="button"  value="Cancel"/>
+                  </div>
+
               </div>
+
+
+
+
             </div>
           </div>
 
@@ -490,6 +569,12 @@
 
               <label>Retail Markup </label>
               <b>None</b>
+
+              <div class="clearfix"></div>
+
+            </div>
+
+          </div>
    <!--           <div class="clearfix"></div>
               <label>Campaign Specific Markups</label>
               <p>No Campaign Specific Markups currently exist</p>
@@ -539,10 +624,6 @@
 
   
 
-
-
-  </div>
-</div>
     </fieldset>
   </div>
 </div>

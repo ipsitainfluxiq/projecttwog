@@ -17,6 +17,7 @@ import { CreateAudienceComponent } from './create-audience/create-audience.compo
 import { OnlyNumberDirective } from './directives/only_number';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CampaignlistComponent } from './campaignlist/campaignlist.component';
+import { IonRangeSliderModule } from "ng2-ion-range-slider";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CampaignlistComponent } from './campaignlist/campaignlist.component';
     routing,
     DatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    IonRangeSliderModule
 
   ],
   providers: [CookieService],
