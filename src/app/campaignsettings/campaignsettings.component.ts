@@ -78,10 +78,13 @@ export class CampaignsettingsComponent implements OnInit {
     public auto: any;
     public loadervalue: any;
     public viewthrupercentage: any;
+    public viewthrupercentage1: any;
     public clickthrupercentage: any;
-    public viewattr: any;
-    public clickattr: any;
+    public clickthrupercentage1: any;
+    public viewattrval: any;
+    public clickattrval: any;
     public slidedisable= false;
+    public disableconversions= true;
     public dateforstart;
     public dateforend;
     public obas: any = [];
@@ -90,7 +93,17 @@ export class CampaignsettingsComponent implements OnInit {
     public items: any = [];
     public isActive: any = [];
     public isDisabled: any = [];
-
+    title: string = 'My first AGM project';
+   /* lat: number = 51.678418;
+    lng: number = 7.809007;*/
+    public lat: any;
+    public lng: any;
+    public mapval: any;
+    public searchaddress: any;
+    public key: any;
+    public geolocationtype: any;
+    //lat: number = 31.88725;
+    //lng: number = -97.08026;
 
     constructor(addcookie: CookieService, private _http: Http) {
         console.log('slidedisable'+this.slidedisable);
@@ -236,6 +249,42 @@ export class CampaignsettingsComponent implements OnInit {
                     } else {
                         this.impressions_goals = '';
                     }
+
+                    if ( (typeof (this.getresult.campaigns[0].campaign_goal) != 'undefined' && ( this.getresult.campaigns[0].campaign_goal)!= null )) {
+                        this.clickthrupercentage = this.getresult.campaigns[0].campaign_goal.cpa_click_thru_per;
+                        this.clickthrupercentage1 = (this.clickthrupercentage)*100;
+                    } else {
+                        this.clickthrupercentage = '';
+                    }
+                    if ( (typeof (this.getresult.campaigns[0].campaign_goal) != 'undefined' && ( this.getresult.campaigns[0].campaign_goal)!= null )) {
+                        this. viewthrupercentage= this.getresult.campaigns[0].campaign_goal.cpa_view_thru_per;
+                        this.viewthrupercentage1= (this.viewthrupercentage)*100;
+                    } else {
+                        this.viewthrupercentage = '';
+                    }
+
+                        this.bid_value = this.getresult.campaigns[0].bid_type.name;
+
+                    if ( (typeof (this.getresult.campaigns[0].campaign_goal) != 'undefined' && ( this.getresult.campaigns[0].campaign_goal)!= null )) {
+                        this.viewattrval = this.getresult.campaigns[0].view_attribution_window;
+
+                    } else {
+                        this.viewattrval = '';
+                    }
+
+                    if ( (typeof (this.getresult.campaigns[0].campaign_goal) != 'undefined' && ( this.getresult.campaigns[0].campaign_goal)!= null )) {
+                        this.clickattrval = this.getresult.campaigns[0].click_attribution_window;
+                    } else {
+                        this.clickattrval = '';
+                    }
+                        console.log('viewthrupercentage '+this.viewthrupercentage);
+                        console.log('viewthrupercentage1 '+this.viewthrupercentage1);
+                        console.log('clickthrupercentage '+this.clickthrupercentage);
+                        console.log('clickthrupercentage1 '+this.clickthrupercentage1);
+                        console.log('viewattr '+this.viewattrval);
+                        console.log('clickattrval '+this.clickattrval);
+
+
                     //this.geoid = this.getresult.campaigns[0].campaign_type.id;
                     /*this.daily_spend_target = this.getresult.campaigns[0].daily_budget;
                   this.monthly_budget = this.getresult.campaigns[0].monthly_budget;
@@ -308,8 +357,64 @@ export class CampaignsettingsComponent implements OnInit {
         this.enddt = this.enddate && this.enddate.getTime() || new Date().getTime();
         return this.enddate && this.enddate.getTime() || new Date().getTime();
     }
+    initializeval() {
+        console.log("set initialize val");
+        this.lat = 51.678418;
+        this.lng = -7.809007;
+        this.mapval=false;
+        this.mapval=true;
+        console.log(this.mapval);
+
+    }
+    searchlatlng(char) {
+       // console.log('val' + char.keyCode);
+        this.key = char.keyCode;
+        //console.log('search' + this.searchaddress);
+       // console.log('key  '+this.key);
+        this.link = 'http://maps.google.com/maps/api/geocode/json?address=' + this.searchaddress;
+        if (this.key == '13') {
+            this._http.get(this.link)
+                .subscribe(res => {
+                    this.result = res.json();
+                    console.log('searchbox');
+                    console.log(this.result);
+                    console.log(this.result.results[0].geometry.location.lat);
+                    console.log(this.result.results[0].geometry.location.lng);
+                    this.lat = this.result.results[0].geometry.location.lat;
+                    this.lng = this.result.results[0].geometry.location.lng;
+                    this.mapval = false;
+                    this.mapval = true;
+                }, err => {
+                    console.log('Ooops');
+                });
+        }
+    }
+
+    createsh(type){
+        if(type==1){
+            this.geolocationtype='Polygon';
+        }
+        if(type==2){
+            this.geolocationtype='Rectangle';
+        }
+/*        let data: any = {
+            id: this.cookiedetails,
+            campaigndetails: {
+                geo_fences:{
+                bid_area : {
+                    type : this.geolocationtype
+                }
+                }
+            },
+        }
+        this.doupdate(data);*/
+    }
 
     createcampaign() {
+        this.viewthrupercentage1 = 0;
+        this.clickthrupercentage1 = 0;
+        this.viewattrval = 30;
+        this.clickattrval = 30;
         this.link = 'http://simplyfi.influxiq.com/create_campaign1.php' ;
         this.data = {} ;
         this._http.get(this.link)
@@ -594,7 +699,7 @@ export class CampaignsettingsComponent implements OnInit {
             this.calforctr='';
             this.calforcpa='';
             this.impressions_goals='';
-console.log(this.slidedisable);
+            console.log(this.slidedisable);
         }
         if(type==1){
             this.slidedisable = false;
@@ -702,17 +807,19 @@ else{
     }
 
     myOnChange(val: any, type ) {
+        this.disableconversions = false;
         if(type ==1) {
-            this.viewthrupercentage = val.from;
+            this.viewthrupercentage = (val.from)/100;
+            console.log('con'+this.viewthrupercentage);
         }
         if(type ==2) {
-            this.clickthrupercentage = val.from;
+            this.clickthrupercentage = (val.from)/100;
         }
         if(type ==3) {
-            this.viewattr = val.from;
+            this.viewattrval = val.from;
         }
         if(type ==4) {
-            this.clickattr = val.from;
+            this.clickattrval = val.from;
         }
     }
 
@@ -725,8 +832,8 @@ else{
         let data: any = {
             id: this.cookiedetails,
             campaigndetails: {
-                click_attribution_window: this.clickattr,
-                view_attribution_window: this.viewattr,
+                click_attribution_window: this.clickattrval,
+                view_attribution_window: this.viewattrval,
                 campaign_goal: {
                     cpa_click_thru_per: this.clickthrupercentage,
                     cpa_view_thru_per: this.viewthrupercentage,
@@ -734,6 +841,7 @@ else{
 
             }
         }
+        this.disableconversions =true;
         this.doupdate(data);
     }
     doupdate(data: any) {

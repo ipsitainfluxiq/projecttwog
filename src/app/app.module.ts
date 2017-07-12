@@ -18,6 +18,7 @@ import { OnlyNumberDirective } from './directives/only_number';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CampaignlistComponent } from './campaignlist/campaignlist.component';
 import { IonRangeSliderModule } from "ng2-ion-range-slider";
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,11 @@ import { IonRangeSliderModule } from "ng2-ion-range-slider";
     DatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    IonRangeSliderModule
+    IonRangeSliderModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyA2_vmiwMYMoLIAyN5Bb1C8XZYOyQwIq8U'
+    })
+
 
   ],
   providers: [CookieService],
