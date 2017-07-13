@@ -385,7 +385,7 @@
 
 
 
-
+                      <div class="GeoJSON_block"> <span>Upload GeoJSON</span></div>
 
                       <div class="mapblickwrapper">
 
@@ -404,11 +404,81 @@
 
                         </div>
 
-                        <agm-map *ngIf="mapval" [latitude]="lat" [longitude]="lng">
+                        <agm-map *ngIf="mapval" [latitude]="lat" [longitude]="lng" (mapClick)="mapClicked($event)">
                           <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                          <agm-polygon *ngFor="let pathsvals of patharr" [paths]="pathsvals" [clickable]="true" [polyDraggable]="true" [draggable]="true" [editable]="true" strokeColor="#E9BE79" fillColor="#EBD8B7" fillOpacity="1" >
+                                  </agm-polygon>
+
+                          <agm-polyline [clickable]="true" [draggable]="true" [editable]="true">
+                            <agm-polyline-point *ngFor="let lineval of paths" [latitude]="lineval.lat" [longitude]="lineval.lng">
+                            </agm-polyline-point>
+
+                          </agm-polyline>
                         </agm-map>
 
 
+                      </div>
+
+
+
+                      <div class="map_menuwrapper menuwrapper_buttom">
+                        <select class="map_select">
+                          <option>Actions</option>
+                          <option>Actions</option>
+                          <option>Actions</option>
+                        </select>
+
+                        <input  type="text" class="map_input" placeholder="address" [(ngModel)]="searchaddress" (keyup)="searchlatlng($event)"/>
+                        <!--<input type="button" value="Search" (click)="searchlatlng()">-->
+
+                        <div class="clearfix"></div>
+
+
+                      </div>
+
+                      <div class="new_table_wrapper">
+                        <div class="GeoJSON_block2"> <a href="javascript:void(0)">Download GeoJSON</a> </div>
+
+
+                        <table>
+
+                          <tr>
+                            <th><input type="checkbox"></th>
+                            <th>Name</th>
+
+                            <th>Geo Type</th>
+                            <th>&nbsp;</th>
+                          </tr>
+                         <!-- <tr *ngFor="let item of polyshape">-->
+                          <tr>
+                            <td><input type="checkbox"></td>
+                            <td><img src="../../assets/images/tab_new_icon5.png"  alt="#" /><input type="text"><div class="clearfix"></div></td>
+                            <td>Conversion	</td>
+                            <td><div class="table_closebtn"><a href="javascript:void(0)"><img src="../../assets/images/tab_new_icon3.png"  alt="#" /></a></div></td>
+                          </tr>
+
+                          <!--<tr>
+                            <td><input type="checkbox"></td>
+                            <td><img src="../../assets/images/tab_new_icon5.png"  alt="#" /><input type="text"> <div class="clearfix"></div></td>
+                            <td>Conversion	</td>
+                            <td><div class="table_closebtn"><a href="javascript:void(0)"><img src="../../assets/images/tab_new_icon3.png"  alt="#" /></a></div></td>
+                          </tr>
+                          <tr>
+                            <td><input type="checkbox"></td>
+                            <td><img src="../../assets/images/tab_new_icon5.png"  alt="#" /><input type="text"><div class="clearfix"></div></td>
+                            <td>Conversion	</td>
+                            <td><div class="table_closebtn"><a href="javascript:void(0)"><img src="../../assets/images/tab_new_icon3.png"  alt="#" /></a></div></td>
+                          </tr>-->
+
+
+                        </table>
+
+                        <div class="clearfix"></div>
+
+                        <div class="budget_formdiv_btn">
+                          <input type="button"  value="Save"/>
+                          <input type="button"  value="Cancel"/>
+                        </div>
                       </div>
 
 
@@ -417,7 +487,9 @@
                     </tab>
 
                   </tabset>
+                </div>
 
+                  <div class="budget_wrapper budget_wrapper_new">
                   <div class="budget_formdiv_left settingblock">
                       <h1>CPA Settings <img src="../../assets/images/budget_formicon.png" alt="#" /></h1>
                     <p class="settingblockptext"><strong>View Thru Percentage</strong></p>
