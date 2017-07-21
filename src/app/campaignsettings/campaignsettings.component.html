@@ -422,10 +422,10 @@
 
 
                       <div class="map_menuwrapper menuwrapper_buttom">
-                        <select class="map_select">
+                        <select class="map_select" [(ngModel)]="polydelete" (click)="mapdelete()">
                           <option>Actions</option>
-                          <option>Actions</option>
-                          <option>Actions</option>
+                          <option value="removeselected">Remove Selected</option>
+                          <option value="removeall">Remove All</option>
                         </select>
 
                         <input  type="text" class="map_input" placeholder="address" [(ngModel)]="searchaddress" (keyup)="searchlatlng($event)"/>
@@ -443,18 +443,18 @@
                         <table>
 
                           <tr>
-                            <th><input type="checkbox"></th>
+                            <th><input type="checkbox" (click)="allcheck()" [(ngModel)]="checkuncheck"></th>
                             <th>Name</th>
 
                             <th>Geo Type</th>
                             <th>&nbsp;</th>
                           </tr>
-                         <!-- <tr *ngFor="let item of polyshape">-->
-                          <tr>
-                            <td><input type="checkbox"></td>
-                            <td><img src="../../assets/images/tab_new_icon5.png"  alt="#" /><input type="text"><div class="clearfix"></div></td>
+                          <!--<tr *ngFor="let item of show">-->
+                          <tr *ngFor="let item of fence; let i=index">
+                            <td><input type="checkbox" [(ngModel)]="item.fencecheckbox"></td>
+                            <td><img src="../../assets/images/tab_new_icon5.png"  alt="#" /><input [(ngModel)]="item.fencename" type="text"><div class="clearfix"></div></td>
                             <td>Conversion	</td>
-                            <td><div class="table_closebtn"><a href="javascript:void(0)"><img src="../../assets/images/tab_new_icon3.png"  alt="#" /></a></div></td>
+                            <td><div class="table_closebtn"><a href="javascript:void(0)" (click)="deletepolyshape(item)"><img src="../../assets/images/tab_new_icon3.png"  alt="#" /></a></div></td>
                           </tr>
 
                           <!--<tr>
@@ -476,7 +476,7 @@
                         <div class="clearfix"></div>
 
                         <div class="budget_formdiv_btn">
-                          <input type="button"  value="Save"/>
+                          <input type="button"  value="Save" (click)="savepolygon()"/>
                           <input type="button"  value="Cancel"/>
                         </div>
                       </div>
@@ -720,8 +720,8 @@
             </div>
           </div>
 -->
-          <a href="javascript:void(0)"  class="createaudience_link">Create Audience &#9658;</a>
-
+          <!--<a href="javascript:void(0)"  class="createaudience_link">Create Audience &#9658;</a>-->
+          <a [routerLink]="['/createaudience']" class="createaudience_link">Create Audience &#9658;</a>
           <div class="clearfix"></div>
 
 

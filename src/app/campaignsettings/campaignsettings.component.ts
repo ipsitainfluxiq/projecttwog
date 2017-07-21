@@ -13,7 +13,7 @@ export class CampaignsettingsComponent implements OnInit {
     private cookiedetails;
     public link;
     public data;
-    public polyshape;
+    public checkuncheck;
     public id;
     public result;
     public updateresult;
@@ -40,6 +40,8 @@ export class CampaignsettingsComponent implements OnInit {
     public enddt;
     public currentdate;
     public campaign_budget: any;
+    public link1: any;
+    public getresult1: any;
     public bidding_type: any;
     public monthly_budget: any;
     public daily_spend_target: any;
@@ -68,6 +70,7 @@ export class CampaignsettingsComponent implements OnInit {
     public isokDisabled;
     public submitedval;
     public fee: any;
+    public polydelete: any;
     public polyname: any;
     public m_name: any;
     public bymedia: any;
@@ -80,6 +83,7 @@ export class CampaignsettingsComponent implements OnInit {
     public valcpc: any;
     public auto: any;
     public rand: any;
+    public lattitude: any;
     public loadervalue: any;
     public viewthrupercentage: any;
     public viewthrupercentage1: any;
@@ -98,6 +102,8 @@ export class CampaignsettingsComponent implements OnInit {
     public isActive: any = [];
     public isDisabled: any = [];
     public fence: any = [];
+    public fence1: any = [];
+    public show: any = [];
     title: string = 'My first AGM project';
     /* lat: number = 51.678418;
     lng: number = 7.809007;*/
@@ -125,6 +131,7 @@ export class CampaignsettingsComponent implements OnInit {
         {lat: 24.774, lng: -81.190}
     ]
     private temppath: Array<LatLngLiteral>= [];
+    private polygonresult: any;
     // Nesting paths will create a hole where they overlap;
     /*nestedPaths: Array<Array<LatLngLiteral>> = [[
         { lat: 0,  lng: 10 },
@@ -141,6 +148,7 @@ export class CampaignsettingsComponent implements OnInit {
     ]]*/
 
     constructor(addcookie: CookieService, private _http: Http) {
+        this.polydelete='Actions';
         this.impressions_f = '';
         this.p_hour = 'Select';
         this.oba = 'Select';
@@ -163,7 +171,33 @@ export class CampaignsettingsComponent implements OnInit {
         }else {
             this.loadervalue = false;
             console.log('do nothing');
+
+
+           /* // this.link1 = 'http://simplyfi.influxiq.com/getgeoofence.php?id='+this.cookiedetails+'/geo_fences';
+           // this.link1 = 'http://simplyfi.influxiq.com/getgeoofence.php/602417/geo_fences';
+            this.link1 = 'http://simplyfi.influxiq.com/getgeoofence.php/'+this.cookiedetails+'/geo_fences';
+            this._http.get(this.link1)
+                .subscribe(res => {
+                    this.getresult1 = res.json();
+                    console.log('-------------getresult1');
+                    console.log(this.getresult1);
+                    console.log(this.getresult1.geo_fences[0].bid_area.coordinates);
+
+                    this.temppath.push(this.getresult1.geo_fences[0].bid_area.coordinates);
+                    /!*console.log('temppath');
+                    console.log(this.temppath);*!/
+                     this.patharr.push(this.temppath);
+                    console.log('this.patharr');
+                    console.log(this.patharr);
+
+                }, error1 => {
+                    console.log('Oooops!');
+                });
+*/
+
+
             this.link = 'http://simplyfi.influxiq.com/get_campaign.php?id=' + this.cookiedetails;
+            // console.log(this.link);
             this._http.get(this.link)
                 .subscribe(res => {
 
@@ -435,19 +469,39 @@ export class CampaignsettingsComponent implements OnInit {
         if (this.temppath.length != 0) {
             this.rand = Math.round((Math.random() * 10) * 10);
             this.polyname = 'polygon' + this.rand;
+            //let temparr:Array<LatLngLiteral>=[];
+            let temparr:Array<any>=[];
+            let temparrval:Array<any>=[];
+            let x:any;
+            for(x in this.temppath){
+                console.log(this.temppath[x].lat);
+                console.log(this.temppath[x].lng);
+                console.log(temparr);
+                temparrval=[];
+                temparrval.push(this.temppath[x].lng);
+                temparrval.push(this.temppath[x].lat);
+                console.log(temparrval);
+
+                // temparr.push({lng:this.temppath[x].lng,lat:this.temppath[x].lat});
+                temparr.push(temparrval);
+            }
             let polyshape: any = {
                 fencename: this.polyname,
-                fencecoordinates: this.temppath
+                fencecoordinates: temparr,
+                fencecheckbox: false
             }
             console.log(polyshape);
             this.fence.push(polyshape);
             console.log('polyshape details ');
-            console.log(this.fence);
-            this.polyshape = this.fence[0];
-            this.polyshapename = this.fence[0].fencename;
+             console.log(this.fence);
+           /* for (let j in this.fence) {
+                console.log(this.fence[j]);
+                this.show.push(this.fence[j]);
+            }*/
+            // this.polyshape = this.fence[0];
+            // this.polyshapename = this.fence[0].fencename;
         }
         this.temppath = [] ;
-
 /* this.updatefence(data);*/
     }
     /* updatefence(data) {
@@ -945,6 +999,7 @@ else{
         // this.temppath.push({lat:$event.coords.lat,lng:$event.coords.lng});
         this.temppath.push($event.coords);
         console.log(this.temppath);
+        console.log('this.patharr');
         console.log(this.patharr);
         if (this.temppath.length == 2) {
             // this.patharr.push(this.paths1);
@@ -962,7 +1017,84 @@ else{
             // this.patharr[this.patharr.length-1]=this.temppath;
         }
     }
+    deletepolyshape( item: any ) {
+        console.log('fence total');
+        console.log(this.fence);
+        let indexval: any = this.fence.indexOf(item);
+        console.log('-----------------');
+        console.log('-----------------');
+        console.log(indexval);
+         this.fence.splice(indexval, 1);
+         this.patharr.splice(indexval, 1);
+        // console.log('fence after poprr');
+        // console.log(this.fence);
+    }
 
+    mapdelete() {
+        // console.log(this.polydelete);
+        if (this.polydelete == 'removeall') {
+            this.fence = [];
+            this.patharr = [];
+            this.polydelete = 'Actions';
+        }
+        if (this.polydelete == 'removeselected') {
+            console.log('removeselected');
+            for (let i in this.fence) {
+                if ( this.fence[i].fencecheckbox == true ) {
+                    this.fence.splice(i,1);
+                    this.patharr.splice(i,1);
+                }
+                this.polydelete = 'Actions';
+            }
+        }
 
+    }
+
+    allcheck() {
+        setTimeout(() => {
+            console.log(this.checkuncheck);
+            if (this.checkuncheck == true) {
+                for (let i in this.fence) {
+                    this.fence[i].fencecheckbox = true;
+                }
+            }
+            if (this.checkuncheck == false) {
+                for (let i in this.fence) {
+                    this.fence[i].fencecheckbox = false;
+                }
+            }
+        }, 400);
+    }
+
+    savepolygon() {
+       /* console.log('before change');
+        console.log(this.fence);*/
+        // console.log(this.fence[0].fencecoordinates);
+/*        for (let i in this.fence) {
+            for (let j in this.fence[i].fencecoordinates) {
+                console.log('before change');
+                console.log(this.fence[i].fencecoordinates[j].lng);
+
+                /!*this.lattitude = this.fence[i].fencecoordinates[j].lng;
+                this.fence[i].fencecoordinates[j].lng = this.fence[i].fencecoordinates[j].lat;
+                this.fence[i].fencecoordinates[j].lat = this.lattitude;*!/
+                this.fence[i].fencecoordinates[j]={lng:this.fence[i].fencecoordinates[j].lng,lat:this.fence[i].fencecoordinates[j].lat};
+                console.log('after change');
+                console.log(this.fence[i].fencecoordinates[j].lng);
+            }
+        }*/
+       // this.link = 'http://simplyfi.influxiq.com/putgeofence.php';
+        this.link = 'http://simplyfi.influxiq.com/putgeoconversion.php';
+        this._http.post(this.link, JSON.stringify(this.fence))
+            .subscribe(res => {
+                this.polygonresult = res.json();
+            }, error => {
+                console.log('Oooops!');
+            });
+       setTimeout(() => {
+        console.log('after change');
+        console.log(this.fence);
+        }, 400);
+    }
 
 }
