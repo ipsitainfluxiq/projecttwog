@@ -37,6 +37,9 @@ export class CreateAudienceComponent implements OnInit {
   public key: any;
   public link;
   public divshow1;
+  public parent_locations: any = [];
+  public selected_locations: any = [];
+  public details: any = [];
   public getresult1: any;
   public result;
   public rand: any;
@@ -77,23 +80,59 @@ export class CreateAudienceComponent implements OnInit {
               console.log('geofencesss___lat');
               this.temppath.push({lat: this.getresult1.geo_fences[y].bid_area.coordinates[0][a][1], lng: this.getresult1.geo_fences[y].bid_area.coordinates[0][a][0]});
             }
-           // console.log('this.temppath__before null------------------');
-           // console.log(this.temppath);
             this.patharr.push(this.temppath);
             this.temppath = [];
           }
-        //  console.log('patharr------???');
-        //  console.log(this.patharr);
         }, error1 => {
           console.log('Oooops!');
         });
 
     console.log('temppath null done??');
     console.log(this.temppath.length);
-    /*    this.patharr = [];*/
+    this.parent_locations = [];
+    this.link = 'http://simplyfi.influxiq.com/updateaudience.php';
+    this._http.get(this.link)
+        .subscribe(res => {
+          this.parent_locations = res.json();
+          for ( let c in this.parent_locations.geo_targets) {
+            this.details[c] = this.parent_locations.geo_targets[c];
+          }
+        }, error => {
+          console.log('Oooops!');
+        });
   }
 
   ngOnInit() {
+  }
+  addtolist(id, name) {
+    this.selected_locations.push({attr_id: id, attr_name: name});
+    console.log(this.selected_locations);
+  }
+  childlist(id) {
+    console.log('childlist');
+    this.parent_locations = [];
+    this.details = [];
+    this.link = 'http://simplyfi.influxiq.com/getchildlist.php?parent_id=' + id;
+    this._http.get(this.link)
+        .subscribe(res => {
+          this.parent_locations = res.json();
+          console.log(this.parent_locations);
+          for ( let c in this.parent_locations.geo_targets) {
+            this.details[c] = this.parent_locations.geo_targets[c];
+          }
+        }, error => {
+          console.log('Oooops!');
+        });
+  }
+  submitlocation(selected_locations) {
+    this.link = 'http://simplyfi.influxiq.com/putlocation.php';
+    this._http.post(this.link, selected_locations)
+        .subscribe(res => {
+          this.result = res.json();
+          // console.log(this.result);
+        }, error => {
+          console.log('Oooops!');
+        });
   }
   sendtype(type) {
     if (type == 1) {

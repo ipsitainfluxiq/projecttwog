@@ -151,6 +151,69 @@
 
               <tabset>
                 <tab heading="Locations">
+                 <!-- <p>Selectable Locations</p>
+                  <tr *ngFor="let item of details; let i=index">
+                  <td>{{item}}</td>
+                  </tr>-->
+
+
+                  <div class="location_tablewrapper">
+
+                    <h6>Available Locations </h6>
+
+                  <table>
+                    <tr>
+                      <td>
+                        <div class="location_heading">
+                          <h2>Selected Locations</h2>
+                          <span></span>
+                          <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="location_contain">
+                          <ul *ngFor="let item of selected_locations; let i=index">
+                            <li><label>{{item.attr_name}}</label></li>
+                          </ul>
+                             <!-- <span class="nolocation">No Data</span>-->
+                        </div>
+
+
+                      </td>
+
+                      <td>&nbsp;</td>
+                      <td>
+                        <div class="location_heading">
+                          <!--<h2 class="backlocation">Selectable Locations</h2>-->
+                          <h2>Selectable Locations</h2>
+                          <span class="searchbar_location"></span>
+                          <div class="clearfix"></div>
+
+                        </div>
+
+                        <div class="location_contain">
+
+                          <ul *ngFor="let item of details; let i=index">
+
+                         <li><img src="assets/images/location_menuicon.png" alt="#" class="loc_img1" (click)="addtolist(item.id,item.name)"/> <label>{{item.name}}</label><img src="assets/images/location_arrow_right.png"  alt="#" class="loc_img2" (click)="childlist(item.id)"/></li>
+
+                          </ul>
+
+
+                        </div>
+
+
+                      </td>
+
+
+                    </tr>
+
+
+                  </table>
+                    <input type="button"  value="Ok" (click)="submitlocation(selected_locations)"/>
+                  </div>
+
+
                 </tab>
                 <tab heading="Geo Fencing" (select)="initializeval()" >
                   <div class="GeoJSON_block"> <span>Upload GeoJSON</span></div>
