@@ -148,7 +148,7 @@ export class CampaignsettingsComponent implements OnInit {
     ]]*/
 
     constructor(addcookie: CookieService, private _http: Http) {
-        this.polydelete='Actions';
+        this.polydelete = 'Actions';
         this.impressions_f = '';
         this.p_hour = 'Select';
         this.oba = 'Select';
