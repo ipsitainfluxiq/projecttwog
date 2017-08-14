@@ -15,12 +15,15 @@ import {TrialComponent} from 'app/trial/trial.component';
 import {CampaignsettingsComponent} from 'app/campaignsettings/campaignsettings.component';
 import {CreateAudienceComponent} from 'app/create-audience/create-audience.component';
 import {CampaignlistComponent} from 'app/campaignlist/campaignlist.component';
+import {HeaderComponent} from 'app/header/header.component';
+import {SummaryComponent} from 'app/summary/summary.component';
+import {TestComponent} from 'app/test/test.component';
 
 
 const appRoutes: Routes = [
 
    // { path: '', component: OrderformComponent},
-    //{ path: 'simplesolution', component: SimplesolutionComponent},
+    // { path: 'simplesolution', component: SimplesolutionComponent},
     { path: '', component: SimplesolutionComponent},
     { path: 'basicinformation', component: BasicinformationComponent},
     { path: 'confirmation', component: ConfirmationComponent},
@@ -28,6 +31,9 @@ const appRoutes: Routes = [
     { path: 'campaignsettings', component: CampaignsettingsComponent},
     { path: 'createaudience', component: CreateAudienceComponent},
     { path: 'campaignlist', component: CampaignlistComponent},
+    { path: 'header', component: HeaderComponent},
+    { path: 'summary', component: SummaryComponent},
+    { path: 'test', component: TestComponent},
 
 ];
 

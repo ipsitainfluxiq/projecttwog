@@ -1,4 +1,4 @@
-<div class="top_banner_body">
+<!--<div class="top_banner_body">
   <div class="top_banner_wrapper">
     <img src="../../assets/images/geoai_logo.jpg"  class="geoai_logo"/>
     <img src="../../assets/images/geoai_top_banner.jpg" class="geoai_top_banner" />
@@ -19,7 +19,8 @@
 
     <div class="clearfix"></div>
   </div>
-</div>
+</div>-->
+<app-header></app-header>
 <div class="fieldset_wrapper">
 
   <div class="pageheading">Order Form</div>
@@ -37,6 +38,7 @@
 <div class="content" id="basic_information">
   <fieldset>
     <legend>Advertiser Information</legend>
+    <div *ngIf="error">{{error}}</div>
     <div class="geoai_formwrapper">
       <div class="geoai_form_con">
         <label for="Sales_Rep_Name__c">Sales Rep</label>

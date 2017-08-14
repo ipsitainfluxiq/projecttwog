@@ -11,14 +11,18 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { TrialComponent } from './trial/trial.component';
 import { CampaignsettingsComponent } from './campaignsettings/campaignsettings.component';
 import {DatepickerModule} from 'ngx-bootstrap/datepicker';
+ import {UiSwitchModule} from 'angular2-ui-switch';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { CreateAudienceComponent } from './create-audience/create-audience.component';
 import { OnlyNumberDirective } from './directives/only_number';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CampaignlistComponent } from './campaignlist/campaignlist.component';
-import { IonRangeSliderModule } from "ng2-ion-range-slider";
+import { IonRangeSliderModule } from 'ng2-ion-range-slider';
 import { AgmCoreModule } from '@agm/core';
+import { HeaderComponent } from './header/header.component';
+import { SummaryComponent } from './summary/summary.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,10 @@ import { AgmCoreModule } from '@agm/core';
     CampaignsettingsComponent,
     CreateAudienceComponent,
     OnlyNumberDirective,
-    CampaignlistComponent
+    CampaignlistComponent,
+    HeaderComponent,
+    SummaryComponent,
+    TestComponent
 
   ],
   imports: [
@@ -43,6 +50,7 @@ import { AgmCoreModule } from '@agm/core';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     IonRangeSliderModule,
+    UiSwitchModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA2_vmiwMYMoLIAyN5Bb1C8XZYOyQwIq8U'
     })

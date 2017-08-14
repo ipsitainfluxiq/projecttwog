@@ -3,10 +3,12 @@
  */
 var express = require('express');
 var app = express();
-var port = process.env.PORT || 3004;
+//var port = process.env.PORT || 3004;
+var port = process.env.PORT || 3014;
 var request = require('request');
 var cheerio = require('cheerio');
 var http = require('http').Server(app);
+var mailer = require("nodemailer");
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({ parameterLimit: 10000000,
     limit: '90mb'}));
@@ -41,8 +43,181 @@ console.log("connected");
     }});
 
 /*-----------------------------------------------------------------(start_for_geoai)------------------------------------------------------------------------*/
+app.post('/simplesolution' , function (req,resp) {
+    var collection = db.collection('simplesolution');
+/*console.log('req.body');
+console.log(req.body);
+console.log('req.body.audiences_automative');
+console.log(req.body.audiences_automative);
+console.log('req.body.audiences_buisness_employment_account_bank');
+console.log(req.body.audiences_buisness_employment_account_bank);
+console.log('show?');*/
+collection.insert([req.body],
+    function(err, result) {
+    if (err){
+        console.log('err');
+        resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
+    }
+    else{
+        console.log(result);
+        resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
+    }
+});
+});
 
-/*-----------------------------------------------------------------(end_for_geoai)--------------------------------------------------------------------------*/
+app.post('/basicinformation' , function (req,resp) {
+    var collection = db.collection('basicinformation');
+    var o_id = new mongodb.ObjectID(req.body.simplesolutionid);
+    console.log('req.body');
+    console.log(req.body);
+    collection.insert([req.body],
+    function(err, result) {
+    if (err){
+        console.log('err');
+        resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
+    }
+    else{
+       // console.log(result);
+        var dataupdate = {
+            simplesolutionid: o_id,
+        }
+        collection.update({ _id:result.ops[0]._id}, {$set: dataupdate}, true, true);
+        resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
+    }
+});
+});
+
+
+app.post('/confirmation', function (req,resp) {
+    var html='<table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;font-family: Arial, Helvetica, sans-serif; margin: 0 auto;overflow-wrap: break-word;word-wrap: break-word;  hyphens: auto;  -ms-hyphens: auto; -moz-hyphens: auto; -webkit-hyphens: auto; hyphens: auto;"> <tr> <td style="text-align: center; vertical-align: top; font-size: 0; background:#e5e7e0; padding: 0px;"> <!--[if (gte mso 9)|(IE)]> <table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="margin:0px;"> <tr> <td style="padding: 0px;"> <![endif]--> <div style="display: block; width: 100%; margin: 0; padding: 0;"> <div style="width: 100%; margin: 0 auto; display: block;"> <a  href="javascript:void(0);" target="_blank" style="display:inline-block;margin: 16px auto 10px; background-color: #fff; padding: 10px;border: 1px solid #dfdcd6;"> <img src="http://geoai.influxiq.com/assets/images/geoai_logo.jpg" style="max-width: 100%;" alt="#"> </a> </div> <div style="width: 100%; margin: 0 auto; display: block;"> <h2 style="text-transform:uppercase; font-size:24px; font-weight: bold; color:#1979c3; line-height:25px; text-align: center; margin: 0; padding: 10px 0 20px 0 !important;text-decoration: none;display: block;">Order Information From GEOAI</h2> </div>  <div style="width: 100%; margin: 0 auto; display: block;"> <div style="width: 94%;margin: 0 auto 20px;display: block;border: 1px solid #bcbcbc;padding: 5px;background: #fff;">';
+
+    var o_id = new mongodb.ObjectID(req.body.id);
+    var collection = db.collection('simplesolution').aggregate([
+        { "$match": { "_id": o_id } },
+        {
+            $lookup: {
+                from: "basicinformation",
+                localField: "_id",
+                foreignField: "simplesolutionid",
+                as: "Userlogindata"
+            }
+        },
+        { "$unwind": "$Userlogindata" },
+    ]);
+    var val = [];
+    collection.toArray(function (err, items) {
+    //    resp.send(JSON.stringify(items));
+
+console.log(items.length);
+           for(i in items[0]){
+           //console.log(i);
+           //console.log(items[0]);
+               var i1;
+          if(items[0][i].length>1 || items[0][i]==true){
+                html+=' <div style="width: 44%;overflow: hidden;display: inline-block;vertical-align: top;padding: 0% 1% 0% 1%;"> <div style="text-transform:capitalize; font-size:16px; font-weight: normal; color:#1b1b1b; line-height:18px; vertical-align: middle; text-align: left; margin: 0; padding: 10px 0 10px 0 !important;text-decoration: none;display: block;">'+i.replace("_", " ")+':</div> </div> <div style="width: 50%;display: inline-block;vertical-align: top;padding: 0% 2% 0% 1%;"> <div style="text-transform:none; font-size:16px; font-weight: normal; color:#1b1b1b; line-height:18px; vertical-align: middle; text-align: left; margin: 0; padding: 10px 0 10px 20px !important;text-decoration: none;display: block;">'+items[0][i]+'</div> </div><div class="clearfix"></div>';
+
+            }
+
+}
+
+
+
+        //for(i in items[0]){
+            //console.log(i);
+            //console.log(items[0]);
+            var i1;
+
+            for(i1 in items[0].Userlogindata) {
+                if (items[0].Userlogindata[i1].length > 1) {
+                    html += ' <div style="width: 44%;overflow: hidden;display: inline-block;vertical-align: top;padding: 0% 1% 0% 1%;"> <div style="text-transform:capitalize; font-size:16px; font-weight: normal; color:#1b1b1b; line-height:18px; vertical-align: middle; text-align: left; margin: 0; padding: 10px 0 10px 0 !important;text-decoration: none;display: block;">' + i1.replace("_", " ") + ':</div> </div> <div style="width: 50%;display: inline-block;vertical-align: top;padding: 0% 2% 0% 1%;"> <div style="text-transform:none; font-size:16px; font-weight: normal; color:#1b1b1b; line-height:18px; vertical-align: middle; text-align: left; margin: 0; padding: 10px 0 10px 20px !important;text-decoration: none;display: block;">' + JSON.stringify(items[0].Userlogindata[i1]) + '</div> </div><div class="clearfix"></div>';
+
+                }
+            }
+       // }
+
+html+='</div></div> ';
+        html+='</div> <!--[if (gte mso 9)|(IE)]> </td> </tr> </table> <![endif]--> </td> </tr> </table>';
+
+        var smtpTransport = mailer.createTransport("SMTP", {
+            service: "Gmail",
+            auth: {
+                user: "itplcc40@gmail.com",
+                pass: "DevelP7@"
+            }
+        });
+
+        var mail = {
+            from: "Admin <ipsitaghosal1@gmail.com>",
+            // to: req.body.email,
+            to: 'ipsita.influxiq@gmail.com',
+            subject: 'Welcome to Admin Management System',
+            html:html,
+        }
+
+        smtpTransport.sendMail(mail, function (error, response) {
+            console.log('send');
+            smtpTransport.close();
+        });
+
+        });
+
+    resp.send(JSON.stringify({'status': 'success'}));
+});
+
+
+app.get('/viewlogindetails', function (req, resp) {
+    var collection1 = db.collection('users');
+    var collection = db.collection('users').aggregate([
+
+        { "$match": { "type": 3 } },
+        {
+            $lookup: {
+                from: "ipaddress",
+                localField: "email",
+                foreignField: "mailid",
+                as: "Userlogindata"
+            }
+        },
+        /*{$match:{"Userlogindata._id":new mongodb.ObjectID('591d68b3957b8c55328d5cc3')}},*/
+        { "$unwind": "$Userlogindata" },
+        {$match:{"Userlogindata.type":0}},
+
+
+    ]);
+    collection.toArray(function (err, items) {
+        resp.send(JSON.stringify(items));
+
+    });
+});
+app.get('/getdetails11', function (req,resp) {
+
+    var smtpTransport = mailer.createTransport("SMTP", {
+        service: "Gmail",
+        auth: {
+            user: "itplcc40@gmail.com",
+            pass: "DevelP7@"
+        }
+    });
+
+    var mail = {
+        from: "Admin <ipsitaghosal1@gmail.com>",
+        // to: req.body.email,
+        to: 'ipsita.influxiq@gmail.com',
+        subject: 'Welcome to Admin Management System',
+        //  html: '<p> '+senddetails+' </p>'
+        html: '<p>HIIIIIIIIIIIIIIIII </p>'
+    }
+
+    smtpTransport.sendMail(mail, function (error, response) {
+        console.log('send');
+        smtpTransport.close();
+    });
+    resp.send(JSON.stringify({'status':'done'}));
+});
+/*-----------------------------------------------------------------(end_for_geoai)
+--------------------------------------------------------------------------*/
+
+
 
 /*-----------------------------------------------------------------(start)----------------------------------------------------------------------------------*/
 app.get('/getdetails', function (req,resp) {

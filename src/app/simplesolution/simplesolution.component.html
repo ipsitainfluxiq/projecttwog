@@ -1,5 +1,5 @@
-
-<div class="top_banner_body">
+<app-header></app-header>
+<!--<div class="top_banner_body">
   <div class="top_banner_wrapper">
     <img src="../../assets/images/geoai_logo.jpg"  class="geoai_logo"/>
     <img src="../../assets/images/geoai_top_banner.jpg" class="geoai_top_banner" />
@@ -22,7 +22,7 @@
 
     <div class="clearfix"></div>
   </div>
-</div>
+</div>-->
 <div class="fieldset_wrapper">
 
   <div class="pageheading">Order Form</div>
@@ -45,6 +45,7 @@
   Introducing Simple Solutions™, a simple way to grow your digital revenues by offering your local advertisers advanced audience targeting, powered by unstructured data. Simple Solutions is a suite of products designed to make selling and ordering on the Simpli.fi platform easy and profitable.
 </h6>
 <!--<form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">-->
+  <div *ngIf="error" class="has-error">{{error}}</div>
 <div *ngIf="b==true" class="allradios" class="labelinputtext">
   <div ngClass="{{haserrorcls('Simply_Solutions__c')}}">
     <div class="showerror" ngClass="{{showerrorcls('Simply_Solutions__c')}}">You must choose a Simple Solution.</div>

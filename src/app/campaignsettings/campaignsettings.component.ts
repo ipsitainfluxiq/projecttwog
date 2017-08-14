@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {CookieService} from 'angular2-cookie/core';
 import {Http} from '@angular/http';
-import {LatLngLiteral} from '@agm/core';
+import {LatLngBounds, LatLngLiteral} from '@agm/core';
+import { MapsAPILoader } from '@agm/core';
+import {map} from 'rxjs/operator/map';
+import { Observable } from 'rxjs/Observable';
+
 declare var $: any;
 @Component({
     selector: 'app-campaignsettings',
@@ -131,7 +135,12 @@ export class CampaignsettingsComponent implements OnInit {
         {lat: 24.774, lng: -81.190}
     ]
     private temppath: Array<LatLngLiteral>= [];
+    private allcoordinates: Array<LatLngLiteral>= [];
     private polygonresult: any;
+    private sizeerrors: any;
+    private fence_length: string;
+    private bounds: any=[];
+    private rand1: number;
     // Nesting paths will create a hole where they overlap;
     /*nestedPaths: Array<Array<LatLngLiteral>> = [[
         { lat: 0,  lng: 10 },
@@ -147,7 +156,7 @@ export class CampaignsettingsComponent implements OnInit {
         { lat: 0, lng: 15 }
     ]]*/
 
-    constructor(addcookie: CookieService, private _http: Http) {
+    constructor(addcookie: CookieService, private _http: Http ,private mapsAPILoader: MapsAPILoader) {
         this.polydelete = 'Actions';
         this.impressions_f = '';
         this.p_hour = 'Select';
@@ -163,7 +172,6 @@ export class CampaignsettingsComponent implements OnInit {
         this.cookiedetails = this.addcookie.getObject('cookiedetails');
         console.log('cookiedetails');
         console.log('get id from saved cookie ->  ' + this.cookiedetails);
-
         if (this.cookiedetails == null || this.cookiedetails == '' || typeof (this.cookiedetails) == 'undefined') {
             this.loadervalue = true;
             console.log('create it');
@@ -172,8 +180,62 @@ export class CampaignsettingsComponent implements OnInit {
             this.loadervalue = false;
             console.log('do nothing');
 
+            this.link1 = 'http://simplyfi.influxiq.com/getgeoconversion.php?id=' + this.cookiedetails ;
+            this._http.get(this.link1)
+                .subscribe(res => {
+                    this.getresult1 = res.json();
+                    console.log('getresult');
+                    console.log(this.getresult1);
+                    let y;
+                    this.patharr = [];
 
-           /* // this.link1 = 'http://simplyfi.influxiq.com/getgeoofence.php?id='+this.cookiedetails+'/geo_fences';
+                    /*if(this.getresult1.geo_fences[w].geo_fence_type_name == 'Conversion') {*/
+                    for (y in this.getresult1.geo_fences) {
+                        if (this.getresult1.geo_fences[y].geo_fence_type_name == 'Conversion') {
+                            this.fence.push({
+                                fencename: this.getresult1.geo_fences[y].name,
+                                fencecheckbox: false,
+                                fencecoordinates: this.getresult1.geo_fences[y].bid_area.coordinates[0]
+                            });
+                            console.log('is it complete?');
+                            console.log(this.fence);
+                            this.fence_length = this.fence.length + ' Geo Fence';
+                            console.log(this.fence_length);
+                            let a: any;
+                            this.temppath = [];
+                            for (a in this.getresult1.geo_fences[y].bid_area.coordinates[0]) {
+                                console.log('geofencesss___lat');
+                                this.temppath.push({
+                                    lat: this.getresult1.geo_fences[y].bid_area.coordinates[0][a][1],
+                                    lng: this.getresult1.geo_fences[y].bid_area.coordinates[0][a][0]
+                                });
+
+                                this.allcoordinates.push({
+                                    lat: this.getresult1.geo_fences[y].bid_area.coordinates[0][a][1],
+                                    lng: this.getresult1.geo_fences[y].bid_area.coordinates[0][a][0]
+                                });
+
+                            }
+                            this.patharr.push(this.temppath);
+                            this.temppath = [];
+                        }
+                    }
+                    /* ----------------------------------------------------------------------*/
+                    this.mapsAPILoader.load().then(() => {
+                        this.bounds = new window['google'].maps.LatLngBounds();
+                        for (let i = 0; i <  this.allcoordinates.length; i++) {
+                            this.bounds.extend( this.allcoordinates[i]);
+                        }
+                    });
+                    /* -----------------------------------------------------------------------*/
+                }, error1 => {
+                    console.log('Oooops!');
+                });
+
+
+            console.log('*******************allcoordinates in one array******************');
+            console.log(this.allcoordinates);
+            /* // this.link1 = 'http://simplyfi.influxiq.com/getgeoofence.php?id='+this.cookiedetails+'/geo_fences';
            // this.link1 = 'http://simplyfi.influxiq.com/getgeoofence.php/602417/geo_fences';
             this.link1 = 'http://simplyfi.influxiq.com/getgeoofence.php/'+this.cookiedetails+'/geo_fences';
             this._http.get(this.link1)
@@ -420,6 +482,7 @@ export class CampaignsettingsComponent implements OnInit {
         this.p_hour = 'Select';
         this.bidding_type = 'cpm_bidding';
         this.obas = ['Select', 'Evidon', 'Truste', 'OBA Compliance already present'];
+
         this.oba = 'Select';
         this.m_name = 'by CPM';
     }
@@ -469,7 +532,7 @@ export class CampaignsettingsComponent implements OnInit {
         if (this.temppath.length != 0) {
             this.rand = Math.round((Math.random() * 10) * 10);
             this.polyname = 'polygon' + this.rand;
-            //let temparr:Array<LatLngLiteral>=[];
+            // let temparr:Array<LatLngLiteral>=[];
             let temparr:Array<any>=[];
             let temparrval:Array<any>=[];
             let x:any;
@@ -493,8 +556,8 @@ export class CampaignsettingsComponent implements OnInit {
             console.log(polyshape);
             this.fence.push(polyshape);
             console.log('polyshape details ');
-             console.log(this.fence);
-           /* for (let j in this.fence) {
+            console.log(this.fence);
+            /* for (let j in this.fence) {
                 console.log(this.fence[j]);
                 this.show.push(this.fence[j]);
             }*/
@@ -521,21 +584,25 @@ export class CampaignsettingsComponent implements OnInit {
         this.clickthrupercentage1 = 0;
         this.viewattrval = 30;
         this.clickattrval = 30;
-        this.link = 'http://simplyfi.influxiq.com/create_campaign1.php' ;
+        this.rand1 = Math.round((Math.random() * 10) * 10);
+        this.link = 'http://simplyfi.influxiq.com/create_campaign1.php?v='+this.rand1 ;
         this.data = {} ;
         this._http.get(this.link)
             .subscribe(res => {
+                //    console.log(res);
                 this.result = res.json();
                 console.log('created');
-                console.log(this.result);
                 this.loadervalue = false;
                 this.addcookie.putObject('cookiedetails', this.result.campaigns[0].id);
+                console.log('id +++++++++++'+ this.result.campaigns[0].id);
                 this.cookiedetails = this.addcookie.getObject('cookiedetails');
                 console.log('after putobject ' + this.cookiedetails);
                 this.newcreatedcampaignid = this.result.campaigns[0].id;
                 this.newcreatedcampaignname = this.result.campaigns[0].name;
+                this.name = this.result.campaigns[0].name;
                 // console.log(this.newcreatedcampaignname);
                 console.log('id of new created campaign ->  ' + this.newcreatedcampaignid);
+                console.log('nameof new created campaign ->  ' + this.newcreatedcampaignname);
             }, err => {
                 console.log('Ooops');
             } );
@@ -1024,8 +1091,8 @@ else{
         console.log('-----------------');
         console.log('-----------------');
         console.log(indexval);
-         this.fence.splice(indexval, 1);
-         this.patharr.splice(indexval, 1);
+        this.fence.splice(indexval, 1);
+        this.patharr.splice(indexval, 1);
         // console.log('fence after poprr');
         // console.log(this.fence);
     }
@@ -1041,8 +1108,8 @@ else{
             console.log('removeselected');
             for (let i in this.fence) {
                 if ( this.fence[i].fencecheckbox == true ) {
-                    this.fence.splice(i,1);
-                    this.patharr.splice(i,1);
+                    this.fence.splice(i, 1);
+                    this.patharr.splice(i, 1);
                 }
                 this.polydelete = 'Actions';
             }
@@ -1067,7 +1134,7 @@ else{
     }
 
     savepolygon() {
-       /* console.log('before change');
+        /* console.log('before change');
         console.log(this.fence);*/
         // console.log(this.fence[0].fencecoordinates);
 /*        for (let i in this.fence) {
@@ -1083,17 +1150,26 @@ else{
                 console.log(this.fence[i].fencecoordinates[j].lng);
             }
         }*/
-       // this.link = 'http://simplyfi.influxiq.com/putgeofence.php';
+        // this.link = 'http://simplyfi.influxiq.com/putgeofence.php';
         this.link = 'http://simplyfi.influxiq.com/putgeoconversion.php';
-        this._http.post(this.link, JSON.stringify(this.fence))
+        let data = {
+            fence: JSON.stringify(this.fence),
+            id: this.cookiedetails
+        };
+        // this._http.post(this.link, JSON.stringify(this.fence))
+        this._http.post(this.link, data)
             .subscribe(res => {
                 this.polygonresult = res.json();
+                console.log('+++++++++++++++++++++++++++++++++++this.polygonresult+++++++++++++++++++++++++');
+                console.log(this.polygonresult);
+                console.log(this.polygonresult.errors);
+                this.sizeerrors = this.polygonresult.errors;
             }, error => {
                 console.log('Oooops!');
             });
-       setTimeout(() => {
-        console.log('after change');
-        console.log(this.fence);
+        setTimeout(() => {
+            console.log('after change');
+            console.log(this.fence);
         }, 400);
     }
 

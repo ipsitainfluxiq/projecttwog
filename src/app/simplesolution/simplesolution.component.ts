@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {CookieService} from 'angular2-cookie/core';
+
 declare  var $: any;
 @Component({
   selector: 'app-simplesolution',
@@ -8,7 +10,6 @@ declare  var $: any;
   styleUrls: ['./simplesolution.component.css']
 })
 export class SimplesolutionComponent implements OnInit {
-
 
   public datareq: any = [];
   public pushval: any = [];
@@ -718,10 +719,14 @@ export class SimplesolutionComponent implements OnInit {
   public isopen138: any= 'hide';
   public isopen139: any= 'hide';
   public isopen140: any= 'hide';
+  public result: any;
+  private addcookie: CookieService;
+  private cookiedetails;
+  public error: any;
 
-
-
-  constructor(private _http: Http, private router: Router) {
+  constructor(private _http: Http, private router: Router, addcookie: CookieService) {
+    this.addcookie = addcookie ;
+    this.cookiedetails = this.addcookie.getObject('cookiedetails');
     this.simply_display=true;
     this.simply_tablet=true;
     this.simply_mobile=true;
@@ -4174,7 +4179,7 @@ export class SimplesolutionComponent implements OnInit {
   haserrorcls(cntrlname) {
 
       if (cntrlname == 'Simply_Solutions__c') {
-        if (this.simply_geo != undefined || this.simply_premium != undefined || this.simply_audiences != undefined || this.simply_intent != undefined || this      .simply_reach != undefined) {
+        if (typeof(this.simply_geo) != undefined || typeof(this.simply_premium) != undefined || typeof(this.simply_audiences) != undefined || typeof(this.simply_intent) != undefined || typeof(this.simply_reach) != undefined) {
           return '';
         }
         else {
@@ -4295,10 +4300,11 @@ export class SimplesolutionComponent implements OnInit {
 /*    if (    (this.simply_geo!= undefined || this.simply_premium!= undefined || this.simply_audiences!= undefined || this.simply_intent!= undefined || this.simply_reach!= undefined) &&  (this.simply_display == true || this.simply_tablet == true || this.simply_mobile == true || this.premium_news==true || this.premium_buisness==true || this.premium_politics==true || this.premium_sports==true || this.premium_arts==true || this.premium_shopping==true || this.intent_audiencetype!=undefined)    )*/
 
     {
-      /*var link = 'http://influxiq.com:3001/values';*/
+    //  let link = 'http://localhost:3004/simplesolution';
+      let link = 'http://influxiq.com:3014/simplesolution';
 
 
-    var data = {
+    let data = {
       simply_geotargeting: this.simply_geotargeting,
       simply_geofencing: this.simply_geofencing,
       simply_display: this.simply_display,
@@ -4853,30 +4859,43 @@ export class SimplesolutionComponent implements OnInit {
       reach_audiencemirror: this.reach_audiencemirror
     };
 
-   /* this._http.post(link, data)
-        .subscribe(res => {*/
+      console.log('data object values-> ');
+      console.log(data);
+      console.log('audiences_automative_fuel  '+this.audiences_automative_fuel);
+      for (let i in data) {
+        if(typeof (data[i])!= 'undefined'){
+          this.datareq[i]=data[i];
+          data[i]=data[i];
+        } else{
+          this.datareq[i]='';
+          data[i]='';
+        }
+      }
+    //  console.log(this.datareq);
 
-   console.log(data);
-         for (let i in data) {
-        if(data[i]!= undefined){
-         /*var validdata = data[i];*/
-         this.datareq[i]=data[i];
-      }
-      }
-      console.log(this.datareq);
-      console.log("value");
-       //  console.log($('.nav nav-wizard').find('li').length);
-     // $('.nav nav-wizard').find('li').eq(0).removeClass('active');
-     // $('.nav nav-wizard').find('li').eq(1).addClass('active');
-          this.router.navigate(['/basicinformation']);
-       /* }, error => {
-          console.log("Oooops!");
-        });*/
-  }
-  else{
+      this._http.post(link, data)
+          .subscribe(res => {
+            let result=res.json();
+            console.log('result');
+            console.log(result);
+            if(result.status =='success') {
+              this.addcookie.putObject('cookiedetails', result.id);    // Value of result.msg is inserted to userdetails
+              this.cookiedetails = this.addcookie.getObject('cookiedetails');
+              console.log('after putobject ');
+              console.log(this.cookiedetails);
+              this.router.navigate(['/basicinformation']);
+            }
+            else {
+              this.error = result.status;
+            }
+          }, error => {
+            console.log('Ooops');
+          });
+    }
+    else {
       this.router.navigate(['/']);
     }
-}
+  }
 
 }
 
