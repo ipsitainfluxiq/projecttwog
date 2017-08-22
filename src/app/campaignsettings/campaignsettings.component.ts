@@ -156,7 +156,9 @@ export class CampaignsettingsComponent implements OnInit {
         { lat: 0, lng: 15 }
     ]]*/
 
-    constructor(addcookie: CookieService, private _http: Http ,private mapsAPILoader: MapsAPILoader) {
+
+    constructor(addcookie: CookieService, private _http: Http , private mapsAPILoader: MapsAPILoader) {
+
         this.polydelete = 'Actions';
         this.impressions_f = '';
         this.p_hour = 'Select';
@@ -594,7 +596,7 @@ export class CampaignsettingsComponent implements OnInit {
                 console.log('created');
                 this.loadervalue = false;
                 this.addcookie.putObject('cookiedetails', this.result.campaigns[0].id);
-                console.log('id +++++++++++'+ this.result.campaigns[0].id);
+                console.log('id +++++++++++' + this.result.campaigns[0].id);
                 this.cookiedetails = this.addcookie.getObject('cookiedetails');
                 console.log('after putobject ' + this.cookiedetails);
                 this.newcreatedcampaignid = this.result.campaigns[0].id;

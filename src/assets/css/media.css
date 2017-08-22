@@ -1,0 +1,99 @@
+@media only screen and (max-width:991px) {
+
+    #signup_box {
+        height: auto!important;
+        min-height: 100vh!important;
+        padding-top: 0px!important;
+        padding-bottom: 0px!important;
+    }
+    .signup_middle {
+        height: auto!important;
+        min-height: 100vh!important;
+        padding-top: 20px!important;
+        padding-bottom: 20px!important;
+        background-size: cover;
+    }
+
+    .signup_middle_inner {
+        width: 90%;
+        margin: 0 auto;
+        display: block;
+        position: relative;
+        min-height: 659px;
+    }
+    .signup_middle_left {
+        text-align: center;
+        position: inherit;
+        top: 0;
+        left: 0;
+        transform: inherit;
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+    .signup_middle_right {
+        float: none;
+        margin: 0 auto;
+        display: block;
+    }
+    .signupbox_formwrapper {
+        margin: 0 auto;
+    }
+    .tripplecolumn_right{
+        padding-left: 0px;
+    }
+    .tripplecolumn_left{
+        padding-right: 0px;
+    }
+
+}
+@media only screen and (max-width:660px) {
+    .loginbox_formwrapper {  width: 90%;}
+
+    .rememberline{ width: 120px; float: none; margin: 0 auto;}
+
+
+    .login_bottomwrapper2 #login_box_iforget{ float: none!important; text-align: center!important; margin: 0 auto!important; padding-top: 10px!important; display:block; text-align: center; width: 100%!important; }
+
+    .login_box_wrapper{ height: auto!important; min-height: 100vh!important;  padding-top: 150px!important; padding-bottom: 150px!important;}
+    #login_box{height: auto!important;  min-height: 100vh!important; padding-top: 150px!important; padding-bottom: 150px!important;}
+    .notregistered{ display: block!important; width: 100%!important; text-align: center!important; float: none!important;}
+    .notregistered a{ display: inline-block;}
+}
+
+@media only screen and (max-width:540px) {
+    .signup_middle_left {
+        text-align: center;
+        position: inherit;
+        top: 0;
+        left: 0;
+        transform: inherit;
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width:480px) {
+    .signuptopbutton {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translate(-0%, -50%);
+    }
+    .signupbox_formwrapper {
+        width: 100%;
+    }
+    .tripplecolumn_left {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .tripplecolumn_middle {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .tripplecolumn_right {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}

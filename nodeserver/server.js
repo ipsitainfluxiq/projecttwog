@@ -3,8 +3,8 @@
  */
 var express = require('express');
 var app = express();
-//var port = process.env.PORT || 3004;
-var port = process.env.PORT || 3014;
+var port = process.env.PORT || 3004;
+//var port = process.env.PORT || 3014;
 var request = require('request');
 var cheerio = require('cheerio');
 var http = require('http').Server(app);
@@ -42,7 +42,93 @@ MongoClient.connect(url, function (err, database) {
 console.log("connected");
     }});
 
-/*-----------------------------------------------------------------(start_for_geoai)------------------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------(start_for_geoai)
+------------------------------------------------------------------------*/
+
+app.post('/signup' , function (req,resp) {
+    var collection = db.collection('signup');
+    var crypto = require('crypto');
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+    collection.insert([{
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            password: hash,
+            month: req.body.month,
+            day: req.body.day,
+            year: req.body.year,
+            phone: req.body.phone,
+            location: req.body.location,
+            state: req.body.state,
+        }],
+        function(err, result) {
+            if (err){
+                console.log('err');
+                resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
+            }
+            else{
+                console.log(result);
+                resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
+            }
+        });
+});
+
+app.post('/login', function (req, resp) {
+    console.log('callloginnn');
+    console.log(req.body.email);
+    console.log(req.body.password);
+    var crypto = require('crypto');
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+    var collection = db.collection('signup');
+    collection.find({ email:req.body.email }).toArray(function(err, items){
+        console.log('items[0]'); //admin_login details shown here
+        console.log(items[0]); //admin_login details shown here
+        if(items.length==0){
+            resp.send(JSON.stringify({'status':'error','msg':'Username invalid...'}));
+            return;
+        }
+        if(items.length>0 && items[0].password!=hash){
+            resp.send(JSON.stringify({'status':'error','msg':'Password Doesnot match'}));
+            return;
+        }
+        /* if(items.length>0 && items[0].status!=1){
+         resp.send(JSON.stringify({'status':'error','msg':'You are Blocked..'}));
+         return;
+         }*/
+        if(items.length>0 && items[0].password==hash){
+            resp.send(JSON.stringify({'status':'success','msg':items[0].email}));
+            return;
+        }
+    });
+});
+
+
+app.get('/userlist',function (req,resp) {
+
+    var collection = db.collection('signup');
+
+    collection.find().toArray(function(err, items) {
+
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify(items));
+        }
+
+    });
+
+});
+
+
+
 app.post('/simplesolution' , function (req,resp) {
     var collection = db.collection('simplesolution');
 /*console.log('req.body');
@@ -123,19 +209,19 @@ console.log(items.length);
 
 
         //for(i in items[0]){
-            //console.log(i);
-            //console.log(items[0]);
-            var i1;
+        //console.log(i);
+        //console.log(items[0]);
+        var i1;
 
-            for(i1 in items[0].Userlogindata) {
-                if (items[0].Userlogindata[i1].length > 1) {
-                    html += ' <div style="width: 44%;overflow: hidden;display: inline-block;vertical-align: top;padding: 0% 1% 0% 1%;"> <div style="text-transform:capitalize; font-size:16px; font-weight: normal; color:#1b1b1b; line-height:18px; vertical-align: middle; text-align: left; margin: 0; padding: 10px 0 10px 0 !important;text-decoration: none;display: block;">' + i1.replace("_", " ") + ':</div> </div> <div style="width: 50%;display: inline-block;vertical-align: top;padding: 0% 2% 0% 1%;"> <div style="text-transform:none; font-size:16px; font-weight: normal; color:#1b1b1b; line-height:18px; vertical-align: middle; text-align: left; margin: 0; padding: 10px 0 10px 20px !important;text-decoration: none;display: block;">' + JSON.stringify(items[0].Userlogindata[i1]) + '</div> </div><div class="clearfix"></div>';
+        for(i1 in items[0].Userlogindata) {
+            if (items[0].Userlogindata[i1].length > 1) {
+                html += ' <div style="width: 44%;overflow: hidden;display: inline-block;vertical-align: top;padding: 0% 1% 0% 1%;"> <div style="text-transform:capitalize; font-size:16px; font-weight: normal; color:#1b1b1b; line-height:18px; vertical-align: middle; text-align: left; margin: 0; padding: 10px 0 10px 0 !important;text-decoration: none;display: block;">' + i1.replace("_", " ") + ':</div> </div> <div style="width: 50%;display: inline-block;vertical-align: top;padding: 0% 2% 0% 1%;"> <div style="text-transform:none; font-size:16px; font-weight: normal; color:#1b1b1b; line-height:18px; vertical-align: middle; text-align: left; margin: 0; padding: 10px 0 10px 20px !important;text-decoration: none;display: block;">' + JSON.stringify(items[0].Userlogindata[i1]) + '</div> </div><div class="clearfix"></div>';
 
-                }
             }
-       // }
+        }
+        // }
 
-html+='</div></div> ';
+        html+='</div></div> ';
         html+='</div> <!--[if (gte mso 9)|(IE)]> </td> </tr> </table> <![endif]--> </td> </tr> </table>';
 
         var smtpTransport = mailer.createTransport("SMTP", {
@@ -214,6 +300,8 @@ app.get('/getdetails11', function (req,resp) {
     });
     resp.send(JSON.stringify({'status':'done'}));
 });
+
+
 /*-----------------------------------------------------------------(end_for_geoai)
 --------------------------------------------------------------------------*/
 

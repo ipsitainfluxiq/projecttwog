@@ -18,6 +18,9 @@ import {CampaignlistComponent} from 'app/campaignlist/campaignlist.component';
 import {HeaderComponent} from 'app/header/header.component';
 import {SummaryComponent} from 'app/summary/summary.component';
 import {TestComponent} from 'app/test/test.component';
+import {SignupComponent} from 'app/signup/signup.component';
+import {LoginComponent} from 'app/login/login.component';
+import {UserlistComponent} from 'app/userlist/userlist.component';
 
 
 const appRoutes: Routes = [
@@ -34,6 +37,9 @@ const appRoutes: Routes = [
     { path: 'header', component: HeaderComponent},
     { path: 'summary', component: SummaryComponent},
     { path: 'test', component: TestComponent},
+    { path: 'signup', component: SignupComponent},
+    { path: 'login', component: LoginComponent},
+    { path: 'userlist', component: UserlistComponent},
 
 ];
 

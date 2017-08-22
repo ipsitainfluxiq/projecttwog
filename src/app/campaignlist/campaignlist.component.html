@@ -1,43 +1,53 @@
 <app-header></app-header>
-<!--<div class="top_banner_body">
-    <div class="top_banner_wrapper">
-        <img src="../../assets/images/geoai_logo.jpg"  class="geoai_logo"/>
-        <img src="../../assets/images/geoai_top_banner.jpg" class="geoai_top_banner" />
 
-        <a href="#" class="top_bannerbtn">Ad Marketing Pros</a>
-
-        <div class="topnew_menu">
-            <div class="btn-group" dropdown>
-                <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-                    <span class="glyphicon glyphicon-menu-hamburger"></span> <span class="caret"></span>
-                </button>
-                <ul *dropdownMenu class="dropdown-menu" role="menu">
-                    <li role="menuitem"><a class="dropdown-item" [routerLink]="['/campaignsettings']"><h2>Create Campaigns </h2></a></li>
-
-
-                </ul>
-            </div>
-        </div>
-
-
-        <div class="clearfix"></div>
-    </div>
-</div>-->
-
-<div class="givecolor">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+<div class=" fieldset_wrapper">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="campaignlisttable">
         <tr>
-            <th>#</th>
-            <th>id</th>
-            <th>Campaign Name</th>
+           <!-- <th>#</th>-->
+            <th>ID</th>
+            <th>Name</th>
             <th>Action</th>
         </tr>
 
-        <tr *ngFor="let item of datalist; let i = index">
-            <td>{{i+1}}</td>
+        <tbody *ngFor="let item of datalist; let i = index">
+        <tr *ngIf=" i>=this.pagestart && i <this.pagestart+this.showrows">
+            <!-- <tr *ngFor="let item of datalist|limitTo:this.showrows; let i = index">-->
+            <!-- <td>{{i+1}}</td>-->
             <td>{{item.id}}</td>
             <td>{{item.name}} </td>
             <td (click)="calledit(item.id)">Edit</td>
         </tr>
+        </tbody>
     </table>
+
+    <div class="pagination paginationdiv">
+        <ul class="pagination--items">
+            <li class="pagination--item">
+                <label>
+                    Go to: </label>
+                    <input type="text" [(ngModel)]="pageno">
+                    <div class="clearfix"></div>
+
+            </li>
+            <li class="pagination--item">
+                <label>
+                    Show rows:</label>
+                    <select [(ngModel)]="showrows" (click)="chagevalues()">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>25</option>
+                    </select>
+                    <div class="clearfix"></div>
+
+            </li>
+            <label>Page {{pageno}} of {{totalpage}}</label>
+            <li class="pagination--item" >
+               <img src="../../assets/images/pageprev.png" alt="#" (click)="pageval(1)">
+            </li>
+            <li class="pagination--item">
+                <img src="../../assets/images/pagenext.png" alt="#" (click)="pageval(2)">
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
 </div>

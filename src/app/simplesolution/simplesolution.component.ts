@@ -727,10 +727,10 @@ export class SimplesolutionComponent implements OnInit {
   constructor(private _http: Http, private router: Router, addcookie: CookieService) {
     this.addcookie = addcookie ;
     this.cookiedetails = this.addcookie.getObject('cookiedetails');
-    this.simply_display=true;
-    this.simply_tablet=true;
-    this.simply_mobile=true;
-    this.pushval= [] ;
+    this.simply_display = true;
+    this.simply_tablet = true;
+    this.simply_mobile = true;
+    this.pushval = [] ;
     for (let i = 0; i <= 4; i++) {
       this.isActive.push(false);
       this.isDisabled.push(true);
@@ -743,8 +743,8 @@ export class SimplesolutionComponent implements OnInit {
     let target = event.target || event.srcElement || event.currentTarget;
     console.log(target);
     console.log(target.className);
-    //target.nextElementSibling.nextElementSibling.nextElementSibling.classNames[0]='';
-    //console.log(target.nextElementSibling.nextElementSibling.nextElementSibling.childElementCount());
+    // target.nextElementSibling.nextElementSibling.nextElementSibling.classNames[0]='';
+    // console.log(target.nextElementSibling.nextElementSibling.nextElementSibling.childElementCount());
 
     if (target.className == 'thumb') {
       if (this.isopen == 'hide') {

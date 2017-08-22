@@ -11,7 +11,8 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { TrialComponent } from './trial/trial.component';
 import { CampaignsettingsComponent } from './campaignsettings/campaignsettings.component';
 import {DatepickerModule} from 'ngx-bootstrap/datepicker';
- import {UiSwitchModule} from 'angular2-ui-switch';
+ // import {UiSwitchModule} from 'angular2-ui-switch';
+ import {UiSwitchModule} from 'angular2-ui-switch/src';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { CreateAudienceComponent } from './create-audience/create-audience.component';
@@ -23,6 +24,11 @@ import { AgmCoreModule } from '@agm/core';
 import { HeaderComponent } from './header/header.component';
 import { SummaryComponent } from './summary/summary.component';
 import { TestComponent } from './test/test.component';
+import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { UserlistComponent } from './userlist/userlist.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +44,11 @@ import { TestComponent } from './test/test.component';
     CampaignlistComponent,
     HeaderComponent,
     SummaryComponent,
-    TestComponent
+    TestComponent,
+    SignupComponent,
+    LoginComponent,
+    UserlistComponent,
+   /* UiSwitchModule,*/
 
   ],
   imports: [
@@ -51,6 +61,8 @@ import { TestComponent } from './test/test.component';
     TabsModule.forRoot(),
     IonRangeSliderModule,
     UiSwitchModule,
+    ReactiveFormsModule,
+    ModalModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA2_vmiwMYMoLIAyN5Bb1C8XZYOyQwIq8U'
     })

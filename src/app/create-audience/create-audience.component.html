@@ -56,6 +56,9 @@
                   <td><img src="assets/images/create_audience_icon4.png"  alt="#" (click)="select(4)"/>
                     <h1 (click)="select(4)">Device Types</h1>
                   </td>
+                  <!--        <td><img src="assets/images/campaign_icon4.png"  alt="#" (click)="select(11)"/>
+                    <h1 (click)="select(11)">Ip Ranges</h1>
+                  </td>-->
                   <td class="activetd"><img src="assets/images/create_audience_icon5.png"  alt="#" (click)="select(5)"/>
                     <h1 (click)="select(5)">Locations</h1>
                   </td>
@@ -104,16 +107,23 @@
           <div class="campaign_settings_cell">
             <div class="campaign_settings_cell_top">
               <label (click)="select(1)">Browser</label>
-              <b>{{len}} <img src="assets/images/create_audience_close.png"  alt="#"/></b>
+              <b>{{len}} <img src="assets/images/create_audience_close.png"  alt="#" (click)="callmodal(1)"/></b>
               <div class="clearfix"></div>
-              <div *ngIf="browserselect">
+            </div>
+
+            <div *ngIf="browserselect">
+              <div class="create_audience_wrapper ulchakeboxcon newbluechakebox">
+
                 <ul *ngFor="let item of allbrowsers; let i=index">
-                  <input type="checkbox" [(ngModel)]="allbrowserslist[item.id]"  /><label>{{item.name}}</label>
+
+                  <input id={{item.id}} type="checkbox" [(ngModel)]="allbrowserslist[item.id]"  /><label for={{item.id}}>{{item.name}}</label>
+
+                  <div class="clearfix"></div>
                 </ul>
-                <input type="button" value="OK" (click)="updatebrowsers(selected_browsers)">
+                <input type="button" value="OK" (click)="updatebrowsers(selected_browsers)" class="browsertabbtn">
                 <div class="clearfix"></div>
               </div>
-              <div class="clearfix"></div>
+
               <div class="clearfix"></div>
             </div>
           </div>
@@ -124,13 +134,44 @@
           <div class="campaign_settings_cell">
             <div class="campaign_settings_cell_top">
               <label (click)="select(2)">Dayparting</label>
-              <b>Anytime of day<img src="assets/images/create_audience_close.png"  alt="#"/></b>
+              <b>{{showdaypartval}}<img src="assets/images/create_audience_close.png"  alt="#" (click)="callmodal(2)"/></b>
               <div class="clearfix"></div>
-              <div *ngIf="dayparting">
-                <p>Set specific periods of the day for the campaign to run during. All times are in Central Time.</p>
-                <input type="checkbox" [(ngModel)]="applyforall"> Apply changes across all days
-                <div>
-                  <p>Monday</p>
+            </div>
+
+
+            <div *ngIf="divdayparting">
+              <div class="create_audience_wrapper daypartingwrapper">
+                <p class="ptext">Set specific periods of the day for the campaign to run during. All times are in Central Time.</p>
+                <div class="dchakeboxdiv newbluechakebox"><input type="checkbox" id='0' [(ngModel)]="applyforall" (click)="opensinglediv()"><label for ='0'> Apply changes across all days</label></div>
+
+
+
+
+
+
+                <div *ngIf="openonediv" class="dchakeboxcondiv2">
+                  <p>All Day <img src="assets/images/location_menuicon.png"  alt="#"/></p>
+                  <ion-range-slider #allday
+                                    type="double"
+                                    [min]="0.00"
+                                    max="24"
+                                    [from]=responsedaypart.campaigns[0].week_dayparting[0][0]
+                                    [to]=responsedaypart.campaigns[0].week_dayparting[0][responsedaypart.campaigns[0].week_dayparting[0].length-1]
+                                    (onUpdate)="myOnUpdateforone($event)"
+                                    (onChange)="myOnChangeforone($event)"
+                                    (onFinish)="myOnFinishforone($event)"
+                  ></ion-range-slider>
+                  <img src="assets/images/create_audience_close.png"  alt="#" class="sliderclose"/>
+                  <div class="clearfix"></div>
+                </div>
+
+
+
+
+
+                <div *ngIf="openalldiv" class="dchakeboxcondiv2">
+                  <!--   <div  class="dchakeboxcondiv2">-->
+                  <p>Monday <img src="assets/images/location_menuicon.png"  alt="#"/></p>
                   <ion-range-slider #monday
                                     type="double"
                                     [min]="0.00"
@@ -141,7 +182,10 @@
                                     (onChange)="myOnChange($event,1)"
                                     (onFinish)="myOnFinish($event,1)"
                   ></ion-range-slider>
-                  <p>Tuesday</p>
+
+                  <img src="assets/images/create_audience_close.png"  alt="#" class="sliderclose"/>
+                  <div class="clearfix"></div>
+                  <p>Tuesday <img src="assets/images/location_menuicon.png"  alt="#"/></p>
                   <ion-range-slider #tuesday
                                     type="double"
                                     [min]="0"
@@ -152,7 +196,10 @@
                                     (onChange)="myOnChange($event,2)"
                                     (onFinish)="myOnFinish($event,2)"
                   ></ion-range-slider>
-                  <p>Wednesday</p>
+
+                  <img src="assets/images/create_audience_close.png"  alt="#" class="sliderclose"/>
+                  <div class="clearfix"></div>
+                  <p>Wednesday <img src="assets/images/location_menuicon.png"  alt="#"/></p>
                   <ion-range-slider #wedday
                                     type="double"
                                     [min]="0"
@@ -163,7 +210,10 @@
                                     (onChange)="myOnChange($event,3)"
                                     (onFinish)="myOnFinish($event,3)"
                   ></ion-range-slider>
-                  <p>Thursday</p>
+
+                  <img src="assets/images/create_audience_close.png"  alt="#" class="sliderclose"/>
+                  <div class="clearfix"></div>
+                  <p>Thursday <img src="assets/images/location_menuicon.png"  alt="#"/></p>
                   <ion-range-slider #thursday
                                     type="double"
                                     [min]="0"
@@ -174,7 +224,10 @@
                                     (onChange)="myOnChange($event,4)"
                                     (onFinish)="myOnFinish($event,4)"
                   ></ion-range-slider>
-                  <p>Friday</p>
+
+                  <img src="assets/images/create_audience_close.png"  alt="#" class="sliderclose"/>
+                  <div class="clearfix"></div>
+                  <p>Friday <img src="assets/images/location_menuicon.png"  alt="#"/></p>
                   <ion-range-slider #friday
                                     type="double"
                                     [min]="0"
@@ -185,7 +238,10 @@
                                     (onChange)="myOnChange($event,5)"
                                     (onFinish)="myOnFinish($event,5)"
                   ></ion-range-slider>
-                  <p>Saturday</p>
+
+                  <img src="assets/images/create_audience_close.png"  alt="#" class="sliderclose"/>
+                  <div class="clearfix"></div>
+                  <p>Saturday <img src="assets/images/location_menuicon.png"  alt="#"/></p>
                   <ion-range-slider #satday
                                     type="double"
                                     [min]="0"
@@ -196,6 +252,10 @@
                                     (onChange)="myOnChange($event,6)"
                                     (onFinish)="myOnFinish($event,6)"
                   ></ion-range-slider>
+
+                  <img src="assets/images/create_audience_close.png"  alt="#" class="sliderclose"/>
+                  <div class="clearfix"></div>
+                  <p>Sunday <img src="assets/images/location_menuicon.png"  alt="#"/></p>
                   <ion-range-slider #viewthrupercentage
                                     type="double"
                                     [min]="0"
@@ -206,12 +266,20 @@
                                     (onChange)="myOnChange($event,7)"
                                     (onFinish)="myOnFinish($event,7)"
                   ></ion-range-slider>
+
+                  <img src="assets/images/create_audience_close.png"  alt="#" class="sliderclose"/>
+                  <div class="clearfix"></div>
                 </div>
-                <input type="button" value="OK" (click)="updatedaypart()">
+                <input type="button" value="OK" (click)="updatedaypart()" class="browsertabbtn">
                 <div class="clearfix"></div>
               </div>
+
+
+
               <div class="clearfix"></div>
-              <div class="clearfix"></div>
+
+
+
             </div>
           </div>
 
@@ -220,26 +288,33 @@
 
 
 
-          <div class="campaign_settings_cell">
+          <!--<div class="campaign_settings_cell">
             <div class="campaign_settings_cell_top">
               <label (click)="select(3)">Deals</label>
               <b>{{deallen}} <img src="assets/images/create_audience_close.png"  alt="#"/></b>
               <div class="clearfix"></div>
+
+            </div>
+
+
               <div *ngIf=deals>
+
+                <div class="create_audience_wrapper dealswrapper">
+
                 <p>Add Deal IDs to access specific inventory already negotiated with the publisher</p>
                 <textarea [(ngModel)]="dealdetails"></textarea>
                 <div class="clearfix"></div>
-                <input type="button"  value="Add Deal IDs" (click)="adddeals(dealdetails)"/>
-                <!-- <input type="button"  value="Ok" (click)="updatedeal(dealdetails)"/>-->
+                <input type="button"  value="Add Deal IDs" (click)="adddeals(dealdetails)" class="dealbtn"/>
+                &lt;!&ndash; <input type="button"  value="Ok" (click)="updatedeal(dealdetails)"/>&ndash;&gt;
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>Deal Id</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th></th>
                   </tr>
                   <tr *ngFor="let item of pushdeals; let i=index">
                     <td>{{item}}</td>
-                    <td>Active	</td>
+                    <td>{{dealstatusval}}</td>
                     <td><a href="javascript:void(0)" (click)="deletedeal(item)"><img src="assets/images/create_audience_close.png"  alt="#"/></a></td>
                   </tr>
                 </table>
@@ -251,30 +326,122 @@
               </div>
               <div class="clearfix"></div>
             </div>
+          </div>-->
+
+
+          <div class="campaign_settings_cell">
+            <div class="campaign_settings_cell_top">
+              <label (click)="select(3)">Deals</label>
+              <b>{{deallen}} <img src="assets/images/create_audience_close.png"  alt="#" (click)="callmodal(3)"/></b>
+              <div class="clearfix"></div>
+
+            </div>
+
+
+            <div *ngIf=deals>
+
+              <div class="create_audience_wrapper dealswrapper">
+
+                <p>Add Deal IDs to access specific inventory already negotiated with the publisher</p>
+                <textarea [(ngModel)]="dealdetails"></textarea>
+                <div class="clearfix"></div>
+                <input type="button"  value="Add Deal IDs" (click)="adddeals()" class="dealbtn"/>
+                <!-- <input type="button"  value="Ok" (click)="updatedeal(dealdetails)"/>-->
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <th>Deal Id</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                  <tr *ngFor="let item of pushdeals1; let i=index">
+                    <td>{{item}}</td>
+                    <td>Active</td>
+                    <td><a href="javascript:void(0)" (click)="deletedeal(item)"><img src="assets/images/create_audience_close.png"  alt="#"/></a></td>
+                  </tr>
+                  <tr *ngFor="let item of pushdealsnew; let i=index">
+                    <td>{{item}}</td>
+                    <td>Pending</td>
+                    <td><a href="javascript:void(0)" (click)="deletedeal(item)"><img src="assets/images/create_audience_close.png"  alt="#"/></a></td>
+                  </tr>
+                </table>
+                <div class="clearfix"></div>
+                <div class="budget_formdiv_btn">
+                  <input type="button"  value="Ok" (click)="updatedeal()"/>
+                  <input type="button"  value="Cancel"/>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
           </div>
-
-
-
 
 
 
           <div class="campaign_settings_cell">
             <div class="campaign_settings_cell_top">
               <label (click)="select(4)">Device Types</label>
-              <b>{{len1}}<img src="assets/images/create_audience_close.png"  alt="#"/></b>
+              <b>{{len1}}&nbsp;<img src="assets/images/create_audience_close.png"  alt="#" (click)="callmodal(4)"/></b>
               <div class="clearfix"></div>
-              <div *ngIf=device_types>
+            </div>
+
+
+            <div *ngIf=device_types>
+
+              <div class="create_audience_wrapper ulchakeboxcon newbluechakebox">
+
                 <ul *ngFor="let item of alldevices; let i=index">
-                  <input type="checkbox" [(ngModel)]="alldevicelist[item.id]"  /><label>{{item.name}}</label>
+                  <input type="checkbox" id={{item.id}} [(ngModel)]="alldevicelist[item.id]"  /><label for={{item.id}}>{{item.name}}</label>
+                  <div class="clearfix"></div>
                 </ul>
-                <input type="button" value="OK" (click)="updatedevice()">
+                <div class="clearfix"></div>
+                <input type="button" value="OK" (click)="updatedevice()" class="browsertabbtn">
+                <div class="clearfix"></div>
               </div>
               <div class="clearfix"></div>
-              <div class="clearfix"></div>
+
             </div>
           </div>
 
 
+
+
+
+<!--          <div class="campaign_settings_cell">
+            <div class="campaign_settings_cell_top">
+              <label (click)="select(11)">Ip Ranges</label>
+              <b>None <img src="assets/images/create_audience_close.png"  alt="#"/></b>
+              <div class="clearfix"></div>
+            </div>
+            <div *ngIf=openiprange>
+              <div class="create_audience_wrapper dealswrapper">
+                <p> Whitelisted user targeting is available through the use of IP ranges. Enter one dash-separated IP range per line. Consider the following example:
+                  (ex: 192.168.1.1 - 192.168.1.9)</p>
+                <textarea [(ngModel)]="ipdetails"></textarea>
+                <div class="clearfix"></div>
+                <input type="button"  value="Add" (click)="addips(ipdetails)" class="dealbtn"/>
+                <input type="button"  value="Remove" class="dealbtn"/>
+                <input type="button"  value="Clear" class="dealbtn"/>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Status</th>
+                  </tr>
+                  <tr *ngFor="let item of puships; let i=index">
+                    <td>{{item}}</td>
+                    <td>{{item}}</td>
+                    <td>Active	</td>
+                    <td><a href="javascript:void(0)" (click)="deleteip(item)"><img src="assets/images/create_audience_close.png"  alt="#"/></a></td>
+                  </tr>
+                </table>
+                <div class="clearfix"></div>
+                <div class="budget_formdiv_btn">
+                  <input type="button"  value="Ok" (click)="updateip(puships)"/>
+                  <input type="button"  value="Cancel"/>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>-->
 
 
 
@@ -283,8 +450,20 @@
           <div class="campaign_settings_cell">
             <div class="campaign_settings_cell_top">
               <label (click)="select(5)">Location </label>
+             <!-- <div class="clearfix"></div>-->
               <b *ngIf="fence_length">{{fence_length}}</b>
-              <div *ngIf="locations">
+             <!-- <b>
+                <span *ngFor="let item of show_locations; let i=index">{{item.attr_name}}<span *ngIf=" i< show_locations.length-1"> , </span></span>
+              </b>-->
+
+              <div class="clearfix"></div>
+
+            </div>
+
+            <div *ngIf="locations">
+
+              <div class="locationconboxwrapper">
+
                 <div class="showerror" *ngIf="error">{{error}}</div>
                 <b>
                   <span *ngFor="let item of show_locations; let i=index">{{item.attr_name}}<span *ngIf=" i< show_locations.length-1"> , </span></span>
@@ -331,7 +510,15 @@
                         </tr>
                       </table>
 
-                      <input type="button"  value="Ok" (click)="submitlocation(selected_locations)"/>
+                    <!--  <input type="button"  value="Ok" (click)="submitlocation(selected_locations)" class="browsertabbtn2"/>-->
+
+
+                      <div class="budget_formdiv_btn">
+                        <input type="button"  value="Save" (click)="submitlocation(selected_locations)"/>
+                        <input type="button"  value="Cancel"/>
+                      </div>
+
+
                     </div>
                   </tab>
 
@@ -369,7 +556,7 @@
                       <div class="GeoJSON_block2"> <a href="javascript:void(0)">Download GeoJSON</a> </div>
                       <table>
                         <tr>
-                          <th><input type="checkbox" (click)="allcheck()" [(ngModel)]="checkuncheck"></th>
+                          <th><input type="checkbox" (click)="allcheck()" [(ngModel)]="checkuncheck" ></th>
                           <th>Name</th>
                           <th>Geo Type</th>
                           <th>&nbsp;</th>
@@ -402,17 +589,27 @@
           <div class="campaign_settings_cell">
             <div class="campaign_settings_cell_top">
               <label (click)="select(6)">Operating Systems</label>
-              <b>{{oslen}}<img src="assets/images/create_audience_close.png"  alt="#"/></b>
+              <b>{{oslen}}&nbsp;<img src="assets/images/create_audience_close.png"  alt="#" (click)="callmodal(6)"/></b>
               <div class="clearfix"></div>
-              <div *ngIf="operating_systems">
+            </div>
+
+
+            <div *ngIf="operating_systems">
+
+              <div class="create_audience_wrapper ulchakeboxcon newbluechakebox">
+
                 <ul *ngFor="let item of allos; let i=index">
-                  <input type="checkbox" [(ngModel)]="alloslist[item.id]"  /><label>{{item.name}}</label>
+                  <input type="checkbox" id="{{item.id}}" [(ngModel)]="alloslist[item.id]"  /><label for="{{item.id}}">{{item.name}}</label>
+
+                  <div class="clearfix"></div>
+
                 </ul>
-                <input type="button" value="OK" (click)="updateos()">
+                <div class="clearfix"></div>
+                <input type="button" value="OK" (click)="updateos()" class="browsertabbtn">
                 <div class="clearfix"></div>
               </div>
               <div class="clearfix"></div>
-              <div class="clearfix"></div>
+
             </div>
           </div>
 
@@ -424,16 +621,27 @@
           <div class="campaign_settings_cell">
             <div class="campaign_settings_cell_top">
               <label (click)="select(7)">Pacing</label>
-              <b *ngIf="showpace">{{showpace}}<img src="assets/images/create_audience_close.png"  alt="#"/></b>
+              <b *ngIf="showpace">{{showpace}}&nbsp;<img src="assets/images/create_audience_close.png"  alt="#" (click)="callmodal(7)"/></b>
               <div class="clearfix"></div>
-              <div class="showerror" *ngIf="paceerror">{{paceerror}}</div>
-              <div *ngIf="pacing">
+
+            </div>
+
+            <div *ngIf="pacing">
+              <div class="create_audience_wrapper pacingwrapper">
+                <div class="showerror" *ngIf="paceerror">{{paceerror}}</div>
+
+
                 <ui-switch  (change)="onChange($event)" [(ngModel)]="paceenable"></ui-switch> <p>Enable Automated Pacing (Recommended)</p>
+                <div class="clearfix"></div>
+
                 <div *ngIf="divshowpace">
                   <div class="clearfix"></div>
-                  <p>Throttle the delivery of ad impressions</p>
-                  <input type="text" class="form-control" appOnlyNumber="true" [(ngModel)]="pacingval"><span>%</span>
-                  <input type="button" value="OK" (click)="updatepacing(pacingval)">
+                  <h2>Throttle the delivery of ad impressions</h2>
+                  <div class="pacing_textcontain">
+                    <input type="text" class="form-control" appOnlyNumber="true" [(ngModel)]="pacingval"><span>%</span>
+                    <div class="clearfix"></div></div>
+
+                  <input type="button" value="OK" (click)="updatepacing(pacingval)" class="browsertabbtn2">
                   <div class="clearfix"></div>
                 </div>
               </div>
@@ -450,17 +658,35 @@
           <div class="campaign_settings_cell">
             <div class="campaign_settings_cell_top">
               <label (click)="select(9)">Viewability</label>
-              <b >{{view}}<img src="assets/images/create_audience_close.png"  alt="#"/></b>
+              <b >{{view1}}&nbsp;<img src="assets/images/create_audience_close.png"  alt="#" (click)="callmodal(9)"/></b>
               <div class="clearfix"></div>
-              <div *ngIf="viewability">
-                <select id="view"  name="view" [(ngModel)]="view" class="form-control2">
-                  <option *ngFor="let item of viewabilitis; let i=index" value="{{item}}">{{item}}</option>
-                </select>
-                <p> This will restrict the creatives to only serve on domains which have known chances of a creative being in view. Turning this on will reduce the available inventory.</p>
-                <p>Good: The best 55% of inventory is available</p>
-                <p>Better: The best 40% of inventory is available</p>
-                <p>Best: The best 25% of inventory is available</p>
-                <input type="button" value="OK" (click)="selectview(view)">
+            </div>
+
+
+            <div *ngIf="viewability">
+              <div class="create_audience_wrapper viewability_wrapper">
+
+                <div class="viewability_right">
+
+                  <p>Integral Viewability Threshold</p>
+
+                  <select id="view"  name="view" [(ngModel)]="view" class="form-control2">
+                    <option *ngFor="let item of viewabilitis; let i=index" value="{{item}}">{{item}}</option>
+                  </select>
+                </div>
+
+                <div class="viewability_left">
+                  <p> This will restrict the creatives to only serve on domains which have known chances of a creative being in view. Turning this on will reduce the available inventory.</p>
+                  <p>Good: The best 55% of inventory is available</p>
+                  <p>Better: The best 40% of inventory is available</p>
+                  <p>Best: The best 25% of inventory is available</p>
+
+                </div>
+
+                <div class="clearfix"></div>
+
+
+                <input type="button" value="OK" (click)="selectview(view)" class="browsertabbtn2">
                 <div class="clearfix"></div>
               </div>
               <div class="clearfix"></div>
@@ -480,5 +706,160 @@
         </div>
       </div>
     </fieldset>
+  </div>
+</div>
+
+
+
+
+<!--modal using angular 2-->
+
+
+<div *ngIf="isbrowserModalShown" (onHidden)="onHidden(1)" bsModal #staticModal="bs-modal" [config]="{ show: true}"  class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"  (click)="staticModal.hide()">&times;</button>
+        <h4 class="modal-title">Please Confirm</h4>
+      </div>
+      <div class="modal-body text-center signupeamilbody">
+        <img src="../../assets/images/geoai_logo.jpg" alt="logo">
+        <p><span>Are you sure you want to remove Browsers from the campaign?</span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"  (click)="staticModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deletebrowsers()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="isdaypartModalShown" (onHidden)="onHidden(2)" bsModal #staticModal="bs-modal" [config]="{ show: true}"  class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"  (click)="staticModal.hide()">&times;</button>
+        <h4 class="modal-title">Please Confirm</h4>
+      </div>
+      <div class="modal-body text-center signupeamilbody">
+        <img src="../../assets/images/geoai_logo.jpg" alt="logo">
+        <p><span>Are you sure you want to remove Daypart from the campaign?</span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"  (click)="staticModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deletedaypart()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="isdealModalShown" (onHidden)="onHidden(3)" bsModal #staticModal="bs-modal" [config]="{ show: true}"  class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"  (click)="staticModal.hide()">&times;</button>
+        <h4 class="modal-title">Please Confirm</h4>
+      </div>
+      <div class="modal-body text-center signupeamilbody">
+        <img src="../../assets/images/geoai_logo.jpg" alt="logo">
+        <p><span>Are you sure you want to remove Deals from the campaign?</span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"  (click)="staticModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deletedeals()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isdeviceModalShown" (onHidden)="onHidden(4)" bsModal #staticModal="bs-modal" [config]="{ show: true}"  class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"  (click)="staticModal.hide()">&times;</button>
+        <h4 class="modal-title">Please Confirm</h4>
+      </div>
+      <div class="modal-body text-center signupeamilbody">
+        <img src="../../assets/images/geoai_logo.jpg" alt="logo">
+        <p><span>Are you sure you want to remove Devices from the campaign?</span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"  (click)="staticModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deletedevice()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isosModalShown" (onHidden)="onHidden(6)" bsModal #staticModal="bs-modal" [config]="{ show: true}"  class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"  (click)="staticModal.hide()">&times;</button>
+        <h4 class="modal-title">Please Confirm</h4>
+      </div>
+      <div class="modal-body text-center signupeamilbody">
+        <img src="../../assets/images/geoai_logo.jpg" alt="logo">
+        <p><span>Are you sure you want to remove Operating Systems from the campaign?</span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"  (click)="staticModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deleteos()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="ispaceModalShown" (onHidden)="onHidden(7)" bsModal #staticModal="bs-modal" [config]="{ show: true}"  class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"  (click)="staticModal.hide()">&times;</button>
+        <h4 class="modal-title">Please Confirm</h4>
+      </div>
+      <div class="modal-body text-center signupeamilbody">
+        <img src="../../assets/images/geoai_logo.jpg" alt="logo">
+        <p><span>Are you sure you want to remove Pacing from the campaign?</span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"  (click)="staticModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deletepace()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isviewModalShown" (onHidden)="onHidden(9)" bsModal #staticModal="bs-modal" [config]="{ show: true}"  class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"  (click)="staticModal.hide()">&times;</button>
+        <h4 class="modal-title">Please Confirm</h4>
+      </div>
+      <div class="modal-body text-center signupeamilbody">
+        <img src="../../assets/images/geoai_logo.jpg" alt="logo">
+        <p><span>Are you sure you want to remove Viewability from the campaign?</span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"  (click)="staticModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deleteview(view)">Ok</button>
+      </div>
+    </div>
   </div>
 </div>
