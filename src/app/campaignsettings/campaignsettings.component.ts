@@ -119,6 +119,7 @@ export class CampaignsettingsComponent implements OnInit {
     public polyshapename: any;
     public geolocationtype: any;
     public fenceressult: any;
+    public campaignname: any;
     // lat: number = 31.88725;
     // lng: number = -97.08026;
     patharr: any = [];
@@ -158,7 +159,7 @@ export class CampaignsettingsComponent implements OnInit {
 
 
     constructor(addcookie: CookieService, private _http: Http , private mapsAPILoader: MapsAPILoader) {
-
+        this.campaignname = 'Create a Campaign';
         this.polydelete = 'Actions';
         this.impressions_f = '';
         this.p_hour = 'Select';

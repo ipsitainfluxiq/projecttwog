@@ -837,7 +837,7 @@ export class CreateAudienceComponent implements OnInit {
         }
         this.selected_browsers = [];
         this.browserselect = 0;
-       // $('#brw').attr('activetd', 'activetd');
+        // $('#brw').attr('activetd', 'activetd');
     }
 
     onChange() {
@@ -1312,7 +1312,7 @@ export class CreateAudienceComponent implements OnInit {
     savepolygon() {
         this.error = '';
         this.fence_length = this.fence.length + ' Geo Fence';
-console.log('this.fence_length     ' + this.fence_length);
+        console.log('this.fence_length     ' + this.fence_length);
         console.log('selected_locations-------------------');
         console.log(this.selected_locations.length);
         if (this.selected_locations.length > 0) {
@@ -1323,28 +1323,28 @@ console.log('this.fence_length     ' + this.fence_length);
                 this.error = 'Geo targets Select at least 1 Location, Postal Code or Geo Fence';
             }
             else {
-            this.error = '';
-                 this.locations = false;
-            this.link = 'http://simplyfi.influxiq.com/putgeofence.php';
-            let data = {
-                fence: JSON.stringify(this.fence),
-                id: this.cookiedetails
-            };
-            // this.link = 'http://simplyfi.influxiq.com/putgeoconversion.php';
-            // this._http.post(this.link, JSON.stringify(this.fence))
-            this._http.post(this.link, data)
-                .subscribe(res => {
-                    this.polygonresult = res.json();
-                    console.log('this.polygonresult++++++++++++++++++++++++++++++++++++++++++++++++');
-                    console.log(this.polygonresult);
-                }, error => {
-                    console.log('Oooops!');
-                });
-            setTimeout(() => {
-                console.log('after change');
-                console.log(this.fence);
-            }, 400);
-          }
+                this.error = '';
+                this.locations = false;
+                this.link = 'http://simplyfi.influxiq.com/putgeofence.php';
+                let data = {
+                    fence: JSON.stringify(this.fence),
+                    id: this.cookiedetails
+                };
+                // this.link = 'http://simplyfi.influxiq.com/putgeoconversion.php';
+                // this._http.post(this.link, JSON.stringify(this.fence))
+                this._http.post(this.link, data)
+                    .subscribe(res => {
+                        this.polygonresult = res.json();
+                        console.log('this.polygonresult++++++++++++++++++++++++++++++++++++++++++++++++');
+                        console.log(this.polygonresult);
+                    }, error => {
+                        console.log('Oooops!');
+                    });
+                setTimeout(() => {
+                    console.log('after change');
+                    console.log(this.fence);
+                }, 400);
+            }
         }
     }
     allcheck() {

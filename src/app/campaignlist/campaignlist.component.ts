@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
+import {Http} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
@@ -17,67 +17,80 @@ export class CampaignlistComponent implements OnInit {
     public pageno;
     public campaignlist_length;
     public pagestart;
+    public pageinitation;
+    public campaignname;
 
     constructor(private _http: Http, private router: Router, private route: ActivatedRoute, addcookie: CookieService) {
         this.addcookie = addcookie ;
         this.cookiedetails = this.addcookie.getObject('cookiedetails');
+        this.campaignname = 'Edit Campaign';
         this.showrows = 5;
         this.pageno = 1;
-        this.pagestart=0;
+        this.pagestart = 0;
+        this.pageinitation = 5;
     }
 
     ngOnInit() {
         this.getAdminList();
     }
+
     getAdminList() {
-        var link =' http://simplyfi.influxiq.com/getcampaignlist.php ';
-        var data = {};
+        let link = 'http://simplyfi.influxiq.com/getcampaignlist.php';
+        let data = {};
         this._http.get(link)
             .subscribe(res => {
-                var result = res.json();
+                let result = res.json();
                 console.log(result);
-                console.log('hey');
                 console.log(result.campaigns);
                 this.datalist = result.campaigns;
                 this.campaignlist_length = result.campaigns.length;
                 this.totalpage = this.campaignlist_length / this.showrows ;
-               //  console.log('campaignlist_length'+this.campaignlist_length);
             }, error => {
-                console.log("Oooops!");
+                console.log('Oooops!');
             });
     }
     chagevalues() {
+        //   setTimeout(() => {
         this.totalpage = this.campaignlist_length / this.showrows ;
         if (this.campaignlist_length % this.showrows != 0) {
             this.totalpage = this.totalpage + 1;
         }
-       /* console.log("changevaluessssssssssss");
-        console.log(this.totalpage);
-        console.log(this.campaignlist_length);
-        console.log(this.showrows);*/
+        this.pageno = 1;
+        this.pagestart = 0;
+        this.pageinitation = parseInt(this.pagestart) + parseInt(this.showrows);
+
+        //  }, 700);
     }
 
     pageval(type) {
-        if (type == 1 ) {
+
+        if (type == 1 ) {       // for prev page
             if ((this.pagestart - this.showrows) >= 0) {
-            this.pageno--;
-            this.pagestart = (this.pageno - 1) * this.showrows;
-            console.log(this.pagestart);
+                this.pageno--;
+                this.pagestart = (this.pageno - 1) * this.showrows;
             }
         }
-        if ( type == 2 ) {
-            // if(this.showrows==)
+
+        if ( type == 2 ) {      // for next page
             if (this.campaignlist_length - this.showrows - 1 >= this.pagestart) {
-                this.pageno++;
                 this.pagestart = this.pageno * this.showrows;
-                console.log(this.pagestart);
-                // this.getAdminList();
+                this.pageno++;
             }
         }
+
+        if ( type == 3 ) {    // for goto input type
+            if ( (this.pageno >0) && (this.pageno <= this.totalpage) ) {
+                this.pagestart = (this.pageno - 1) * this.showrows;
+            } else {
+                this.pageno = 1;
+                this.pagestart = 0;
+            }
+        }
+
+        this.pageinitation = parseInt(this.pagestart) + parseInt(this.showrows);
     }
 
     calledit(id) {
-        console.log(id);
         this.addcookie.putObject('cookiedetails', id);
         this.cookiedetails = this.addcookie.getObject('cookiedetails');
         console.log('after putobject ' + this.cookiedetails);
