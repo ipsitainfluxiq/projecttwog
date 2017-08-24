@@ -29,6 +29,9 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { UserlistComponent } from './userlist/userlist.component';
+import { OrderBy } from './orderby';
+import { UsersearchPipe } from './search.pipe';
+
 
 @NgModule({
   declarations: [
@@ -48,7 +51,8 @@ import { UserlistComponent } from './userlist/userlist.component';
     SignupComponent,
     LoginComponent,
     UserlistComponent,
-   /* UiSwitchModule,*/
+    OrderBy,
+    UsersearchPipe,
 
   ],
   imports: [

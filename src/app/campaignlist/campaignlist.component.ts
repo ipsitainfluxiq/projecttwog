@@ -19,6 +19,8 @@ export class CampaignlistComponent implements OnInit {
     public pagestart;
     public pageinitation;
     public campaignname;
+    orderbyquery: any;
+    orderbytype: any;
 
     constructor(private _http: Http, private router: Router, private route: ActivatedRoute, addcookie: CookieService) {
         this.addcookie = addcookie ;
@@ -28,6 +30,8 @@ export class CampaignlistComponent implements OnInit {
         this.pageno = 1;
         this.pagestart = 0;
         this.pageinitation = 5;
+        this.orderbyquery = 'id';
+        this.orderbytype = 1;
     }
 
     ngOnInit() {
@@ -95,5 +99,29 @@ export class CampaignlistComponent implements OnInit {
         this.cookiedetails = this.addcookie.getObject('cookiedetails');
         console.log('after putobject ' + this.cookiedetails);
         this.router.navigate(['/campaignsettings']);
+    }
+    getSortClass(value: any) {
+        if (this.orderbyquery == value && this.orderbytype == -1) {
+            return 'caret-up';
+        }
+
+        if (this.orderbyquery == value && this.orderbytype == 1) {
+            // console.log('caret-up');
+            return 'caret-down';
+        }
+        return 'caret-up-down';
+    }
+
+    manageSorting(value: any) {
+        if (this.orderbyquery == value && this.orderbytype == -1) {
+            this.orderbytype = 1;
+            return;
+        }
+        if (this.orderbyquery == value && this.orderbytype == 1) {
+            this.orderbytype = -1;
+            return;
+        }
+        this.orderbyquery = value;
+        this.orderbytype = 1;
     }
 }

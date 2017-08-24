@@ -1,16 +1,25 @@
 <app-header></app-header>
 
 <div class=" fieldset_wrapper">
+
+  <div class="searchdiv">
+    <label>Search :</label>
+    <input type="text" #listFilter (keyup)="0">
+    <div class="clearfix"></div>
+  </div>
+
+
+
   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="campaignlisttable">
     <tr>
       <th>#</th>
-      <th>Name</th>
-      <th>Email</th>
+      <th>Name<b [ngClass]="getSortClass('firstname')" (click)="manageSorting('firstname')" ></b></th>
+      <th>Email<b [ngClass]="getSortClass('email')" (click)="manageSorting('email')" ></b></th>
       <th>BirthDay</th>
       <th>Phone No</th>
     </tr>
 
-    <tbody *ngFor="let item of datalist; let i = index">
+    <tbody *ngFor="let item of datalist | orderBy:orderbyquery:orderbytype | usersearch:listFilter.value; let i = index">
     <tr *ngIf=" i>=pagestart && i < pageinitation">
       <td>{{i+1}}</td>
       <td>{{item.firstname}} {{item.lastname}}</td>
@@ -28,7 +37,6 @@
           Go to: </label>
         <input type="text" [(ngModel)]="pageno" (blur)="pageval(3)">
         <div class="clearfix"></div>
-
       </li>
       <li class="pagination--item">
         <label>

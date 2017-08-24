@@ -18,6 +18,8 @@ export class UserlistComponent implements OnInit {
     public campaignlist_length;
     public pagestart;
     public pageinitation;
+    orderbyquery: any;
+    orderbytype: any;
 
     constructor(private _http: Http, private router: Router, private route: ActivatedRoute, addcookie: CookieService) {
         this.addcookie = addcookie ;
@@ -26,6 +28,9 @@ export class UserlistComponent implements OnInit {
         this.pageno = 1;
         this.pagestart = 0;
         this.pageinitation = 5;
+        this.orderbyquery = 'firstname';
+        this.orderbytype = 1;
+
     }
 
     ngOnInit() {
@@ -86,5 +91,30 @@ export class UserlistComponent implements OnInit {
             }
         }
         this.pageinitation = parseInt(this.pagestart) + parseInt(this.showrows);
+    }
+
+    getSortClass(value: any) {
+        if (this.orderbyquery == value && this.orderbytype == -1) {
+            return 'caret-up';
+        }
+
+        if (this.orderbyquery == value && this.orderbytype == 1) {
+            // console.log('caret-up');
+            return 'caret-down';
+        }
+        return 'caret-up-down';
+    }
+
+    manageSorting(value: any) {
+        if (this.orderbyquery == value && this.orderbytype == -1) {
+            this.orderbytype = 1;
+            return;
+        }
+        if (this.orderbyquery == value && this.orderbytype == 1) {
+            this.orderbytype = -1;
+            return;
+        }
+        this.orderbyquery = value;
+        this.orderbytype = 1;
     }
 }

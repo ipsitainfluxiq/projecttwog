@@ -1,14 +1,24 @@
 <app-header></app-header>
 
+
 <div class=" fieldset_wrapper">
+
+    <div class="searchdiv">
+        <label>Search :</label>
+        <input type="text" #listFilter (keyup)="0">
+        <div class="clearfix"></div>
+    </div>
+
+
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="campaignlisttable">
         <tr>
-            <th>ID</th>
-            <th>Name</th>
+            <th>ID<b [ngClass]="getSortClass('id')" (click)="manageSorting('id')" ></b></th>
+            <th>Name<b [ngClass]="getSortClass('name')" (click)="manageSorting('name')" ></b></th>
             <th>Action</th>
+
         </tr>
 
-        <tbody *ngFor="let item of datalist; let i = index">
+        <tbody *ngFor="let item of datalist | orderBy:orderbyquery:orderbytype | usersearch:listFilter.value; let i = index">
         <tr *ngIf=" i>=pagestart && i < pageinitation">
             <td>{{item.id}}</td>
             <td>{{item.name}} </td>
