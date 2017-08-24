@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CookieService, cookieServiceFactory} from 'angular2-cookie/core';
 import {Http} from '@angular/http';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -21,9 +21,26 @@ export class HeaderComponent implements OnInit {
         this.emailcookie = emailcookie;
         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
         console.log('from header --------> ' + this.mailcookiedetails);
-        if (typeof (this.mailcookiedetails) == 'undefined') {
-            this.router.navigateByUrl('/login');
-        }
+
+        /* this subscription will fire always when the url changes */
+        this.router.events.subscribe(val=> {
+
+            /* the router will fire multiple events */
+            /* we only want to react if it's the final active route */
+            if (val instanceof NavigationEnd) {
+
+                /* the variable curUrlTree holds all params, queryParams, segments and fragments from the current (active) route */
+                let curUrlTree = this.router.parseUrl(this.router.url);
+                console.log(this.router.url);
+
+                if ((typeof (this.mailcookiedetails) == 'undefined') && this.router.url!='/' && this.router.url!='/basicinformation' && this.router.url!='/confirmation') {
+                    this.router.navigateByUrl('/login');
+                }
+            }
+        });
+
+
+
     }
 
     ngOnInit() {
