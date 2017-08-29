@@ -384,8 +384,18 @@
                       <input type="button" value="Search" (click)="searchlatlng()">-->
 
 
+                    <div class="GeoJSON_block"><span >Upload GeoJSON</span></div>
 
-                    <div class="GeoJSON_block"> <span>Upload GeoJSON</span></div>
+                   <!-- <div class="GeoJSON_block"><span (click)="getjson()">Upload GeoJSON</span></div>
+                    <div *ngIf="uploadjson">
+                      <input type="file"  ngFileSelect [options]="basicOptions" (onUpload)="handleUpload($event)">
+                      <input type="button"  value="Upload" (click)="callupload()"/>
+                      <input type="button"  value="Cancel" />
+                    </div>-->
+
+
+
+
 
                     <div class="mapblickwrapper">
 

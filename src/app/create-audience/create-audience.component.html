@@ -523,7 +523,18 @@
                   </tab>
 
                   <tab heading="Geo Fencing" (select)="initializeval()" >
-                    <div class="GeoJSON_block"> <span>Upload GeoJSON</span></div>
+
+
+                    <div class="GeoJSON_block"><span (click)="getjson()">Upload GeoJSON</span></div>
+                    <div *ngIf="uploadjson">
+                      <input type="file"  ngFileSelect [options]="basicOptions" (onUpload)="handleUpload($event)">
+                      <!-- <input type="file">-->
+                      <input type="button"  value="Upload" (click)="callupload()"/>
+                      <input type="button"  value="Cancel" />
+                    </div>
+
+
+                    <!--<div class="GeoJSON_block"> <span>Upload GeoJSON</span></div>-->
                     <div class="mapblickwrapper">
                       <div class="map_menuwrapper">
                         <input  type="text" class="map_input" placeholder="address" [(ngModel)]="searchaddress" (keyup)="searchlatlng($event)"/>

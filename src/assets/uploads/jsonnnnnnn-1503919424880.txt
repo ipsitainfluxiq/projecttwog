@@ -1,0 +1,19 @@
+
+{
+  "type": "FeatureCollection",
+  "features": [
+  {
+   "type": "Feature",
+    "properties": {
+        "name":"polygon7"
+     },
+     "geometry": {
+        "geo_fence_type_name":"Conversion",
+        "type":"Polygon",
+        "coordinates":[[[179.219112396,0.785497853924],[179.559688568,0.790990498154],[179.559688568,0.692121838663],[179.356441498,0.615222552407],[179.131221771,0.609729702196]]]
+}
+}
+]
+}
+
+

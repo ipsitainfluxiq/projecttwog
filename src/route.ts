@@ -21,13 +21,16 @@ import {TestComponent} from 'app/test/test.component';
 import {SignupComponent} from 'app/signup/signup.component';
 import {LoginComponent} from 'app/login/login.component';
 import {UserlistComponent} from 'app/userlist/userlist.component';
+import {AccountdetailsComponent} from 'app/accountdetails/accountdetails.component';
+import {UpdateprofileComponent} from 'app/updateprofile/updateprofile.component';
+import {ChangepasswordComponent} from 'app/changepassword/changepassword.component';
 
 
 const appRoutes: Routes = [
 
    // { path: '', component: OrderformComponent},
     // { path: 'simplesolution', component: SimplesolutionComponent},
-    { path: '', component: SimplesolutionComponent},
+    { path: 'simplesolution', component: SimplesolutionComponent},
     { path: 'basicinformation', component: BasicinformationComponent},
     { path: 'confirmation', component: ConfirmationComponent},
     { path: 'trail', component: TrialComponent},
@@ -38,8 +41,11 @@ const appRoutes: Routes = [
     { path: 'summary', component: SummaryComponent},
     { path: 'test', component: TestComponent},
     { path: 'signup', component: SignupComponent},
-    { path: 'login', component: LoginComponent},
+    { path: '', component: LoginComponent},
     { path: 'userlist', component: UserlistComponent},
+    { path: 'accountdetails', component: AccountdetailsComponent},
+    { path: 'updateprofile', component: UpdateprofileComponent},
+    { path: 'changepassword', component: ChangepasswordComponent},
 
 ];
 

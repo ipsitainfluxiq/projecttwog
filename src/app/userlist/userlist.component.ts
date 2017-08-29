@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import {Commonservices} from '../app.commonservices' ;
 
 @Component({
     selector: 'app-userlist',
     templateUrl: './userlist.component.html',
-    styleUrls: ['./userlist.component.css']
+    styleUrls: ['./userlist.component.css'],
+    providers: [Commonservices],
 })
 export class UserlistComponent implements OnInit {
     public datalist;
@@ -20,8 +22,9 @@ export class UserlistComponent implements OnInit {
     public pageinitation;
     orderbyquery: any;
     orderbytype: any;
+    public serverurl;
 
-    constructor(private _http: Http, private router: Router, private route: ActivatedRoute, addcookie: CookieService) {
+    constructor(private _http: Http, private router: Router, private route: ActivatedRoute, addcookie: CookieService, private _commonservices: Commonservices) {
         this.addcookie = addcookie ;
         this.cookiedetails = this.addcookie.getObject('cookiedetails');
         this.showrows = 5;
@@ -30,14 +33,15 @@ export class UserlistComponent implements OnInit {
         this.pageinitation = 5;
         this.orderbyquery = 'firstname';
         this.orderbytype = 1;
-
+        this.serverurl = _commonservices.url;
     }
 
     ngOnInit() {
         this.getUserList();
     }
     getUserList() {
-        let link = 'http://localhost:3004/userlist';
+        let link = this.serverurl + 'userlist';
+       // let link = 'http://localhost:3004/userlist';
         let data = {};
         this._http.get(link)
             .subscribe(res => {

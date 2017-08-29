@@ -3,22 +3,26 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Http} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import {Commonservices} from '../app.commonservices' ;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.css'],
+    providers: [Commonservices],
 })
 export class LoginComponent implements OnInit {
     public dataForm: FormGroup;
     private fb;
     public is_error;
+    public serverurl;
    /* private addcookie: CookieService;
     private cookiedetails;*/
     private emailcookie: CookieService;
     private mailcookiedetails;
 
-    constructor(fb: FormBuilder, emailcookie: CookieService, private _http: Http, private router: Router) {
+    constructor(fb: FormBuilder, emailcookie: CookieService, private _http: Http, private router: Router,  private _commonservices: Commonservices) {
+        this.serverurl = _commonservices.url;
         this.fb = fb;
         this.emailcookie = emailcookie ;
         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
@@ -43,8 +47,8 @@ export class LoginComponent implements OnInit {
         }
         this.is_error = 0;
         if (this.dataForm.valid) {
-            console.log("valid proved for login");
-            var link = 'http://localhost:3004/login';
+           // var link = 'http://localhost:3004/login';
+            let link = this.serverurl + 'login';
             let data = {email: formval.email, password: formval.password};
 
             this._http.post(link, data)
@@ -55,12 +59,11 @@ export class LoginComponent implements OnInit {
                         this.emailcookie.putObject('mailcookiedetails', result.msg);
                         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
                         console.log('after putobject ' + this.mailcookiedetails);
-
-                        this.router.navigateByUrl('/');
+                        this.router.navigate(['/accountdetails']);
                     }
                     else {
                         this.is_error = result.msg;
-                        this.router.navigate(['/login']);
+                        this.router.navigate(['/']);
                     }
 
                 }, error => {

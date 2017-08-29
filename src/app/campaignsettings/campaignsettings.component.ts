@@ -1,20 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import {CookieService} from 'angular2-cookie/core';
 import {Http} from '@angular/http';
 import {LatLngBounds, LatLngLiteral} from '@agm/core';
 import { MapsAPILoader } from '@agm/core';
 import {map} from 'rxjs/operator/map';
 import { Observable } from 'rxjs/Observable';
+import {Commonservices} from '../app.commonservices' ;
 
 declare var $: any;
 @Component({
     selector: 'app-campaignsettings',
     templateUrl: './campaignsettings.component.html',
-    styleUrls: ['./campaignsettings.component.css']
+    styleUrls: ['./campaignsettings.component.css'],
+    providers: [Commonservices],
 })
 export class CampaignsettingsComponent implements OnInit {
     private addcookie: CookieService;
     private cookiedetails;
+    private zone: NgZone;
+    public basicOptions: Object;
+    public serverurl;
     public link;
     public data;
     public checkuncheck;
@@ -23,7 +28,10 @@ export class CampaignsettingsComponent implements OnInit {
     public updateresult;
     public getresult;
     public newcreatedcampaignid: any;
+    public uploadedfilesrc: any;
+    public uploadedfilesrconly: any;
     public newcreatedcampaignname: any;
+    public fileval: any;
     public name: any;
     public error;
     public error1;
@@ -65,6 +73,7 @@ export class CampaignsettingsComponent implements OnInit {
     public obaid: any;
     public divshow0: any;
     public divshow: any;
+    private response: any = {};
     public divshow2: any;
     public divshow3: any;
     public divshow4: any;
@@ -77,6 +86,7 @@ export class CampaignsettingsComponent implements OnInit {
     public polydelete: any;
     public polyname: any;
     public m_name: any;
+    public filenameis: any;
     public bymedia: any;
     public bycpm: any;
     public byspeed: any;
@@ -93,6 +103,7 @@ export class CampaignsettingsComponent implements OnInit {
     public viewthrupercentage1: any;
     public clickthrupercentage: any;
     public clickthrupercentage1: any;
+    public uploadjson: any;
     public viewattrval: any;
     public clickattrval: any;
     public slidedisable= false;
@@ -138,6 +149,7 @@ export class CampaignsettingsComponent implements OnInit {
     private temppath: Array<LatLngLiteral>= [];
     private allcoordinates: Array<LatLngLiteral>= [];
     private polygonresult: any;
+    private uploadresult: any;
     private sizeerrors: any;
     private fence_length: string;
     private bounds: any=[];
@@ -158,7 +170,9 @@ export class CampaignsettingsComponent implements OnInit {
     ]]*/
 
 
-    constructor(addcookie: CookieService, private _http: Http , private mapsAPILoader: MapsAPILoader) {
+    constructor(addcookie: CookieService, private _http: Http , private mapsAPILoader: MapsAPILoader, private _commonservices: Commonservices) {
+        this.serverurl = _commonservices.url;
+        this.uploadjson = false;
         this.campaignname = 'Create a Campaign';
         this.polydelete = 'Actions';
         this.impressions_f = '';
@@ -488,6 +502,11 @@ export class CampaignsettingsComponent implements OnInit {
 
         this.oba = 'Select';
         this.m_name = 'by CPM';
+
+        this.zone = new NgZone({enableLongStackTrace: false});
+        this.basicOptions = {
+            url: this.serverurl + 'uploads'
+        };
     }
 
     public getDate(): number {
@@ -497,6 +516,55 @@ export class CampaignsettingsComponent implements OnInit {
     public getendDate(): number {
         this.enddt = this.enddate && this.enddate.getTime() || new Date().getTime();
         return this.enddate && this.enddate.getTime() || new Date().getTime();
+    }
+
+   handleUpload(data: any): void // uploading the file and saving to particular folder
+    {
+        console.log('hi');
+        console.log(data);
+        this.zone.run(() => {
+            this.response = data;
+                let resp = data.response;
+                console.log('resp');
+                console.log((resp));
+                console.log(typeof(resp));
+                if (typeof(resp) != 'undefined') {
+                    let result = (data.response);
+                    console.log('result');
+                    console.log(result);
+                   if (result.length > 1) {
+                        // this.dataForm.patchValue({image: result.filename});
+                      //  this.dataForm.patchValue({image: result});
+                        this.uploadedfilesrc = '../../assets/uploads/' + resp.replace(/"/g, '');
+                     //   this.uploadedfilesrconly = '../../assets/uploads/';
+                        console.log('upload file location' + this.uploadedfilesrc);
+                         this.filenameis = resp.replace(/"/g, '');
+                     /*   this.imagename = result.replace(/"/g, '');
+                        console.log('imagename');
+                        console.log(this.imagename);*/
+                    }
+                }
+
+        });
+    }
+
+    callupload() {
+        console.log('999999');
+        let link = this.serverurl + 'calluploads';
+        let data = {filenameis: this.filenameis, srcfile: this.uploadedfilesrc};
+        this._http.post(link, data)
+            .subscribe(res => {
+                let result = res.json();
+               /* if (result.status == 'success') {
+                   // this.router.navigate(['/simplesolution']);
+                }
+                else {
+                   // this.router.navigate(['/']);
+                }*/
+
+            }, error => {
+                console.log('Oooops!');
+            });
     }
     initializeval() {
         // console.log("set initialize val");
@@ -1134,6 +1202,31 @@ else{
                 }
             }
         }, 400);
+    }
+    getjson() {
+       // this.uploadjson = true;
+        this.uploadjson = (1 - this.uploadjson);
+    }
+
+
+    uploadjsonfile(fileInput: any) {
+        let file = fileInput.target.files;
+       // let fileName = file.name;
+        this.link = 'http://simplyfi.influxiq.com/uploadjson.php';
+        let data = {
+            val: file,
+            id: this.cookiedetails
+        };
+        console.log(data);
+        this._http.post(this.link, data)
+            .subscribe(res => {
+                this.uploadresult = res.json();
+                console.log('+++++++++++++this.uploadresult++++++++++++');
+                console.log(this.uploadresult);
+                console.log(this.uploadresult.errors);
+            }, error => {
+                console.log('Oooops!');
+            });
     }
 
     savepolygon() {

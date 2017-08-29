@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CookieService } from 'angular2-cookie/core';
+import {Commonservices} from '../app.commonservices' ;
 /*import {DatepickerModule} from 'ngx-bootstrap/datepicker';*/
 declare  var $: any;
 @Component({
   selector: 'app-basicinformation',
   templateUrl: './basicinformation.component.html',
-  styleUrls: ['./basicinformation.component.css']
+  styleUrls: ['./basicinformation.component.css'],
+  providers: [Commonservices],
 })
 export class BasicinformationComponent implements OnInit {
 
@@ -56,7 +58,9 @@ export class BasicinformationComponent implements OnInit {
   public checkerrorradio1: boolean = false;
   public checkerrorradio2: boolean = false;
   public error: any;
-  constructor(private _http: Http, private router: Router, addcookie: CookieService/*private DatepickerModule: DatepickerModule*/) {
+  public serverurl;
+  constructor(private _http: Http, private router: Router, addcookie: CookieService,  private _commonservices: Commonservices/*private DatepickerModule: DatepickerModule*/) {
+    this.serverurl = _commonservices.url;
     this.addcookie = addcookie ;
     this.cookiedetails = this.addcookie.getObject('cookiedetails');
     console.log(this.cookiedetails);
@@ -409,7 +413,8 @@ if(flag==0) {
       console.log('data');
       console.log(data);
       // let link = 'http://localhost:3004/basicinformation';
-      let link = 'http://influxiq.com:3014/basicinformation';
+      // let link = 'http://influxiq.com:3014/basicinformation';
+      let link = this.serverurl + 'basicinformation';
       this._http.post(link, data)
           .subscribe(res => {
             let result = res.json();

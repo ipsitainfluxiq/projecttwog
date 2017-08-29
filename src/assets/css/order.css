@@ -19,7 +19,7 @@ body{ margin:0!important; padding:0 0 0px 0!important; background: #1d70a3 url(/
 .fieldset_wrapper{width: 90%!important;
     margin: 0 auto 50px!important;
     background: #fff!important;
-    padding: 30px!important;
+    padding:28px 30px 30px 30px!important;
     font-family: Calibri;
     display: block;
 }
@@ -628,7 +628,7 @@ body{ margin:0!important; padding:0 0 0px 0!important; background: #1d70a3 url(/
 .budget_forminput_sub2{ width:32%; float:left; }
 
 .clearbtn{ display:block; width:10%; text-align:right; float:right;  font-family: Calibri;
-    font-size: 20px; color:#008cba!important; text-decoration:none!important; margin:40px 0 0 0;}
+    font-size: 20px; color:#008cba!important; text-decoration:none!important; margin:28px 0 0 0;}
 
 
 .settingblock{ padding: 20px 0 0 0;}
@@ -804,7 +804,7 @@ body{ margin:0!important; padding:0 0 0px 0!important; background: #1d70a3 url(/
 
 @media (max-width: 440px) {
 
-    .clearbtn{ width:auto; float:none; text-align:left; margin:10px 0 0 0;}
+    .clearbtn{ width:auto; float:none; text-align:left; margin:10px 0 0 0; display: block;}
     .budget_forminput_sub1 {
         float: left;
         width: 60%;
@@ -1222,4 +1222,121 @@ agm-map {
     .searchdiv label{ display: block; padding: 0 0 5px 0;}
 
     .searchdiv input[type="text"]{ width: 244px;}
+}
+
+
+
+.updateprofile_formwrapper{ width: 100%; margin: 0 auto;}
+
+.updateprofile_formwrapper label{ display: block; width: 100%;     padding:0 0 5px 0!important;
+    color: #666!important;
+    font-size: 18px!important;
+    cursor: inherit!important; font-weight: normal!important;}
+
+.updateprofile_formwrapper .form-control{width: 100%;
+
+    display: block!important;
+    box-shadow: none!important;
+    border: 1px solid #cccccc!important;
+    height: 37px;
+    border-radius: 0px;
+    font-size: 16px;
+    padding: 0 5px;
+    color: #000;
+    background-color: #fff!important; margin: 0px!important;}
+
+.updateprofile_formwrapper .form-group{ margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; margin-bottom:15px!important;}
+
+
+
+.updateprofile_formwrapper select{width: 100%;
+
+    display: block!important;
+    box-shadow: none!important;
+    border: 1px solid #cccccc!important;
+    height: 37px;
+    border-radius: 0px;
+    font-size: 16px;
+    padding: 0 5px;
+    color: #000;
+    background-color: #fff!important; margin: 0px!important;}
+
+
+.updateprofile_formwrapper .signup_box_input{width: 100%;
+
+    display: block!important;
+    box-shadow: none!important;
+    border: 1px solid #cccccc!important;
+    height: 37px;
+    border-radius: 0px;
+    font-size: 16px;
+    padding: 0 5px;
+    color: #000; margin: 0px!important;
+    background-color: #fff!important;}
+
+
+.updateprofile_formwrapper .tripplecolumn_middle{ margin-bottom: 0px!important; padding-bottom: 0px!important;  height: auto!important; min-height: inherit!important;}
+
+.updateprofile_formwrapper .loginbtn2{background-color: #008cba;
+    border-radius: 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: normal;
+    border: none;
+    margin: 0;
+    padding: 11px 10px 8px 10px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 300ms ease-out 0s;
+    border-bottom: solid 2px #007095;}
+
+
+.priofiletablediv table{ width: 100%;}
+
+.priofiletablediv table td{font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-size: 14px;     color: #666!important; padding: 10px;}
+
+.priofiletablediv table td label{font-size: 14px; color: #008cba; font-weight: normal;}
+
+
+.priofiletablediv table tr:nth-child(odd){ background: #e7e7e7;}
+
+
+
+.adduserlinknew{background-color: #008cba;
+    border-radius: 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: normal;
+    border: none;
+    margin: 20px 5px 0 0;
+    padding: 11px 10px 8px 10px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 300ms ease-out 0s;
+    border-bottom: solid 2px #007095;}
+
+@media (max-width:350px) {
+    .adduserlinknew{ display: block!important; width: 200px!important; text-align: center; margin: 5px auto;}
+    .adduserlinknew:first-of-type{ margin-top: 20px;}
+}
+
+
+@media (max-width:767px) {
+
+    .updateprofile_formwrapper .form-group .row{ margin: 0px; padding: 0px;}
+
+    .updateprofile_formwrapper   .tripplecolumn_left { margin: 0px 0 0 0!important; padding: 0px!important; }
+    .updateprofile_formwrapper   .tripplecolumn_middle { margin: 5px 0 0 0!important; padding: 0px!important;}
+    .updateprofile_formwrapper   .tripplecolumn_right { margin: 5px 0 0 0!important; padding: 0px!important;}
 }

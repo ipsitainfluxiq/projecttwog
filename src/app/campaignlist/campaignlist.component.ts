@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import {Commonservices} from '../app.commonservices' ;
 
 @Component({
     selector: 'app-campaignlist',
     templateUrl: './campaignlist.component.html',
-    styleUrls: ['./campaignlist.component.css']
+    styleUrls: ['./campaignlist.component.css'],
+    providers: [Commonservices],
 })
 export class CampaignlistComponent implements OnInit {
     public datalist;
@@ -21,8 +23,9 @@ export class CampaignlistComponent implements OnInit {
     public campaignname;
     orderbyquery: any;
     orderbytype: any;
+    public serverurl;
 
-    constructor(private _http: Http, private router: Router, private route: ActivatedRoute, addcookie: CookieService) {
+    constructor(private _http: Http, private router: Router, private route: ActivatedRoute, addcookie: CookieService,  private _commonservices: Commonservices) {
         this.addcookie = addcookie ;
         this.cookiedetails = this.addcookie.getObject('cookiedetails');
         this.campaignname = 'Edit Campaign';
@@ -32,6 +35,7 @@ export class CampaignlistComponent implements OnInit {
         this.pageinitation = 5;
         this.orderbyquery = 'id';
         this.orderbytype = 1;
+        this.serverurl = _commonservices.url;
     }
 
     ngOnInit() {

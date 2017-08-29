@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder} from '@angular/forms';
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import {Commonservices} from '../app.commonservices' ;
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
+  providers: [Commonservices],
 })
 export class SignupComponent implements OnInit {
   public dataForm: FormGroup;
@@ -17,15 +19,18 @@ export class SignupComponent implements OnInit {
   public is_error;
   public state: any = [];
   public months: any = [];
+  public serverurl;
 
-  constructor(fb: FormBuilder,private _http: Http,private router: Router) {
+  constructor(fb: FormBuilder,private _http: Http,private router: Router, private _commonservices: Commonservices) {
     this.fb = fb;
     this.months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     SignupComponent.blankemail = false;
     SignupComponent.invalidemail = false;
     this.is_error='';
+    this.serverurl = _commonservices.url;
 
-    var link = 'http://localhost:3004/getusastates';
+   // var link = 'http://localhost:3004/getusastates';
+    let link = this.serverurl + 'getusastates';
     this._http.get(link)
         .subscribe(res => {
           var result1 = res.json();
@@ -118,13 +123,15 @@ export class SignupComponent implements OnInit {
         state: formval.state,
       };
 
-      var link = 'http://localhost:3004/signup';
+     // var link = 'http://localhost:3004/signup';
+      let link = this.serverurl + 'signup';
       this._http.post(link, data)
           .subscribe(res => {
             var result = res.json();
             console.log(result.status);
             if (result.status == 'success') {
               // $('#popthankyou').modal('show');
+              this.router.navigate(['/']);
             }
             else {
               this.is_error = result.status;

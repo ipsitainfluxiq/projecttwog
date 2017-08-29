@@ -20,13 +20,59 @@ var EventEmitter = require('events').EventEmitter;
 const emitter = new EventEmitter()
 //emitter.setMaxListeners(100)
 emitter.setMaxListeners(0)
+var multer  = require('multer');
+var datetimestamp='';
+var filename='';
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+       //   cb(null, '../assets/uploads/'); // this is for server site, run remotehost and check the path
+        cb(null, '../src/assets/uploads/');
+    },
+    filename: function (req, file, cb) {
+        //console.log(cb);
+
+        console.log('file.originalname'+file.originalname);
+        filename=file.originalname.split('.')[0].replace(/ /g,'') + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
+        // console.log(filename);
+        cb(null, filename);
+    }
+});
+
+
+
+var upload = multer({ //multer settings
+    storage: storage
+}).single('file');
+
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
+
 app.use(function(req, res, next) { //allow cross origin requests
     res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
+
+app.post('/uploads', function(req, res) {
+    datetimestamp = Date.now();
+    upload(req,res,function(err){
+        /*console.log(1);
+         console.log(err);
+         console.log(filename);*/
+
+        if(err){
+            res.json({error_code:1,err_desc:err});
+            return;
+        }
+
+        res.json(filename);
+
+
+    });
+});
+
+
 
 
 var mongodb = require('mongodb');
@@ -77,6 +123,62 @@ app.post('/signup' , function (req,resp) {
         });
 });
 
+app.post('/changepassword', function (req, resp) {
+    console.log('has-error');
+    var cryptoold = require('crypto');
+    var secretold = req.body.oldpassword;
+    var hashold = cryptoold.createHmac('sha256', secretold)
+        .update('password')
+        .digest('hex');
+
+
+    var cryptonew = require('crypto');
+    var secretnew = req.body.password;
+    var hashnew = cryptonew.createHmac('sha256', secretnew)
+        .update('password')
+        .digest('hex');
+    var data = {
+        password: hashnew
+    }
+
+    var collection = db.collection('signup');
+    var mail = req.body.email;
+
+    collection.find({email: mail, password: hashold}).toArray(function (err, items) {
+
+        if(items.length==0) {
+            resp.send(JSON.stringify({'status': 'error', 'msg': 'Old password doesnot match'}));
+            return;
+        }
+        else {
+            collection.update({email: mail}, {$set: data}, true, true);
+            resp.send(JSON.stringify({'status': 'success', 'msg': 'Password updated..'}));
+        }
+    });
+});
+
+
+app.post('/updateprofile',function(req,resp){
+    console.log('called');
+    var collection = db.collection('signup');
+    var data = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        month: req.body.month,
+        day: req.body.day,
+        year: req.body.year,
+        phone: req.body.phone,
+        location: req.body.location,
+        state: req.body.state,
+    }
+    var mail = req.body.email;
+    console.log(mail);
+    collection.update({email:mail}, {$set: data}, true, true);
+
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
 app.post('/login', function (req, resp) {
     console.log('callloginnn');
     console.log(req.body.email);
@@ -109,6 +211,46 @@ app.post('/login', function (req, resp) {
     });
 });
 
+app.post('/accountdetails',function(req,resp){        // this is for editadmin page
+    console.log("accountdetails from server.js called");
+    var resitem = {};
+    var collection = db.collection('signup');
+    var mail = req.body.emailid;
+
+    collection.find({email:mail}).toArray(function(err, items) {
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            resitem = items[0];
+            resp.send(JSON.stringify({'status':'success','item':resitem}));
+        }
+    });
+});
+
+
+
+app.post('/calluploads',function (req,resp) {
+    console.log(req.body.filenameis);
+    console.log(req.body.srcfile);
+    //var filepath = req.body.srcfile;
+    var filepath = '../src/assets/uploads/'+req.body.filenameis;   // this is same path as uploads file has at the top of this page
+
+    //  var filepath = '../assets/uploads/'+req.body.filenameis;    // (server) run remote host and check the path
+
+    console.log('filepath');
+    console.log(filepath);
+    var fs = require('fs'),
+        path = require('path');
+   // filePath = path.join(__dirname, 'start.html');
+    fs.readFile(filepath, {encoding: 'utf-8'}, function(err,data){
+        if (!err) {
+            console.log('received data: ' + data);
+            resp.send(data);
+        } else {
+            console.log(err);
+        }
+    });
+});
 
 app.get('/userlist',function (req,resp) {
 

@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,NgZone, OnInit } from '@angular/core';
 import {LatLngLiteral} from '@agm/core';
 import {Http} from '@angular/http';
 import {CookieService} from 'angular2-cookie/core';
 import { MapsAPILoader } from '@agm/core';
+import {Commonservices} from '../app.commonservices' ;
 
 @Component({
     selector: 'app-create-audience',
     templateUrl: './create-audience.component.html',
-    styleUrls: ['./create-audience.component.css']
+    styleUrls: ['./create-audience.component.css'],
+    providers: [Commonservices]
 })
 export class CreateAudienceComponent implements OnInit {
     private addcookie: CookieService;
@@ -16,8 +18,10 @@ export class CreateAudienceComponent implements OnInit {
     public responsedaypart: any;
     public threshold_id: any;
     public flag= 0;
+    public serverurl;
     public dealdetails: any;
-    public ipdetails: any;
+    public uploadedfilesrc: any;
+    public filenameis: any;
     public k: any;
     public divdayparting;
     public deals;
@@ -50,6 +54,7 @@ export class CreateAudienceComponent implements OnInit {
     public key: any;
     public pacingval: any;
     public pacingval1: any;
+    public uploadjson: any;
     public showpace: any;
     public string1: any;
     public string2: any;
@@ -58,6 +63,8 @@ export class CreateAudienceComponent implements OnInit {
     public oslen: any;
     public divshowpace = false;
     public paceenable: boolean= true;
+    private zone: NgZone;
+    public basicOptions: Object;
     public link;
     public divshow1;
     public parent_locations: any = [];
@@ -100,11 +107,14 @@ export class CreateAudienceComponent implements OnInit {
     public polyname: any;
     public polydelete: any;
     patharr: any = [];
+    patharr1: any = [];
     public fence: any = [];
+    private response: any = {};
     public error: any;
     public openonediv = true;
     public openalldiv = false;
     public paceerror: any;
+    private uploadresult: any;
     private bounds: any = [];
     private temppath: Array<LatLngLiteral>= [];
     private allcoordinates: Array<LatLngLiteral>= [];
@@ -125,7 +135,10 @@ export class CreateAudienceComponent implements OnInit {
     private getdevice: any = [];
     private getos: any = [];
     private getdeal: any = [];
-    constructor(addcookie: CookieService, private _http: Http, private mapsAPILoader: MapsAPILoader) {
+    constructor(addcookie: CookieService, private _http: Http, private mapsAPILoader: MapsAPILoader,  private _commonservices: Commonservices) {
+        this.patharr1 = [];
+        this.uploadjson = false;
+        this.serverurl = _commonservices.url;
         this.showdaypartval = 'Anytime of day';
         this.daypartval[1] = '111111111111111111111111';
         this.daypartval[2] = '111111111111111111111111';
@@ -574,7 +587,126 @@ export class CreateAudienceComponent implements OnInit {
     ngOnInit() {
         this.viewabilitis = ['No minimum', 'Good', 'Better', 'Best'];
         this.view = 'No minimum';
+        this.zone = new NgZone({enableLongStackTrace: false});
+        this.basicOptions = {
+            url: this.serverurl + 'uploads'
+        };
     }
+
+
+    handleUpload(data: any): void // uploading the file and saving to particular folder
+    {
+        console.log('hi');
+        console.log(data);
+        this.zone.run(() => {
+            this.response = data;
+            let resp = data.response;
+            console.log('resp');
+            console.log((resp));
+            console.log(typeof(resp));
+            if (typeof(resp) != 'undefined') {
+                let result = (data.response);
+                console.log('result');
+                console.log(result);
+                if (result.length > 1) {
+                    this.uploadedfilesrc = '../../assets/uploads/' + resp.replace(/"/g, '');
+                    console.log('upload file location' + this.uploadedfilesrc);
+                    this.filenameis = resp.replace(/"/g, '');
+                    /*   this.imagename = result.replace(/"/g, '');
+                     console.log('imagename');
+                     console.log(this.imagename);*/
+                }
+            }
+
+        });
+    }
+/*REMAQRKkkkkkkkkkkkkkkkkkkkk-------------------------------------------------*/
+
+    callupload() {
+        console.log('ddbb');
+        let temparr1: Array<any> = [];
+        let temparrval1: Array<any> = [];
+        let link = this.serverurl + 'calluploads';
+        let data = {filenameis: this.filenameis, srcfile: this.uploadedfilesrc};
+        this._http.post(link, data)
+            .subscribe(res => {
+                let result = res.json();
+                // console.log(result.features[0].geometry.coordinates[0]);
+                //  console.log('+++++');
+                for (let k in result.features) {
+                    for (let i in result.features[k].geometry.coordinates[0]) {
+                        this.temppath.push({
+                            lat: result.features[k].geometry.coordinates[0][i][1],
+                            lng: result.features[k].geometry.coordinates[0][i][0]
+                        });
+                    }
+                    this.patharr.push(this.temppath);
+                    this.patharr1.push(this.temppath);
+                    this.temppath = [] ;
+                }
+                console.log(this.patharr1);
+
+
+
+                for (let x in this.patharr1) {
+                    temparr1 = [];
+                    for (let y in this.patharr1[x]) {
+                        console.log(this.patharr1[x][y]);
+
+                          temparrval1.push(this.patharr1[x][y].lng);
+                         temparrval1.push(this.patharr1[x][y].lat);
+                         console.log(temparrval1);
+                         console.log('==');
+                        temparr1.push(temparrval1);
+
+                        temparrval1 = [];
+                    }
+                    let polyshape: any = {
+                        fencename: result.features[x].properties.name,
+                        fencecoordinates: temparr1,
+                        fencecheckbox: false
+                    }
+                    temparr1 = [];
+                    this.fence.push(polyshape);
+                   temparrval1 = [];
+                }
+
+               console.log('==temparr1=============');
+                console.log(temparr1);
+                console.log('polyshape details ');
+                console.log(this.fence);
+
+            }, error => {
+                console.log('Oooops!');
+            });
+    }
+
+    getjson() {
+        // this.uploadjson = true;
+        this.uploadjson = (1 - this.uploadjson);
+    }
+
+
+    uploadjsonfile(fileInput: any) {
+        let file = fileInput.target.files;
+        // let fileName = file.name;
+        this.link = 'http://simplyfi.influxiq.com/uploadjson.php';
+        let data = {
+            val: file,
+            id: this.cookiedetails
+        };
+        console.log(data);
+        this._http.post(this.link, data)
+            .subscribe(res => {
+                this.uploadresult = res.json();
+                console.log('+++++++++++++this.uploadresult++++++++++++');
+                console.log(this.uploadresult);
+                console.log(this.uploadresult.errors);
+            }, error => {
+                console.log('Oooops!');
+            });
+    }
+
     addtolist(id, name) {
         this.selected_locations.push({attr_id: id, attr_name: name});
         console.log(this.selected_locations);
@@ -1234,8 +1366,8 @@ export class CreateAudienceComponent implements OnInit {
 
     createsh(type) {
         console.log('this.temppath at start---------????????????????????????????????');
-        console.log(this.temppath);
-        console.log(this.temppath.length);
+       // console.log(this.temppath);
+       // console.log(this.temppath.length);
         // this.temppath = [];
         if (this.temppath.length != 0) {
             this.rand = Math.round((Math.random() * 10) * 10);
@@ -1250,6 +1382,7 @@ export class CreateAudienceComponent implements OnInit {
                 temparrval = [];
                 temparrval.push(this.temppath[x].lng);
                 temparrval.push(this.temppath[x].lat);
+                console.log('=======================temparrval==================');
                 console.log(temparrval);
                 temparr.push(temparrval);
             }

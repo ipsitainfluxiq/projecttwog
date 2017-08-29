@@ -9,8 +9,8 @@
             <img src="../../assets/images/geoai_logo.jpg"  class="geoai_logo"/>
             <img src="../../assets/images/geoai_top_banner.jpg" class="geoai_top_banner" />
 
-            <a href="#" class="top_bannerbtn">Ad Marketing Pros</a>
-
+            <!--<a href="#" class="top_bannerbtn"  >Ad Marketing Pros</a>-->
+            <a [routerLink]="['/accountdetails']" class="top_bannerbtn" *ngIf="usernamedetail" >{{usernamedetail.firstname}} {{usernamedetail.lastname}}</a>
             <div class="topnew_menu">
                 <div class="btn-group" dropdown>
                     <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
@@ -18,6 +18,7 @@
                     </button>
                     <ul *dropdownMenu class="dropdown-menu" role="menu">
                        <!-- <li role="menuitem"><a class="dropdown-item" [routerLink]="['/campaignsettings']"><h2>Create Campaigns </h2></a></li>-->
+                        <li role="menuitem"><a class="dropdown-item" [routerLink]="['/simplesolution']"><h2>Make a Order</h2></a></li>
                         <li role="menuitem"><a class="dropdown-item" (click)="resetcookie()"><h2>Create Campaigns </h2></a></li>
                         <li role="menuitem"><a class="dropdown-item" [routerLink]="['/campaignlist']"><h2>Campaign List </h2></a></li>
                         <li role="menuitem"><a class="dropdown-item" [routerLink]="['/userlist']"><h2>User List </h2></a></li>

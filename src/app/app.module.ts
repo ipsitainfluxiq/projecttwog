@@ -31,6 +31,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { UserlistComponent } from './userlist/userlist.component';
 import { OrderBy } from './orderby';
 import { UsersearchPipe } from './search.pipe';
+import { Ng2UploaderModule } from 'ng2-uploader';
+import { AccountdetailsComponent } from './accountdetails/accountdetails.component';
+import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 
 @NgModule({
@@ -53,6 +57,9 @@ import { UsersearchPipe } from './search.pipe';
     UserlistComponent,
     OrderBy,
     UsersearchPipe,
+    AccountdetailsComponent,
+    UpdateprofileComponent,
+    ChangepasswordComponent,
 
   ],
   imports: [
@@ -67,6 +74,7 @@ import { UsersearchPipe } from './search.pipe';
     UiSwitchModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
+    Ng2UploaderModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA2_vmiwMYMoLIAyN5Bb1C8XZYOyQwIq8U'
     })

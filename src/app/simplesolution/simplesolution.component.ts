@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import {Commonservices} from '../app.commonservices' ;
 
 declare  var $: any;
 @Component({
   selector: 'app-simplesolution',
   templateUrl: './simplesolution.component.html',
-  styleUrls: ['./simplesolution.component.css']
+  styleUrls: ['./simplesolution.component.css'],
+  providers: [Commonservices],
 })
 export class SimplesolutionComponent implements OnInit {
-
+  public serverurl;
   public datareq: any = [];
   public pushval: any = [];
   public item;
@@ -724,7 +726,8 @@ export class SimplesolutionComponent implements OnInit {
   private cookiedetails;
   public error: any;
 
-  constructor(private _http: Http, private router: Router, addcookie: CookieService) {
+  constructor(private _http: Http, private router: Router, addcookie: CookieService,  private _commonservices: Commonservices) {
+    this.serverurl = _commonservices.url;
     this.addcookie = addcookie ;
     this.cookiedetails = this.addcookie.getObject('cookiedetails');
     this.simply_display = true;
@@ -4301,7 +4304,8 @@ export class SimplesolutionComponent implements OnInit {
 
     {
     //  let link = 'http://localhost:3004/simplesolution';
-      let link = 'http://influxiq.com:3014/simplesolution';
+     // let link = 'http://influxiq.com:3014/simplesolution';
+      let link = this.serverurl + 'simplesolution';
 
 
     let data = {
