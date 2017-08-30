@@ -10,7 +10,7 @@ export class Commonservices {
     url: any
 
     constructor(private http: Http) {
-      //  this.url = 'http://localhost:3004/';
-        this.url = 'http://influxiq.com:3014/';
+        this.url = 'http://localhost:3004/';
+      //  this.url = 'http://influxiq.com:3014/';
     }
 }
