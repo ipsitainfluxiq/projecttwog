@@ -170,7 +170,7 @@ meta.foundation-version{font-family:"/5.2.2/"}meta.foundation-mq-small{font-fami
 #password_contain, #username_contain
 {
     margin-top:15px;
-    text-align:right;
+    text-align: left;
 }
 
 #login_box label
@@ -344,7 +344,7 @@ meta.foundation-version{font-family:"/5.2.2/"}meta.foundation-mq-small{font-fami
 .signupbox_formwrapper .form-group{ margin: 0 0 7px 0!important; padding: 0px!important; width: 100%!important;}
 .signupbox_formwrapper .form-group2{ margin: 0!important; padding: 0px!important; width: 100%!important;}
 
-.signupbox_formwrapper .form-group .signup_box_input{ width: 100%!important; height: 26px!important; border: 1px solid #a9a9a9!important; background: #fff; padding: 0 10px!important; font-size: 13px; color: #a9a9a9; font-family:'OpenSansItalic'!important; margin-bottom: 12px;}
+.signupbox_formwrapper .form-group .signup_box_input{ width: 100%!important; height: 30px!important; border: 1px solid #a9a9a9!important; background: #fff; padding: 0 10px!important; font-size: 13px; color: #a9a9a9; font-family:'OpenSansItalic'!important; margin-bottom: 2px;}
 .signup_box_input:focus{ border: 1px solid #a9a9a9!important; background: #262626!important;}
 
 .signupbox_formwrapper .form-group .chkselect_input{ width: 100%!important; height: 26px!important; border: 1px solid #a9a9a9!important; background: #fff; padding: 0 10px!important; font-size: 13px; font-family:'OpenSansItalic'!important; margin-bottom: 12px;}
@@ -374,6 +374,21 @@ meta.foundation-version{font-family:"/5.2.2/"}meta.foundation-mq-small{font-fami
 .signupbox_formwrapper :-moz-placeholder { /* Firefox 18- */
     color: #a9a9a9!important; text-transform: capitalize!important; opacity: 1!important;
 }
+
+.signupbox_formwrapper .form-group input[type="checkbox"], .signupbox_formwrapper .form-group input[type="radio"]{
+    float: left;
+    margin-right: 10px;
+}
+
+
+.signupbox_formwrapper .form-group textarea {
+    min-height: 80px !important;
+}
+
+.signupbox_formwrapper .form-group span{
+    font-family:'open_sansregular';
+}
+
 
 .tripplecolumn_left{
     padding-left: 0px;

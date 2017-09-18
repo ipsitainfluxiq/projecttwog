@@ -24,6 +24,7 @@ import {UserlistComponent} from 'app/userlist/userlist.component';
 import {AccountdetailsComponent} from 'app/accountdetails/accountdetails.component';
 import {UpdateprofileComponent} from 'app/updateprofile/updateprofile.component';
 import {ChangepasswordComponent} from 'app/changepassword/changepassword.component';
+import {LocationtraceComponent} from 'app/locationtrace/locationtrace.component';
 
 
 const appRoutes: Routes = [
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
     { path: 'accountdetails', component: AccountdetailsComponent},
     { path: 'updateprofile', component: UpdateprofileComponent},
     { path: 'changepassword', component: ChangepasswordComponent},
+    { path: 'locationtrace', component: LocationtraceComponent},
 
 ];
 

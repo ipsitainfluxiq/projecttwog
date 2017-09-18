@@ -38,7 +38,9 @@
                 <input type="text" name="last_name" id="last_name" class="signup_box_input" value="" placeholder="Last Name" [formControl]="dataForm.controls['lastname']">
                 <span *ngIf="dataForm.controls['lastname'].touched && !dataForm.controls['lastname'].valid" class="wpcf7-not-valid-tip">Last Name field can not be blank!</span>
 
-
+                <strong>Your company name</strong>
+                <input type="text" name="last_name" id="company_name" class="signup_box_input" value="" placeholder="Company Name" [formControl]="dataForm.controls['companyname']">
+                <span *ngIf="dataForm.controls['companyname'].touched && !dataForm.controls['companyname'].valid" class="wpcf7-not-valid-tip">Company Name field can not be blank!</span>
               </div>
 
 
@@ -60,16 +62,35 @@
 
 
               <div class="col-xs-12 form-group" id="confirm_password_contain">
-                <strong>Create a password</strong>
+                <strong>Confirm password</strong>
                 <input type="password" name="confirm_password" id="confirm_password" class="signup_box_input" value="" placeholder="Confirm Password" [formControl]="dataForm.controls['confirmpassword']">
                 <span class="wpcf7-not-valid-tip" *ngIf ="dataForm.controls['confirmpassword'].touched && !dataForm.controls['confirmpassword'].valid">Please fill in the required field.</span>
-                <div class="wpcf7-not-valid-tip" *ngIf ="dataForm.hasError('mismatchedPasswords') && dataForm.controls['confirmpassword'].valid "><strong>Passwords must match</strong>
+                <div class="wpcf7-not-valid-tip" *ngIf ="dataForm.hasError('mismatchedPasswords') && dataForm.controls['confirmpassword'].valid "><span>Passwords must match</span>
                 </div>
               </div>
 
+              <div class="col-xs-12 form-group" id="phone_contain">
+                <strong>Mobile phone</strong>
+                <input type="text" name="phone_number" id="phone_number" class="signup_box_input" value="" placeholder="Mobile Number" [formControl]="dataForm.controls['phone']">
+              </div>
 
+              <div class="col-xs-12 form-group" id="agency_contain">
+                <input type="checkbox" [formControl]="dataForm.controls['agencyval']" (click)="opendiv()"> <strong>Are you a Agency?</strong>
+              </div>
 
-              <div class="col-xs-12 form-group" id="birthday_contain">
+              <div *ngIf="agencydiv" class="col-xs-12 form-group">
+                <strong>Agency Name</strong>
+                <input type="text" name="agency_name" id="agency_name" class="signup_box_input" value="" placeholder="Agency Name" [formControl]="dataForm.controls['agency_name']">
+                <div class="wpcf7-not-valid-tip" *ngIf ="dataForm.hasError('agency_name_req')"><span>Agency Name is Required !</span>
+              </div>
+              </div>
+
+              <div class="col-xs-12 form-group" id="about_us_contain">
+                <strong>How did you Hear about us?</strong>
+                <textarea name="about_us" id="about_us" class="signup_box_input" value="" placeholder="" [formControl]="dataForm.controls['about_us']"></textarea>
+              </div>
+
+             <!-- <div class="col-xs-12 form-group" id="birthday_contain">
                 <strong>Birthday</strong>
                 <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tripplecolumn_left">
@@ -95,11 +116,6 @@
               <div class="col-xs-12 form-group" id="location_contain">
                 <strong>location</strong>
                 <input type="text" name="location" id="location" class="signup_box_input" value="" placeholder="Location" [formControl]="dataForm.controls['location']">
-                <!--<select id="showlocation" class="chkselect_input" [formControl]="dataForm.controls['location']">
-                  <option value="1">Select Location</option>
-                  <option value="2">USA</option>
-                  <option value="3">INDIA</option>
-                </select>-->
               </div>
 
 
@@ -110,7 +126,7 @@
                   <option value="">Select State</option>
                   <option *ngFor="let item of state" value="{{item}}">{{item}}</option>
                 </select>
-              </div>
+              </div>-->
 
 
 

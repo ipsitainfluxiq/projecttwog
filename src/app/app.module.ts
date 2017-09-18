@@ -35,6 +35,7 @@ import { Ng2UploaderModule } from 'ng2-uploader';
 import { AccountdetailsComponent } from './accountdetails/accountdetails.component';
 import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { LocationtraceComponent } from './locationtrace/locationtrace.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
     AccountdetailsComponent,
     UpdateprofileComponent,
     ChangepasswordComponent,
+    LocationtraceComponent,
 
   ],
   imports: [

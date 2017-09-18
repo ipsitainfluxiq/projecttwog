@@ -102,14 +102,18 @@ app.post('/signup' , function (req,resp) {
     collection.insert([{
             firstname: req.body.firstname,
             lastname: req.body.lastname,
+            companyname: req.body.companyname,
             email: req.body.email,
             password: hash,
-            month: req.body.month,
-            day: req.body.day,
-            year: req.body.year,
+            agencyval: req.body.agencyval,
+            agency_name: req.body.agency_name,
+           // month: req.body.month,
+          //  day: req.body.day,
+          //  year: req.body.year,
             phone: req.body.phone,
-            location: req.body.location,
-            state: req.body.state,
+            about_us: req.body.about_us,
+           // location: req.body.location,
+           // state: req.body.state,
         }],
         function(err, result) {
             if (err){

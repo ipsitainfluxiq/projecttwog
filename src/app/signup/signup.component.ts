@@ -16,10 +16,13 @@ export class SignupComponent implements OnInit {
   static invalidemail;
   static blankemail;
   private passmatchvalidate;
+  private agency_name_not_req;
   public is_error;
+  public agencyval;
   public state: any = [];
   public months: any = [];
   public serverurl;
+  public agencydiv;
 
   constructor(fb: FormBuilder,private _http: Http,private router: Router, private _commonservices: Commonservices) {
     this.fb = fb;
@@ -28,8 +31,8 @@ export class SignupComponent implements OnInit {
     SignupComponent.invalidemail = false;
     this.is_error='';
     this.serverurl = _commonservices.url;
-
-   // var link = 'http://localhost:3004/getusastates';
+    this.agencydiv = false;
+    // var link = 'http://localhost:3004/getusastates';
     let link = this.serverurl + 'getusastates';
     this._http.get(link)
         .subscribe(res => {
@@ -48,16 +51,23 @@ export class SignupComponent implements OnInit {
     this.dataForm = this.fb.group({
       firstname: ["", Validators.required],
       lastname: ["", Validators.required],
+      companyname: ["", Validators.required],
       email: ['', Validators.compose([Validators.required, SignupComponent.validateEmail])],
       password: ["", Validators.compose([Validators.required, Validators.minLength(8)])],
       confirmpassword: ["", Validators.required],
-      month: [""],
-      day: [""],
-      year: [""],
+      agency_name: [""],
+    //  agency_name: ['', Validators.compose([Validators.required, SignupComponent.validateagency])],
+    //  month: [""],
+    //  day: [""],
+    //  year: [""],
       phone: [""],
-      location: [""],
-      state: [""],
-    }, {validator: this.matchingPasswords('password', 'confirmpassword') });
+     // location: [""],
+     // state: [""],
+          agencyval: [""],
+          about_us: [""],
+        },
+       {validator: this.matchingPasswords('password', 'confirmpassword','agencyval', 'agency_name')},
+       /* {validator: this.validateagency('agencyval', 'agency_name')}*/);
   }
 
 
@@ -75,6 +85,8 @@ export class SignupComponent implements OnInit {
     }
   }
 
+
+
   getemail(type: any)  {
     // console.log('t '+type);
     if (type == 'invalid') {
@@ -85,42 +97,87 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  public matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+  opendiv() {
+    this.agencydiv = (1 - this.agencydiv);
+  }
+  public matchingPasswords(passwordKey: string, confirmPasswordKey: string, agencyvalue: string, agencyname: string) {
     return (group: FormGroup): {[key: string]: any} => {
       let password = group.controls[passwordKey];
       let confirmPassword = group.controls[confirmPasswordKey];
+      let agency_value = group.controls[agencyvalue];
+      let agency_name = group.controls[agencyname];
+
       if (password.value !== confirmPassword.value) {
-        //  console.log('mismatch');
         return {
           mismatchedPasswords: true
         };
       }
-      else {
+      if (password.value == confirmPassword.value) {
         this.passmatchvalidate = true;
+      }
+      if (agency_value.value == true && (agency_name.value == '' || typeof(agency_name)=='undefined')) {
+        return {
+          agency_name_req: true
+        };
+      }
+      if (agency_value.value == false) {
+        this.agency_name_not_req = true;
       }
     };
   }
 
+/*  public validateagency(agencyvalue: string, agencyname: string) {
+    return (group: FormGroup): {[key: string]: any} => {
+     // console.log('group  ');
+      let agency_value = group.controls[agencyvalue];
+      let agency_name = group.controls[agencyname];
+    //  console.log('agency_value.value  '+agency_value.value+'   agency_name.value '+agency_name.value);
+      if (agency_value.value == true && (agency_name.value == '' || typeof(agency_name)=='undefined')) {
+      //  console.log('name req');
+        return {
+          agency_name_req: true
+        };
+      }
+      else {
+        this.agency_name_not_req = true;
+      }
+    };
+  }*/
+
 
   dosubmit(formval) {
+   /* console.log('this.dataForm.valid '+this.dataForm.valid);
+    console.log('this.passmatchvalidate '+this.passmatchvalidate);
+    console.log('SignupComponent.invalidemail '+SignupComponent.invalidemail);
+    console.log('SignupComponent.blankemail '+SignupComponent.blankemail);
+    console.log('this.agency_name_not_req '+this.agency_name_not_req);*/
+
+
+    if (formval.agencyval == '' || typeof(formval.agencyval) == 'undefined') {
+      formval.agencyval = false;
+    }
     let x: any;
     for (x in this.dataForm.controls) {
       this.dataForm.controls[x].markAsTouched();
     }
 
-    if (this.dataForm.valid && this.passmatchvalidate && (SignupComponent.invalidemail == false || SignupComponent.blankemail == false)) {
+    if (this.dataForm.valid && this.passmatchvalidate && (SignupComponent.invalidemail == false || SignupComponent.blankemail == false) && this.agency_name_not_req) {
       console.log('hi');
       var data = {
         firstname: formval.firstname,
         lastname: formval.lastname,
+        companyname: formval.companyname,
         email: formval.email,
         password: formval.password,
-        month: formval.month,
-        day: formval.day,
-        year: formval.year,
+        agencyval: formval.agencyval,
+        agency_name: formval.agency_name,
+       // month: formval.month,
+       // day: formval.day,
+       // year: formval.year,
         phone: formval.phone,
-        location: formval.location,
-        state: formval.state,
+        about_us: formval.about_us,
+       // location: formval.location,
+       // state: formval.state,
       };
 
      // var link = 'http://localhost:3004/signup';
