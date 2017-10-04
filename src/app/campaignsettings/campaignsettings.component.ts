@@ -651,6 +651,7 @@ export class CampaignsettingsComponent implements OnInit {
             });
     }*/
     createcampaign() {
+        console.log('Create called');
         this.viewthrupercentage1 = 0;
         this.clickthrupercentage1 = 0;
         this.viewattrval = 30;

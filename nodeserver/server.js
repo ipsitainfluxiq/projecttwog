@@ -85,12 +85,28 @@ MongoClient.connect(url, function (err, database) {
 
     }else{
         db=database;
-console.log("connected");
+        console.log("connected");
     }});
 
 
 /*-----------------------------------------------------------------(start_for_geoai)
 ------------------------------------------------------------------------*/
+app.get('/addresslist',function (req,resp) {
+
+    var collection = db.collection('address');
+
+    collection.find().limit(2000).toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+
+    });
+
+});
+
 
 app.post('/signup' , function (req,resp) {
     var collection = db.collection('signup');
@@ -231,6 +247,74 @@ app.post('/accountdetails',function(req,resp){        // this is for editadmin p
     });
 });
 
+
+
+app.post('/forgetpassword', function (req, resp) {
+    console.log('forgt pass');
+    var collection = db.collection('signup');
+    collection.find({ email:req.body.email }).toArray(function(err, items) {
+        if(items.length>0){
+            var randomstring = require("randomstring");
+            var generatedcode=randomstring.generate();
+            var data = {
+                accesscode: generatedcode,
+            }
+            collection.update({ email:req.body.email}, {$set: data}, true, true);
+            var smtpTransport = mailer.createTransport("SMTP", {
+                service: "Gmail",
+                auth: {
+                    user: "itplcc40@gmail.com",
+                    pass: "DevelP7@"
+                }
+            });
+            var mail = {
+                from: "Admin <ipsitaghosal1@gmail.com>",
+              //  to: req.body.email,
+                to: 'ipsita.influxiq@gmail.com',
+                subject: 'Access code',
+                html: 'Access code is given -->  '+generatedcode
+            }
+            smtpTransport.sendMail(mail, function (error, response) {
+                console.log('send');
+                smtpTransport.close();
+            });
+            resp.send(JSON.stringify({'status':'success','msg':req.body.email}));
+        }
+        if(items.length==0){
+            resp.send(JSON.stringify({'status':'error','msg':'Emailid invalid...'}));
+            return;
+        }
+    });
+});
+
+
+app.post('/accesscodecheck', function (req, resp) {
+    var collection = db.collection('signup');
+    collection.find({ email:req.body.email, accesscode:req.body.accesscode}).toArray(function(err, items) {
+        console.log(items.length);
+        if(items.length>0) {
+            resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
+        }
+        if(items.length==0){
+            resp.send(JSON.stringify({'status':'error','msg':'Wrong access code'}));
+            return;
+        }
+    });
+});
+
+app.post('/newpassword', function (req, resp) {
+    var collection = db.collection('signup');
+    var crypto = require('crypto');
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+    var data = {
+        password: hash
+    }
+    collection.update({email:req.body.email}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
+});
 
 
 app.post('/calluploads',function (req,resp) {

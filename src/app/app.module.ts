@@ -36,6 +36,9 @@ import { AccountdetailsComponent } from './accountdetails/accountdetails.compone
 import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { LocationtraceComponent } from './locationtrace/locationtrace.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { AccesscodeComponent } from './accesscode/accesscode.component';
+import { NewpasswordComponent } from './newpassword/newpassword.component';
 
 
 @NgModule({
@@ -62,6 +65,9 @@ import { LocationtraceComponent } from './locationtrace/locationtrace.component'
     UpdateprofileComponent,
     ChangepasswordComponent,
     LocationtraceComponent,
+    ForgetpasswordComponent,
+    AccesscodeComponent,
+    NewpasswordComponent,
 
   ],
   imports: [
