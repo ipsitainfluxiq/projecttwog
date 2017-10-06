@@ -28,6 +28,7 @@ import {LocationtraceComponent} from 'app/locationtrace/locationtrace.component'
 import {ForgetpasswordComponent} from 'app/forgetpassword/forgetpassword.component';
 import {AccesscodeComponent} from 'app/accesscode/accesscode.component';
 import {NewpasswordComponent} from 'app/newpassword/newpassword.component';
+import {CicrlemapComponent} from 'app/cicrlemap/cicrlemap.component';
 
 
 const appRoutes: Routes = [
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
     { path: 'forgetpassword', component: ForgetpasswordComponent},
     { path: 'accesscode', component: AccesscodeComponent},
     { path: 'newpassword', component: NewpasswordComponent},
+    { path: 'circlemap', component: CicrlemapComponent},
 
 ];
 

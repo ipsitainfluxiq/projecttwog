@@ -1,0 +1,12 @@
+
+<agm-map style="height: 800px" *ngIf="mapval" [latitude]="lat" [longitude]="lng" [fitBounds]="bounds" (mapClick)="mapClicked($event)">
+
+ <!--   <agm-circle *ngFor="let lineval of markers" [paths]="lineval"  [circleDraggable]="true" [clickable]="true" [draggable]="true" [editable]="true" strokeColor="#E9BE79" fillColor="#EBD8B7" fillOpacity="1" >
+    </agm-circle>-->
+    <agm-circle [latitude]="lat + 0.3" [longitude]="lng"
+                            [radius]="5000"
+                            [fillColor]="'red'"
+                            [circleDraggable]="true"
+                            [editable]="true">
+    </agm-circle>
+</agm-map>

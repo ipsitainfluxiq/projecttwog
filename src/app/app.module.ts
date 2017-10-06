@@ -39,6 +39,7 @@ import { LocationtraceComponent } from './locationtrace/locationtrace.component'
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { AccesscodeComponent } from './accesscode/accesscode.component';
 import { NewpasswordComponent } from './newpassword/newpassword.component';
+import { CicrlemapComponent } from './cicrlemap/cicrlemap.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { NewpasswordComponent } from './newpassword/newpassword.component';
     ForgetpasswordComponent,
     AccesscodeComponent,
     NewpasswordComponent,
+    CicrlemapComponent,
 
   ],
   imports: [
