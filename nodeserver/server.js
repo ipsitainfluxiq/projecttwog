@@ -107,6 +107,115 @@ app.get('/addresslist',function (req,resp) {
 
 });
 
+app.post('/insertshapes', function (req, resp) {
+    console.log('insertshapes');
+    var collection = db.collection('shapes');
+    collection.insert([{
+            email:req.body[0].email,
+            value: req.body,
+        }],
+        function(err, result) {
+            if (err){
+                console.log('err');
+                // resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
+            }
+            else{
+                console.log(result);
+                //  resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
+            }
+        });
+  /*  for (var k in req.body){
+        if(req.body[k].type  == 'circle'){
+            var value = {
+                radius:req.body[k].radius,
+                center:req.body[k].center,
+            }
+        }
+        if(req.body[k].type == 'rectangle') {
+            var value = {
+                north:req.body.ne_lat,
+                east:req.body.ne_lng,
+                south:req.body.sw_lat,
+                west:req.body.sw_lng,
+            }
+        }
+        if(req.body.type == 'polygon') {
+            var value = {
+                path:req.body.path,
+            }
+        }
+        collection.insert([{
+                email:req.body[k].email,
+                type: req.body[k].type,
+                value: value,
+            }],
+            function(err, result) {
+                if (err){
+                    console.log('err');
+                   // resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
+                }
+                else{
+                    console.log(result);
+                  //  resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
+                }
+            });
+    }*/
+   /* if(req.body.type == 'circle'){
+        var data = {
+            radius:req.body.radius,
+            center:req.body.center,
+        }
+    }
+
+    if(req.body.type == 'rectangle') {
+        var data = {
+            north:req.body.ne_lat,
+            east:req.body.ne_lng,
+            south:req.body.sw_lat,
+            west:req.body.sw_lng,
+        }
+    }
+
+    if(req.body.type == 'polygon') {
+        var data = {
+            path:req.body.path,
+        }
+    }
+    collection.insert([{
+            email:req.body.email,
+            type: req.body.type,
+            value: data,
+        }],
+        function(err, result) {
+            if (err){
+                console.log('err');
+                resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
+            }
+            else{
+                console.log(result);
+                resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
+            }
+        });*/
+});
+
+app.post('/getallshapes',function (req,resp) {
+    var collection = db.collection('shapes');
+    collection.find({email:req.body.email}).toArray(function(err, items) {
+        console.log(items.length);
+        var len= items.length-1;
+        console.log(len);
+        //  collection.drop(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            console.log(items[3]);
+            resp.send(JSON.stringify(items[len]));
+        }
+
+    });
+
+});
 
 app.post('/signup' , function (req,resp) {
     var collection = db.collection('signup');
@@ -123,13 +232,13 @@ app.post('/signup' , function (req,resp) {
             password: hash,
             agencyval: req.body.agencyval,
             agency_name: req.body.agency_name,
-           // month: req.body.month,
-          //  day: req.body.day,
-          //  year: req.body.year,
+            // month: req.body.month,
+            //  day: req.body.day,
+            //  year: req.body.year,
             phone: req.body.phone,
             about_us: req.body.about_us,
-           // location: req.body.location,
-           // state: req.body.state,
+            // location: req.body.location,
+            // state: req.body.state,
         }],
         function(err, result) {
             if (err){
@@ -232,7 +341,7 @@ app.post('/login', function (req, resp) {
 });
 
 app.post('/accountdetails',function(req,resp){        // this is for editadmin page
-    console.log("accountdetails from server.js called");
+   // console.log("accountdetails from server.js called");
     var resitem = {};
     var collection = db.collection('signup');
     var mail = req.body.emailid;
@@ -315,6 +424,7 @@ app.post('/newpassword', function (req, resp) {
     collection.update({email:req.body.email}, {$set: data}, true, true);
     resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
 });
+
 
 
 app.post('/calluploads',function (req,resp) {
@@ -1226,3 +1336,151 @@ var server = app.listen(port, function () {
 
 /*
 server.listen(80, 'current_local_ip');*/
+
+/*-------------------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------------------*/
+app.post('/gettotallist',function (req,resp) {
+    var collection = db.collection('campaigninfo');
+    collection.find({emailid:req.body.emailid}).toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify(items));
+        }
+    });
+});
+
+
+app.post('/pacing' , function (req,resp) {
+    var collection = db.collection('campaigninfo');
+   // var c_id = new mongodb.ObjectID(req.body.createaudienceid);
+    var data = {
+        pacing: req.body.pacing,
+    }
+    collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+app.post('/browser' , function (req,resp) {
+    var collection = db.collection('campaigninfo');
+ //   var c_id = new mongodb.ObjectID(req.body.createaudienceid);
+    var data = {
+        browser_ids: req.body.browser_ids,
+    }
+    console.log(req.body.createaudienceid);
+    console.log(req.body.emailid);
+    collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+
+
+app.post('/devices' , function (req,resp) {
+    var collection = db.collection('campaigninfo');
+    var data = {
+        selected_devices: req.body.selected_devices,
+    }
+    console.log(req.body.createaudienceid);
+    console.log(req.body.emailid);
+    collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+
+app.post('/updatedeal' , function (req,resp) {
+    var collection = db.collection('campaigninfo');
+    var data = {
+        deals: req.body.deals,
+    }
+    collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+app.post('/updateos' , function (req,resp) {
+    var collection = db.collection('campaigninfo');
+    var data = {
+        operating_system: req.body.operating_system,
+    }
+    collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+app.post('/dayparts' , function (req,resp) {
+    var collection = db.collection('campaigninfo');
+    var data = {
+        dayparting: req.body.dayparting,
+    }
+    collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+
+
+app.post('/viewability' , function (req,resp) {
+    var collection = db.collection('campaigninfo');
+    var data = {
+        integral_viewability_threshold: req.body.integral_viewability_threshold,
+    }
+    collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+
+app.post('/alllocation' , function (req,resp) {
+    var collection = db.collection('locations1');
+    console.log(req.body.alllocations);
+    for (var i in req.body.alllocations){
+      //  var alllocations_id = new mongodb.ObjectID(req.body.alllocations[i].id);
+        collection.insert([{
+        parent_locations_id :req.body.alllocations[i].id,
+        parent_locations :req.body.alllocations[i].name
+        }],
+            function(err, result) {
+                if (err){
+                }
+                else{
+                }
+            });
+    }
+});
+app.post('/childlocation' , function (req,resp) {
+    var collection = db.collection('locations1');
+   // var parent_id = new mongodb.ObjectID(req.body.parentid);
+    for (var i in req.body.childlocation) {
+        collection.insert([{
+                parent_locations_id: req.body.parentid,
+                parent_locations: req.body.parentname,
+                child_locations_id :req.body.childlocation[i].id,
+                child_locations :req.body.childlocation[i].name
+            }],
+            function (err, result) {
+                if (err) {
+                }
+                else {
+                }
+            });
+    }
+  /*  collection.find().toArray(function(err, items) {
+        if (err) {
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            for (var i in req.body.childlocation) {
+                var data = {
+                    child_locations_id :req.body.childlocation[i].id,
+                    child_locations :req.body.childlocation[i].name
+                }
+                console.log(data);
+                console.log('req.body.parentid  '+parent_id);
+                collection.update({perent_locations_id:parent_id}, {$set: data}, true, true);
+            }
+            resp.send(JSON.stringify(items[0]._id));
+        }
+
+    });*/
+});

@@ -29,6 +29,18 @@ import {ForgetpasswordComponent} from 'app/forgetpassword/forgetpassword.compone
 import {AccesscodeComponent} from 'app/accesscode/accesscode.component';
 import {NewpasswordComponent} from 'app/newpassword/newpassword.component';
 import {CicrlemapComponent} from 'app/cicrlemap/cicrlemap.component';
+import {PolyintersectComponent} from 'app/polyintersect/polyintersect.component';
+import {GetcircleComponent} from 'app/getcircle/getcircle.component';
+import {LocationsComponent} from 'app/locations/locations.component';
+/*------------------------------------------
+    --------------------------------------*/
+import {BrowserComponent} from 'app/browser/browser.component';
+import {PacingComponent} from 'app/pacing/pacing.component';
+import {ViewabilityComponent} from 'app/viewability/viewability.component';
+import {DevicetypesComponent} from 'app/devicetypes/devicetypes.component';
+import {DealsComponent} from 'app/deals/deals.component';
+import {OsComponent} from 'app/os/os.component';
+import {DaypartingComponent} from 'app/dayparting/dayparting.component';
 
 
 const appRoutes: Routes = [
@@ -56,6 +68,16 @@ const appRoutes: Routes = [
     { path: 'accesscode', component: AccesscodeComponent},
     { path: 'newpassword', component: NewpasswordComponent},
     { path: 'circlemap', component: CicrlemapComponent},
+    { path: 'polyintersect', component: PolyintersectComponent},
+    { path: 'getcircle', component: GetcircleComponent},
+    { path: 'browser', component: BrowserComponent},
+    { path: 'pacing', component: PacingComponent},
+    { path: 'locations', component: LocationsComponent},
+    { path: 'viewability', component: ViewabilityComponent},
+    { path: 'devicetypes', component: DevicetypesComponent},
+    { path: 'deals', component: DealsComponent},
+    { path: 'os', component: OsComponent},
+    { path: 'dayparting', component: DaypartingComponent},
 
 ];
 

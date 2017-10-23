@@ -20,7 +20,7 @@ import { OnlyNumberDirective } from './directives/only_number';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CampaignlistComponent } from './campaignlist/campaignlist.component';
 import { IonRangeSliderModule } from 'ng2-ion-range-slider';
-import { AgmCoreModule } from '@agm/core';
+import {AgmCircle, AgmCoreModule, CircleManager, GoogleMapsAPIWrapper} from '@agm/core';
 import { HeaderComponent } from './header/header.component';
 import { SummaryComponent } from './summary/summary.component';
 import { TestComponent } from './test/test.component';
@@ -40,6 +40,16 @@ import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.compone
 import { AccesscodeComponent } from './accesscode/accesscode.component';
 import { NewpasswordComponent } from './newpassword/newpassword.component';
 import { CicrlemapComponent } from './cicrlemap/cicrlemap.component';
+import { PolyintersectComponent } from './polyintersect/polyintersect.component';
+import { GetcircleComponent } from './getcircle/getcircle.component';
+import { BrowserComponent } from './browser/browser.component';
+import { PacingComponent } from './pacing/pacing.component';
+import { LocationsComponent } from './locations/locations.component';
+import { ViewabilityComponent } from './viewability/viewability.component';
+import { DevicetypesComponent } from './devicetypes/devicetypes.component';
+import { DealsComponent } from './deals/deals.component';
+import { OsComponent } from './os/os.component';
+import { DaypartingComponent } from './dayparting/dayparting.component';
 
 
 @NgModule({
@@ -70,7 +80,16 @@ import { CicrlemapComponent } from './cicrlemap/cicrlemap.component';
     AccesscodeComponent,
     NewpasswordComponent,
     CicrlemapComponent,
-
+    PolyintersectComponent,
+    GetcircleComponent,
+    BrowserComponent,
+    PacingComponent,
+    LocationsComponent,
+    ViewabilityComponent,
+    DevicetypesComponent,
+    DealsComponent,
+    OsComponent,
+    DaypartingComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,12 +105,11 @@ import { CicrlemapComponent } from './cicrlemap/cicrlemap.component';
     ModalModule.forRoot(),
     Ng2UploaderModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA2_vmiwMYMoLIAyN5Bb1C8XZYOyQwIq8U'
-    })
-
-
+     // apiKey: 'AIzaSyA2_vmiwMYMoLIAyN5Bb1C8XZYOyQwIq8U'
+      apiKey: 'AIzaSyC7rd1BpaO2BEgfQMD7ekZ4dQ9gFsKIod4'
+    }),
   ],
-  providers: [CookieService],
+  providers: [CookieService, CircleManager, AgmCircle,  GoogleMapsAPIWrapper],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

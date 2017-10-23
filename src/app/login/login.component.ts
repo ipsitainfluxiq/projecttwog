@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         console.log('mailcookiedetails');
         console.log('get mail from login page saved cookie ->  ' + this.mailcookiedetails);
         if (typeof (this.mailcookiedetails) != 'undefined') {
-            this.router.navigateByUrl('/campaignlist');
+            this.router.navigateByUrl('/accountdetails');
         }
     }
 

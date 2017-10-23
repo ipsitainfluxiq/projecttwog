@@ -9,16 +9,16 @@ export class Commonservices {
     items: Array<any>;
     url: any
 
-    constructor(private http: Http) {
+/*    constructor(private http: Http) {
        // this.url = 'http://localhost:3004/';
         this.url = 'http://influxiq.com:3014/';
-    }
+    }*/
 
-/*    constructor(private http: Http) {
+    constructor(private http: Http) {
         if (window.location.hostname == 'localhost') {
             this.url = 'http://localhost:3004/';
         } else {
             this.url = 'http://influxiq.com:3014/';
         }
-    }*/
+    }
 }

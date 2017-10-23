@@ -863,6 +863,10 @@ body{ margin:0!important; padding:0 0 0px 0!important; background: #1d70a3 url(/
 agm-map {
     height: 500px;
 }
+#map {
+    height: 600px;
+    width: 100%;
+}
 
 .ulchakeboxcon ul{ margin: 0; padding: 7px 0;}
 .ulchakeboxcon input{ width:20px!important; float: left!important; margin: 0!important; padding: 0!important;}

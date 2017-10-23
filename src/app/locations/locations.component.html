@@ -1,0 +1,106 @@
+<app-header></app-header>
+
+<div class="newpageborder"></div>
+<div class=" geo_body_wrapper">
+
+  <div class=" geo_new_wrapper">
+
+    <div class="geo_new_heading"><span><strong>CREATE AN</strong> Audience</span></div>
+
+    <div class="geo_new_menublock">
+
+      <ul>
+        <li><a href="javascript:void(0)" class="nmenu1">Locations</a></li>
+        <li><a href="javascript:void(0)" class="nmenu2"> Viewability</a></li>
+        <li><a href="javascript:void(0)" class="nmenu3"> Browser</a></li>
+        <li><a href="javascript:void(0)" class="nmenu4">Operating Systems</a></li>
+        <li><a href="javascript:void(0)" class="nmenu5">Device Types </a></li>
+        <li><a href="javascript:void(0)" class="nmenu6">Deals</a></li>
+        <li><a href="javascript:void(0)" class="nmenu7">Pacing</a></li>
+        <li><a href="javascript:void(0)" class="nmenu8">Dayparting</a></li>
+        <div class="clearfix"></div>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class=" geo_new_block1">
+
+      <img src="assets/images/geoai4a-icon.png"  alt="#"/>
+      <h2>Locations</h2>
+      <h3>Lorem Ipsum is simply dummy
+        text of the printing and typesetting industry.</h3>
+
+    </div>
+
+    <h6 class="h6locationtext">Locations</h6>
+    <div class=" geo_new_block2">
+      <div class="showerror" *ngIf="error">{{error}}</div>
+      <p>Locations</p>
+      <div class="location_tablewrapper">
+        <h6>Available Locations </h6>
+        <table>
+          <tr>
+            <td>
+              <div class="location_heading">
+                <h2>Selected Locations</h2>
+                <span></span>
+                <div class="clearfix"></div>
+              </div>
+              <div class="location_contain">
+                <ul *ngFor="let item of selected_locations; let i=index">
+                  <li>
+                    <img src="assets/images/close_location.png" alt="#" class="loc_img1" (click)="deletelocations(item.attr_id,item.attr_name,item)"/>
+                    <label>{{item.attr_name}}</label></li>
+                </ul>
+              </div>
+            </td>
+            <td>&nbsp;</td>
+            <td>
+              <div class="location_heading">
+                <div *ngIf="count>0"><img src="assets/images/location_arrow_left.png"  alt="#" class="loc_img1" (click)="childlist(0,0,2)"/></div>
+                <h2>{{locationnameforreverse}}</h2>
+                <span class="searchbar_location"></span>
+                <div class="clearfix"></div>
+
+              </div>
+
+              <div class="location_contain">
+
+                <ul *ngFor="let item of details; let i=index">
+
+                  <li><img src="assets/images/location_menuicon.png" alt="#" class="loc_img1" (click)="addtolist(item.id,item.name)"/> <label>{{item.name}}</label><img src="assets/images/location_arrow_right.png"  alt="#" class="loc_img2" (click)="childlist(item.id,item.name,1)"/></li>
+
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <!--  <input type="button"  value="Ok" (click)="submitlocation(selected_locations)" class="browsertabbtn2"/>-->
+
+
+        <div class="budget_formdiv_btn">
+          <input type="button"  value="Save" (click)="submitlocation(selected_locations)"/>
+          <input type="button"  value="Cancel"/>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+    <div class="footerbtndiv">
+      <input type="button" value="Back">
+      <input type="button" value="Next">
+
+      <div class="clearfix"></div>
+
+    </div>
+
+
+  </div>
+
+
+</div>
