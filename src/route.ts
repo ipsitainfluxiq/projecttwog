@@ -41,6 +41,8 @@ import {DevicetypesComponent} from 'app/devicetypes/devicetypes.component';
 import {DealsComponent} from 'app/deals/deals.component';
 import {OsComponent} from 'app/os/os.component';
 import {DaypartingComponent} from 'app/dayparting/dayparting.component';
+import {AudiencelistComponent} from 'app/audiencelist/audiencelist.component';
+import {TriallocComponent} from 'app/trialloc/trialloc.component';
 
 
 const appRoutes: Routes = [
@@ -78,6 +80,8 @@ const appRoutes: Routes = [
     { path: 'deals', component: DealsComponent},
     { path: 'os', component: OsComponent},
     { path: 'dayparting', component: DaypartingComponent},
+    { path: 'audiencelist', component: AudiencelistComponent},
+    { path: 'trialloc', component: TriallocComponent},
 
 ];
 

@@ -18,6 +18,15 @@
                     </button>
                     <ul *dropdownMenu class="dropdown-menu" role="menu">
                        <!-- <li role="menuitem"><a class="dropdown-item" [routerLink]="['/campaignsettings']"><h2>Create Campaigns </h2></a></li>-->
+                        <li role="menuitem" class="dropdown-submenu"><a class="dropdown-item"><h2>Manage Audience</h2></a>
+                            <ul class="dropdown-menu">
+                                <li role="menuitem"><a class="dropdown-item" [routerLink]="['/locations']" (click)="resetcookie1()"><h2>Create Audience</h2></a></li>
+                                <li role="menuitem"><a class="dropdown-item" [routerLink]="['/audiencelist']"><h2>Audience List</h2></a></li>
+                            </ul>
+
+                        </li>
+
+
                         <li role="menuitem"><a class="dropdown-item" [routerLink]="['/simplesolution']"><h2>Make a Order</h2></a></li>
                         <li role="menuitem"><a class="dropdown-item" (click)="resetcookie()"><h2>Create Campaigns </h2></a></li>
                         <li role="menuitem"><a class="dropdown-item" [routerLink]="['/campaignlist']"><h2>Campaign List </h2></a></li>

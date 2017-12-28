@@ -427,3 +427,78 @@ meta.foundation-version{font-family:"/5.2.2/"}meta.foundation-mq-small{font-fami
     font-size: 16px; text-align: right; display: inline-block; float: right;}
 
 .loginbox_formwrapper .forgotpassword:hover{ text-decoration: none;}
+
+
+.mapbtn1{ border-radius: 0px!important;
+    text-align: center!important;
+    background: #008cba!important;
+    border: none!important;
+    border-bottom: solid 2px #007095!important;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    color: #fff!important;
+    padding: 11px 10px 8px 10px!important;
+    text-shadow: none; margin: 20px 0 0 0;}
+
+.mapbtn2{ border-radius: 0px!important;
+    text-align: center!important;
+    background: #008cba!important;
+    border: none!important;
+    border-bottom: solid 2px #007095!important;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    color: #fff!important;
+    padding: 11px 10px 8px 10px!important;
+    text-shadow: none;  margin:20px 0 0 5px;}
+
+
+
+.h6gobtn{ border-radius: 0px!important;
+    text-align: center!important;
+    background: #008cba!important;
+    border: none!important;
+    border-bottom: solid 2px #007095!important;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    color: #fff!important;
+    padding: 11px 10px 8px 10px!important;
+    text-shadow: none;  margin:0 4px 0 0; display: inline-block;}
+
+
+
+
+
+@media(max-width:1280px) {
+
+    .topnew_menu {
+        width: 100%;
+        display: block;
+    }
+
+    .topnew_menu .btn-group {
+        width: 100%;
+    }
+
+    .topnew_menu .dropdown-menu {
+        position: inherit;
+        left: 0;
+        float: none;
+        width: 260px;
+        padding: 5px 0;
+        margin: 2px auto;
+        margin-top: 10px;
+
+    }
+
+    .topnew_menu button {
+        background-color: #1979c3 !important;
+        border: none !important;
+        color: #fff !important;
+        font-weight: normal !important;
+        width: 50px !important;
+        float: none !important;
+        display: block !important;
+        margin: 0 auto !important;
+    }
+
+}

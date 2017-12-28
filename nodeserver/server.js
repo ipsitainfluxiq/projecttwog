@@ -25,7 +25,7 @@ var datetimestamp='';
 var filename='';
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
-       //   cb(null, '../assets/uploads/'); // this is for server site, run remotehost and check the path
+        //   cb(null, '../assets/uploads/'); // this is for server site, run remotehost and check the path
         cb(null, '../src/assets/uploads/');
     },
     filename: function (req, file, cb) {
@@ -91,40 +91,112 @@ MongoClient.connect(url, function (err, database) {
 
 /*-----------------------------------------------------------------(start_for_geoai)
 ------------------------------------------------------------------------*/
+
+app.post('/readcsv',function (req,resp) {
+    console.log('readcs cll');
+    var link = 'http://simplyfi.influxiq.com/readvalue.php?path='+req.body.filenameis;
+    request(link, function(error2, response, html2){
+        if(!error2) {
+            console.log('success');
+            console.log(html2);
+            resp.send(html2);
+            //  resp.send(response.body);
+
+        }
+        else {
+            console.log("error");
+            //   console.log('in error  :'+error2);
+            resp.send('error');
+        }
+    });
+
+});
+/*
+app.post('/readcsv',function (req,resp) {
+    var Converter = require("csvtojson").Converter;
+    var fs = require("fs");
+    //var csvFileName = "http://geoai.influxiq.com/assets/uploads/"+req.body.filenameis;
+    var csvFileName = 'E:\\Program Files\\PhpStorm 2017.2.4\\projecttwo\\src\\assets\\uploads\\'+req.body.filenameis;
+    var csvConverter = new Converter({});
+    csvConverter.on("end_parsed", function (jsonObj) {
+        console.log(jsonObj);
+        console.log("======");
+       // console.log(jsonObj.toString('utf8'));
+      //  console.log("======");
+    });*/
+   // var files = fs.createReadStream(csvFileName).pipe(csvConverter);
+    // console.log(files);
+    //  resp.send(files);
+
+    /* var obj;
+    fs.readFile(arr, 'utf8', function (err, data) {
+        if (err) throw err;
+        obj = JSON.parse(data);
+        console.log(obj);
+    });*/
+/*
+    var csvFileName = 'E:\\Program Files\\PhpStorm 2017.2.4\\projecttwo\\src\\assets\\uploads\\'+req.body.filenameis;
+    var Converter = require('csvtojson').Converter;
+    var fs = require("fs");
+    var csvConverter = new Converter({});
+
+    csvConverter.on('csv', function(data){
+        // csvRow is an array
+        console.log(data);
+        console.log('=========');
+    })
+        .on('done', function(data){
+            console.log(data);
+            console.log('*************');
+        });*/
+
+
+
+
 app.get('/addresslist',function (req,resp) {
-
-    var collection = db.collection('address');
-
-    collection.find().limit(2000).toArray(function(err, items) {
+    var collection = db.collection('addresstry');
+    collection.find().limit(2).toArray(function(err, items) {
         if (err) {
             console.log(err);
             resp.send(JSON.stringify({'res':[]}));
         } else {
             resp.send(JSON.stringify({'res':items}));
         }
-
     });
-
 });
 
 app.post('/insertshapes', function (req, resp) {
-    console.log('insertshapes');
-    var collection = db.collection('shapes');
-    collection.insert([{
-            email:req.body[0].email,
-            value: req.body,
-        }],
-        function(err, result) {
-            if (err){
-                console.log('err');
-                // resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
+    var collection = db.collection('campaigninfo');
+    var dt = new Date();
+    var date = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
+    collection.find({createaudienceid:req.body[0].createaudienceid}).toArray(function(err, items) {
+        console.log(req.body[0].createaudienceid);
+        console.log(req.body[0].email);
+        if (items.length<1) {
+            collection.insert([{
+                    createaudienceid:req.body[0].createaudienceid,
+                    emailid:req.body[0].email,
+                    dateofcreation:date,
+                    value: req.body,
+                    locations: null
+                }],
+                function(err, result) {
+                    if (err){
+                    }
+                    else{
+                    }
+                });
+        } else {
+            var data = {
+                dateofcreation:date,
+                value: req.body,
+                locations: null
             }
-            else{
-                console.log(result);
-                //  resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
-            }
-        });
-  /*  for (var k in req.body){
+            collection.update({createaudienceid:req.body[0].createaudienceid, emailid:req.body[0].email}, {$set: data}, true, true);
+        }
+        resp.send(JSON.stringify({'status':'success'}));
+    });
+    /*  for (var k in req.body){
         if(req.body[k].type  == 'circle'){
             var value = {
                 radius:req.body[k].radius,
@@ -160,7 +232,7 @@ app.post('/insertshapes', function (req, resp) {
                 }
             });
     }*/
-   /* if(req.body.type == 'circle'){
+    /* if(req.body.type == 'circle'){
         var data = {
             radius:req.body.radius,
             center:req.body.center,
@@ -198,7 +270,66 @@ app.post('/insertshapes', function (req, resp) {
         });*/
 });
 
-app.post('/getallshapes',function (req,resp) {
+app.post('/locations', function (req, resp) {
+    console.log('hi');
+    var collection = db.collection('campaigninfo');
+    var dt = new Date();
+    var date = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
+    console.log(req.body.createaudienceid);
+    collection.find({createaudienceid:req.body.createaudienceid}).toArray(function(err, items) {
+        if (items.length<1) {
+            collection.insert([{
+                    createaudienceid:req.body.createaudienceid,
+                    emailid:req.body.email,
+                    dateofcreation:date,
+                    locations: req.body.selected_locations,
+                    value:null
+                }],
+                function(err, result) {
+                    if (err){
+                    }
+                    else{
+                    }
+                });
+        } else {
+            var data = {
+                dateofcreation:date,
+                locations: req.body.selected_locations,
+                value:null
+            }
+            collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.email}, {$set: data}, true, true);
+        }
+        resp.send(JSON.stringify({'status':'success'}));
+    });
+});
+
+
+app.post('/viewability' , function (req,resp) {
+    var collection = db.collection('campaigninfo');
+            var data = {
+                audiencename:req.body.audiencename,
+                integral_viewability_threshold: req.body.integral_viewability_threshold,
+            }
+            collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
+        resp.send(JSON.stringify({'status':'success'}));
+});
+
+app.post('/deleteaudience', function (req, resp) {
+    var o_id = new mongodb.ObjectID(req.body.id);
+    var collection = db.collection('campaigninfo');
+    collection.deleteOne({_id: o_id}, function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
+        }
+        else {
+            resp.send("success");
+        }
+    });
+});
+
+
+/*app.post('/getallshapes1',function (req,resp) {
     var collection = db.collection('shapes');
     collection.find({email:req.body.email}).toArray(function(err, items) {
         console.log(items.length);
@@ -214,8 +345,20 @@ app.post('/getallshapes',function (req,resp) {
         }
 
     });
+});*/
 
+app.post('/getallshapes',function (req,resp) {
+    var collection = db.collection('campaigninfo');
+    collection.find({emailid:req.body.emailid , createaudienceid:req.body.createaudienceid}).toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify(items[0]));
+        }
+    });
 });
+
 
 app.post('/signup' , function (req,resp) {
     var collection = db.collection('signup');
@@ -341,7 +484,7 @@ app.post('/login', function (req, resp) {
 });
 
 app.post('/accountdetails',function(req,resp){        // this is for editadmin page
-   // console.log("accountdetails from server.js called");
+    // console.log("accountdetails from server.js called");
     var resitem = {};
     var collection = db.collection('signup');
     var mail = req.body.emailid;
@@ -378,7 +521,7 @@ app.post('/forgetpassword', function (req, resp) {
             });
             var mail = {
                 from: "Admin <ipsitaghosal1@gmail.com>",
-              //  to: req.body.email,
+                //  to: req.body.email,
                 to: 'ipsita.influxiq@gmail.com',
                 subject: 'Access code',
                 html: 'Access code is given -->  '+generatedcode
@@ -439,7 +582,7 @@ app.post('/calluploads',function (req,resp) {
     console.log(filepath);
     var fs = require('fs'),
         path = require('path');
-   // filePath = path.join(__dirname, 'start.html');
+    // filePath = path.join(__dirname, 'start.html');
     fs.readFile(filepath, {encoding: 'utf-8'}, function(err,data){
         if (!err) {
             console.log('received data: ' + data);
@@ -478,17 +621,17 @@ console.log(req.body.audiences_automative);
 console.log('req.body.audiences_buisness_employment_account_bank');
 console.log(req.body.audiences_buisness_employment_account_bank);
 console.log('show?');*/
-collection.insert([req.body],
-    function(err, result) {
-    if (err){
-        console.log('err');
-        resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
-    }
-    else{
-        console.log(result);
-        resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
-    }
-});
+    collection.insert([req.body],
+        function(err, result) {
+            if (err){
+                console.log('err');
+                resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
+            }
+            else{
+                console.log(result);
+                resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
+            }
+        });
 });
 
 app.post('/basicinformation' , function (req,resp) {
@@ -497,20 +640,20 @@ app.post('/basicinformation' , function (req,resp) {
     console.log('req.body');
     console.log(req.body);
     collection.insert([req.body],
-    function(err, result) {
-    if (err){
-        console.log('err');
-        resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
-    }
-    else{
-       // console.log(result);
-        var dataupdate = {
-            simplesolutionid: o_id,
-        }
-        collection.update({ _id:result.ops[0]._id}, {$set: dataupdate}, true, true);
-        resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
-    }
-});
+        function(err, result) {
+            if (err){
+                console.log('err');
+                resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
+            }
+            else{
+                // console.log(result);
+                var dataupdate = {
+                    simplesolutionid: o_id,
+                }
+                collection.update({ _id:result.ops[0]._id}, {$set: dataupdate}, true, true);
+                resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
+            }
+        });
 });
 
 
@@ -532,19 +675,19 @@ app.post('/confirmation', function (req,resp) {
     ]);
     var val = [];
     collection.toArray(function (err, items) {
-    //    resp.send(JSON.stringify(items));
+        //    resp.send(JSON.stringify(items));
 
-console.log(items.length);
-           for(i in items[0]){
-           //console.log(i);
-           //console.log(items[0]);
-               var i1;
-          if(items[0][i].length>1 || items[0][i]==true){
+        console.log(items.length);
+        for(i in items[0]){
+            //console.log(i);
+            //console.log(items[0]);
+            var i1;
+            if(items[0][i].length>1 || items[0][i]==true){
                 html+=' <div style="width: 44%;overflow: hidden;display: inline-block;vertical-align: top;padding: 0% 1% 0% 1%;"> <div style="text-transform:capitalize; font-size:16px; font-weight: normal; color:#1b1b1b; line-height:18px; vertical-align: middle; text-align: left; margin: 0; padding: 10px 0 10px 0 !important;text-decoration: none;display: block;">'+i.replace("_", " ")+':</div> </div> <div style="width: 50%;display: inline-block;vertical-align: top;padding: 0% 2% 0% 1%;"> <div style="text-transform:none; font-size:16px; font-weight: normal; color:#1b1b1b; line-height:18px; vertical-align: middle; text-align: left; margin: 0; padding: 10px 0 10px 20px !important;text-decoration: none;display: block;">'+items[0][i]+'</div> </div><div class="clearfix"></div>';
 
             }
 
-}
+        }
 
 
 
@@ -585,7 +728,7 @@ console.log(items.length);
             smtpTransport.close();
         });
 
-        });
+    });
 
     resp.send(JSON.stringify({'status': 'success'}));
 });
@@ -659,7 +802,7 @@ app.get('/getdetails1', function (req,resp) {
     var collection= db.collection('details');
     var k=0;
     collection.find().skip(0).limit(200).toArray(function(err, items) {
-    var counter=0;
+        var counter=0;
         for(var i in items){
             var email=items[i].email;
             var uniqid=items[i]._id;
@@ -670,7 +813,7 @@ app.get('/getdetails1', function (req,resp) {
                 calltodelete(items[i]);
                 counter++;
             },1000)
-          /*  for(var j in items) {
+            /*  for(var j in items) {
                 calltodelete(items[j]);
               if ((items[j]._id != uniqid) && (items[j].email == email)) {
                     collection.remove( {"_id": items[j]._id});
@@ -860,27 +1003,27 @@ app.get('/auto',function (req,resp) {
     var interv=setInterval(function () {
 
 
-    request('http://localhost:3004/autourlupdate?counter='+urlstartcounter, function(error2, response, html2){
-        if(!error2) {
-            var $ = cheerio.load(html2);
-            var dealername;
-            //setInterval(function () {
+        request('http://localhost:3004/autourlupdate?counter='+urlstartcounter, function(error2, response, html2){
+            if(!error2) {
+                var $ = cheerio.load(html2);
+                var dealername;
+                //setInterval(function () {
 
-            // },12000);
+                // },12000);
 
-            /*setTimeout(function () {
+                /*setTimeout(function () {
 
              },500);*/
-        }
-        else {
-            console.log("inside geturllist");
-            console.log('in error  :'+error2);
-        }
-    });
-    urlstartcounter=parseInt(urlstartcounter+10);
-    console.log(urlstartcounter+'url sc');
-    if(urlstartcounter>1000) clearInterval(interv);
-         },5000);
+            }
+            else {
+                console.log("inside geturllist");
+                console.log('in error  :'+error2);
+            }
+        });
+        urlstartcounter=parseInt(urlstartcounter+10);
+        console.log(urlstartcounter+'url sc');
+        if(urlstartcounter>1000) clearInterval(interv);
+    },5000);
     resp.send("success");
 });
 
@@ -922,8 +1065,8 @@ function geturllist(url){
             var dealername;
             //setInterval(function () {
 
-                dealername=$('.dealer-listing').each(function () {
-                    /*console.log("Dealer name");
+            dealername=$('.dealer-listing').each(function () {
+                /*console.log("Dealer name");
                      console.log($(this).find('.dealer-name').html());
                      console.log("Address 1");
                      console.log($(this).find('.address1').html());
@@ -939,43 +1082,43 @@ function geturllist(url){
                      console.log($(this).find('.cityStateZip').find('span[itemprop="postalCode"]').html());
                      console.log("Phone no");
                      console.log($(this).find('.atcui-block').html());*/
-                    var collection = db.collection('dealers');
-                    collection.insert([{
-                            dealername:$(this).find('.dealer-name').html() ,
-                            url:$(this).find('.dealer-name').attr('href') ,
-                            address1: $(this).find('.address1').html() ,
-                            address2: $(this).find('.address2').html(),
-                            city: $(this).find('.cityStateZip').find('span[itemprop="addressLocality"]').html(),
-                            state: $(this).find('.cityStateZip').find('span[itemprop="addressRegion"]').html(),
-                            zip: $(this).find('.cityStateZip').find('span[itemprop="postalCode"]').html(),
-                            phoneno: $(this).find('.atcui-block').html(),
-                            facebookurl: '',
-                        }],
-                        function (err2, result2) {
-                            if (err2) {
-                                //console.log('error'+err);
+                var collection = db.collection('dealers');
+                collection.insert([{
+                        dealername:$(this).find('.dealer-name').html() ,
+                        url:$(this).find('.dealer-name').attr('href') ,
+                        address1: $(this).find('.address1').html() ,
+                        address2: $(this).find('.address2').html(),
+                        city: $(this).find('.cityStateZip').find('span[itemprop="addressLocality"]').html(),
+                        state: $(this).find('.cityStateZip').find('span[itemprop="addressRegion"]').html(),
+                        zip: $(this).find('.cityStateZip').find('span[itemprop="postalCode"]').html(),
+                        phoneno: $(this).find('.atcui-block').html(),
+                        facebookurl: '',
+                    }],
+                    function (err2, result2) {
+                        if (err2) {
+                            //console.log('error'+err);
 
-                            } else {
-                                //response.send(JSON.stringify({'id':result2.ops[0]._id}));
-                                //console.log(result2.ops[0]._id);
-                                //console.log('https://www.autotrader.com'+result2.ops[0].url,result2.ops[0]._id);
-                                getdetails('https://www.autotrader.com'+result2.ops[0].url,result2.ops[0]._id);
+                        } else {
+                            //response.send(JSON.stringify({'id':result2.ops[0]._id}));
+                            //console.log(result2.ops[0]._id);
+                            //console.log('https://www.autotrader.com'+result2.ops[0].url,result2.ops[0]._id);
+                            getdetails('https://www.autotrader.com'+result2.ops[0].url,result2.ops[0]._id);
 
-                                setTimeout(function () {
+                            setTimeout(function () {
 
-                                    $('.pagination-button').each(function () {
+                                $('.pagination-button').each(function () {
 
-                                        if($(this).hasClass('active')){
-                                            console.log('pageination text');
-                                            //$(this).next().click();
-                                            console.log($(this).text());
-                                        }
-                                    })
-                                },5000);
-                            }
-                        });
-                });
-           // },12000);
+                                    if($(this).hasClass('active')){
+                                        console.log('pageination text');
+                                        //$(this).next().click();
+                                        console.log($(this).text());
+                                    }
+                                })
+                            },5000);
+                        }
+                    });
+            });
+            // },12000);
 
             /*setTimeout(function () {
 
@@ -994,29 +1137,29 @@ function getdetails(url,id){
 
         if(!error2) {
             var $ = cheerio.load(html2);
-                var dealerinfo;
+            var dealerinfo;
             var dealerfb;
             //dealerinfo=$('.atcui-list').find('a').attr('href')(function () {
-                var collection = db.collection('dealers');
-                var data = {
-                    websiteurl: $('a[target="_siteLink"]').attr('href'),
-                    facebookurl: $('a[target="_facebook"]').attr('href'),
+            var collection = db.collection('dealers');
+            var data = {
+                websiteurl: $('a[target="_siteLink"]').attr('href'),
+                facebookurl: $('a[target="_facebook"]').attr('href'),
+            }
+            console.log($('#j_id_2q').html());
+            $('.atcui-title').each(function(){
+
+                if($(this).text()=='Facebook Feed'){
+
+                    console.log('got fb url');
+                    console.log($(this).next().attr('href'));
                 }
-                console.log($('#j_id_2q').html());
-                $('.atcui-title').each(function(){
 
-                    if($(this).text()=='Facebook Feed'){
+            });
+            //console.log("hi");
+            console.log(data);
+            collection.update({_id: id}, {$set: data}, true, true);
 
-                        console.log('got fb url');
-                        console.log($(this).next().attr('href'));
-                    }
-
-                });
-                //console.log("hi");
-                console.log(data);
-                collection.update({_id: id}, {$set: data}, true, true);
-
-           // });
+            // });
             dealerfb=$('.lfloat').each(function () {
                 var collection = db.collection('dealers');
                 var data1 = {
@@ -1341,7 +1484,7 @@ server.listen(80, 'current_local_ip');*/
     ---------------------------------------------------------------------------------------------------------------*/
 app.post('/gettotallist',function (req,resp) {
     var collection = db.collection('campaigninfo');
-    collection.find({emailid:req.body.emailid}).toArray(function(err, items) {
+    collection.find({emailid:req.body.emailid , createaudienceid:req.body.createaudienceid}).toArray(function(err, items) {
         if (err) {
             console.log(err);
             resp.send(JSON.stringify({'res':[]}));
@@ -1351,10 +1494,21 @@ app.post('/gettotallist',function (req,resp) {
     });
 });
 
+app.post('/checkcreateaudienceid',function (req,resp) {
+    var collection = db.collection('campaigninfo');
+    collection.find({createaudienceid:req.body.randomvar}).toArray(function(err, items) {
+        if (items.length<1) {
+            resp.send(JSON.stringify({'status':'success'}));
+        } else {
+            resp.send(JSON.stringify({'status':'duplicate'}));
+        }
+    });
+});
+
 
 app.post('/pacing' , function (req,resp) {
     var collection = db.collection('campaigninfo');
-   // var c_id = new mongodb.ObjectID(req.body.createaudienceid);
+    // var c_id = new mongodb.ObjectID(req.body.createaudienceid);
     var data = {
         pacing: req.body.pacing,
     }
@@ -1365,29 +1519,97 @@ app.post('/pacing' , function (req,resp) {
 
 app.post('/browser' , function (req,resp) {
     var collection = db.collection('campaigninfo');
- //   var c_id = new mongodb.ObjectID(req.body.createaudienceid);
+/*    collection.find({createaudienceid:req.body.createaudienceid}).toArray(function(err, items) {
+        if (items.length<1) {
+            collection.insert([{
+                    createaudienceid:req.body.createaudienceid,
+                    emailid:req.body.emailid,
+                    browser_ids: req.body.browser_ids
+                }],
+                function(err, result) {
+                    if (err){
+                    }
+                    else{
+                    }
+                });
+        } else {*/
     var data = {
-        browser_ids: req.body.browser_ids,
+        browser_ids: req.body.browser_ids
     }
-    console.log(req.body.createaudienceid);
-    console.log(req.body.emailid);
     collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
+    //  }
     resp.send(JSON.stringify({'status':'success'}));
+    //  });
 });
 
-
-
+app.post('/updateos' , function (req,resp) {
+    var collection = db.collection('campaigninfo');
+    /*  collection.find({createaudienceid:req.body.createaudienceid}).toArray(function(err, items) {
+        if (items.length<1) {
+            collection.insert([{
+                    createaudienceid:req.body.createaudienceid,
+                    emailid:req.body.emailid,
+                    operating_system: req.body.operating_system
+                }],
+                function(err, result) {
+                    if (err){
+                    }
+                    else{
+                    }
+                });
+        } else {*/
+    var data = {
+        operating_system: req.body.operating_system
+    }
+    collection.update({
+        createaudienceid: req.body.createaudienceid, emailid: req.body.emailid}, {$set: data}, true, true);
+    //  }
+    resp.send(JSON.stringify({'status':'success'}));
+    // });
+});
 
 app.post('/devices' , function (req,resp) {
     var collection = db.collection('campaigninfo');
     var data = {
         selected_devices: req.body.selected_devices,
     }
-    console.log(req.body.createaudienceid);
-    console.log(req.body.emailid);
     collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
     resp.send(JSON.stringify({'status':'success'}));
 });
+
+app.post('/viewability' , function (req,resp) {
+    var collection = db.collection('campaigninfo');
+    var dt = new Date();
+    var date = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
+    console.log(date);
+    collection.find({createaudienceid:req.body.createaudienceid}).toArray(function(err, items) {
+        if (items.length<1) {
+            collection.insert([{
+                    createaudienceid:req.body.createaudienceid,
+                    emailid:req.body.emailid,
+                    audiencename:req.body.audiencename,
+                    dateofcreation:date,
+                    integral_viewability_threshold: req.body.integral_viewability_threshold,
+                }],
+                function(err, result) {
+                    if (err){
+                    }
+                    else{
+                    }
+                });
+        } else {
+            var data = {
+                audiencename:req.body.audiencename,
+                dateofcreation:date,
+                integral_viewability_threshold: req.body.integral_viewability_threshold,
+            }
+            collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
+        }
+        resp.send(JSON.stringify({'status':'success'}));
+    });
+});
+
+
 
 
 
@@ -1400,14 +1622,7 @@ app.post('/updatedeal' , function (req,resp) {
     resp.send(JSON.stringify({'status':'success'}));
 });
 
-app.post('/updateos' , function (req,resp) {
-    var collection = db.collection('campaigninfo');
-    var data = {
-        operating_system: req.body.operating_system,
-    }
-    collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
-    resp.send(JSON.stringify({'status':'success'}));
-});
+
 
 app.post('/dayparts' , function (req,resp) {
     var collection = db.collection('campaigninfo');
@@ -1418,29 +1633,44 @@ app.post('/dayparts' , function (req,resp) {
     resp.send(JSON.stringify({'status':'success'}));
 });
 
-
-
-
-app.post('/viewability' , function (req,resp) {
+app.get('/getaudiencelist',function (req,resp) {
     var collection = db.collection('campaigninfo');
-    var data = {
-        integral_viewability_threshold: req.body.integral_viewability_threshold,
-    }
-    collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
-    resp.send(JSON.stringify({'status':'success'}));
+    collection.find().toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify(items));
+        }
+
+    });
+
+});
+app.post('/locationlist',function (req,resp) {
+    var collection = db.collection('locationtry1');
+    collection.find({parent_locations_id:req.body.parentid}).toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify(items));
+        }
+
+    });
+
 });
 
-
-
-app.post('/alllocation' , function (req,resp) {
-    var collection = db.collection('locations1');
+app.post('/parentlocation' , function (req,resp) {
+    var collection = db.collection('locationtry1');
+    collection.remove();
     console.log(req.body.alllocations);
     for (var i in req.body.alllocations){
-      //  var alllocations_id = new mongodb.ObjectID(req.body.alllocations[i].id);
+        //  var alllocations_id = new mongodb.ObjectID(req.body.alllocations[i].id);
         collection.insert([{
-        parent_locations_id :req.body.alllocations[i].id,
-        parent_locations :req.body.alllocations[i].name
-        }],
+                parent_locations_id :0,
+                location_id :req.body.alllocations[i].id,
+                location_name :req.body.alllocations[i].name,
+            }],
             function(err, result) {
                 if (err){
                 }
@@ -1450,14 +1680,19 @@ app.post('/alllocation' , function (req,resp) {
     }
 });
 app.post('/childlocation' , function (req,resp) {
-    var collection = db.collection('locations1');
-   // var parent_id = new mongodb.ObjectID(req.body.parentid);
-    for (var i in req.body.childlocation) {
+    var collection = db.collection('locationtry1');
+    console.log('childcalled');
+    console.log(req.body.childlocations);
+    for (var i in req.body.childlocations) {
+        console.log('-----------------------');
+        console.log(req.body.childlocations[i].parentid);
+        console.log(req.body.childlocations[i].id);
+        console.log(req.body.childlocations[i].name);
+        console.log('-----------------------');
         collection.insert([{
-                parent_locations_id: req.body.parentid,
-                parent_locations: req.body.parentname,
-                child_locations_id :req.body.childlocation[i].id,
-                child_locations :req.body.childlocation[i].name
+                parent_locations_id :req.body.childlocations[i].parentid,
+                location_id :req.body.childlocations[i].id,
+                location_name :req.body.childlocations[i].name
             }],
             function (err, result) {
                 if (err) {
@@ -1466,21 +1701,4 @@ app.post('/childlocation' , function (req,resp) {
                 }
             });
     }
-  /*  collection.find().toArray(function(err, items) {
-        if (err) {
-            resp.send(JSON.stringify({'res':[]}));
-        } else {
-            for (var i in req.body.childlocation) {
-                var data = {
-                    child_locations_id :req.body.childlocation[i].id,
-                    child_locations :req.body.childlocation[i].name
-                }
-                console.log(data);
-                console.log('req.body.parentid  '+parent_id);
-                collection.update({perent_locations_id:parent_id}, {$set: data}, true, true);
-            }
-            resp.send(JSON.stringify(items[0]._id));
-        }
-
-    });*/
 });

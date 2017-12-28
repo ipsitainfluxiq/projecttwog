@@ -4,9 +4,9 @@ import {Commonservices} from '../app.commonservices' ;
 import {CookieService} from 'angular2-cookie/core';
 
 @Component({
-  selector: 'app-os',
-  templateUrl: './os.component.html',
-  styleUrls: ['./os.component.css'],
+    selector: 'app-os',
+    templateUrl: './os.component.html',
+    styleUrls: ['./os.component.css'],
     providers: [Commonservices]
 })
 export class OsComponent implements OnInit {
@@ -38,26 +38,32 @@ export class OsComponent implements OnInit {
         let link = this.serverurl + 'gettotallist';
         let data = {
             emailid: this.mailcookiedetails,
+            createaudienceid: this.cookiedetails
         }
         this._http.post(link, data)
             .subscribe(res => {
                 let result = res.json();
                 this.getos = result;
-                for (let x in this.getos[0].operating_system) {
-                    this.alloslist[this.getos[0].operating_system[x]] = true;
+                if (typeof(this.getos[0].operating_system) != 'undefined') {
+                    for (let x in this.getos[0].operating_system) {
+                        this.alloslist[this.getos[0].operating_system[x]] = true;
+                    }
+                    this.oslen = this.getos[0].operating_system.length;
+                    if (this.oslen == 0) {
+                        this.oslen = 'None';
+                    }
+                    if (this.oslen == 1) {
+                        this.oslen = '1 Operating System';
+                    }
+                    if (this.oslen > 1 && this.oslen < 17) {
+                        this.oslen = this.oslen + ' Operating Systems';
+                    }
+                    if (this.oslen == 17) {
+                        this.oslen = 'Any';
+                    }
                 }
-                this.oslen = this.getos[0].operating_system.length;
-                if (this.oslen == 0) {
+                else {
                     this.oslen = 'None';
-                }
-                if (this.oslen == 1) {
-                    this.oslen = '1 Operating System';
-                }
-                if (this.oslen > 1 && this.oslen < 17) {
-                    this.oslen = this.oslen + ' Operating Systems';
-                }
-                if (this.oslen == 17) {
-                    this.oslen = 'Any';
                 }
             }, error => {
                 console.log('Oooops!');
@@ -73,8 +79,7 @@ export class OsComponent implements OnInit {
         }
         let data = {
             emailid: this.mailcookiedetails,
-            //  createaudienceid: this.cookiedetails,
-            createaudienceid: 703030,
+            createaudienceid: this.cookiedetails,
             operating_system: this.selected_os
         }
         console.log('updateos');

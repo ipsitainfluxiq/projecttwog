@@ -10,9 +10,9 @@
         <div class="geo_new_menublock">
 
             <ul>
-                <li><a href="javascript:void(0)" class="nmenu1">Locations</a></li>
+                <li><a [routerLink]="['/locations']" href="javascript:void(0)" class="nmenu1">Locations</a></li>
                 <li><a [routerLink]="['/viewability']" href="javascript:void(0)" class="nmenu2"> Viewability</a></li>
-                <li><a [routerLink]="['/browser']" href="javascript:void(0)" class="nmenu3"> Browser</a></li>
+                <li class="active"><a [routerLink]="['/browser']" href="javascript:void(0)" class="nmenu3"> Browser</a></li>
                 <li><a [routerLink]="['/os']" href="javascript:void(0)" class="nmenu4">Operating Systems</a></li>
                 <li><a [routerLink]="['/devicetypes']" href="javascript:void(0)" class="nmenu5">Device Types </a></li>
                 <li><a [routerLink]="['/deals']" href="javascript:void(0)" class="nmenu6">Deals</a></li>
@@ -35,7 +35,7 @@
         <h6 class="h6locationtext">Browser</h6>
         <div class=" geo_new_block2">
             <div class="browserwrapper">
-<!--                <ul *ngFor="let item of allbrowsers; let i=index">
+                <!--                <ul *ngFor="let item of allbrowsers; let i=index">
                     <span><input type="checkbox" [(ngModel)]="allbrowserslist[item]"><b>{{item}}</b></span>
                 </ul>-->
                 <span><img src="assets/images/browser1.png" alt="#"> <input type="checkbox" [(ngModel)]="Firefox"/><b>Firefox</b></span>
@@ -53,8 +53,8 @@
 
 
         <div class="footerbtndiv">
-            <input type="button" value="Back">
-            <input type="button" value="Next">
+            <input type="button" value="Back" [routerLink]="['/viewability']">
+            <input type="button" value="Next" [routerLink]="['/os']">
             <div class="clearfix"></div>
         </div>
     </div>

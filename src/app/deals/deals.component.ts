@@ -44,28 +44,31 @@ export class DealsComponent implements OnInit {
         let link = this.serverurl + 'gettotallist';
         let data = {
             emailid: this.mailcookiedetails,
+            createaudienceid: this.cookiedetails
         }
         this._http.post(link, data)
             .subscribe(res => {
                 this.getdeal = [];
                 this.getdeal = res.json();
-                for (let i in this.getdeal[0].deals) {
-                    this.pushdeals.push(this.getdeal[0].deals[i]);
-                    this.pushdeals1.push(this.getdeal[0].deals[i]);
+                if (typeof (this.getdeal[0].deals) != 'undefined') {
+                    for (let i in this.getdeal[0].deals) {
+                        this.pushdeals.push(this.getdeal[0].deals[i]);
+                        this.pushdeals1.push(this.getdeal[0].deals[i]);
+                    }
+                    this.dealstatusval = 'Active';
+                    this.deallen = this.getdeal[0].length;
+                    console.log(this.deallen);
+                    if (this.deallen == 0) {
+                        this.deallen = 'None';
+                    }
+                    if (this.deallen == 1) {
+                        this.deallen = '1 deal';
+                    }
+                    if (this.deallen > 1) {
+                        this.deallen = this.deallen + ' deals';
+                    }
+                    console.log(this.deallen);
                 }
-                this.dealstatusval = 'Active';
-                this.deallen = this.getdeal[0].length;
-                console.log(this.deallen);
-                if (this.deallen == 0) {
-                    this.deallen = 'None';
-                }
-                if (this.deallen == 1) {
-                    this.deallen = '1 deal';
-                }
-                if (this.deallen > 1) {
-                    this.deallen = this.deallen + ' deals';
-                }
-                console.log(this.deallen);
             }, error => {
                 console.log('Oooops!');
             });
@@ -87,8 +90,7 @@ export class DealsComponent implements OnInit {
         let data = {
             emailid: this.mailcookiedetails,
             deals: this.pushdeals,
-            //  createaudienceid: this.cookiedetails,
-            createaudienceid: 703030
+            createaudienceid: this.cookiedetails,
         }
         this.deallen = data.deals.length;
         if (this.deallen == 0) {

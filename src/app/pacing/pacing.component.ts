@@ -44,11 +44,13 @@ export class PacingComponent implements OnInit {
         let link = this.serverurl + 'gettotallist';
         let data = {
             emailid: this.mailcookiedetails,
+            createaudienceid: this.cookiedetails
         }
         this._http.post(link, data)
             .subscribe(res => {
                 this.pacing = res.json();
-                if (this.pacing[0].pacing.length > 0) {
+                if (typeof (this.pacing[0].pacing) != 'undefined') {
+                    //   if (this.pacing[0].pacing.length > 0) {
                     this.pacingval = this.pacing[0].pacing;
                     this.paceenable = false;
                     this.divshowpace = true;
@@ -91,8 +93,7 @@ export class PacingComponent implements OnInit {
             this.showpace = pacingval + '.00%';
             let data = {
                 emailid: this.mailcookiedetails,
-               // createaudienceid: this.cookiedetails,
-                createaudienceid: 703030,
+                createaudienceid: this.cookiedetails,
                 pacing: pacingval
             }
             console.log(data);

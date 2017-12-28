@@ -79,6 +79,19 @@ export class HeaderComponent implements OnInit {
         this.router.navigateByUrl('/campaignsettings');
     }
 
+    resetcookie1() {
+        console.log('create new campaign');
+        console.log('reset cookie');
+
+        this.cookiedetails = this.addcookie.getObject('cookiedetails');
+        this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
+
+        this.addcookie.remove('cookiedetails');
+        this.cookiedetails = this.addcookie.getObject('cookiedetails'); // after remove you have to call the cookie again to update the value
+        console.log('After remove '+this.cookiedetails);
+        this.router.navigateByUrl('/locations');
+    }
+
 
     logout() {
         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');

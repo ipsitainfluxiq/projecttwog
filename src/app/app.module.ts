@@ -50,6 +50,9 @@ import { DevicetypesComponent } from './devicetypes/devicetypes.component';
 import { DealsComponent } from './deals/deals.component';
 import { OsComponent } from './os/os.component';
 import { DaypartingComponent } from './dayparting/dayparting.component';
+import { AudiencelistComponent } from './audiencelist/audiencelist.component';
+import { TriallocComponent } from './trialloc/trialloc.component';
+
 
 
 @NgModule({
@@ -90,6 +93,8 @@ import { DaypartingComponent } from './dayparting/dayparting.component';
     DealsComponent,
     OsComponent,
     DaypartingComponent,
+    AudiencelistComponent,
+    TriallocComponent,
   ],
   imports: [
     BrowserModule,

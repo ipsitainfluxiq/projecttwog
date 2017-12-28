@@ -1,106 +1,128 @@
 <app-header></app-header>
-
 <div class="newpageborder"></div>
 <div class=" geo_body_wrapper">
-
   <div class=" geo_new_wrapper">
-
     <div class="geo_new_heading"><span><strong>CREATE AN</strong> Audience</span></div>
-
     <div class="geo_new_menublock">
-
       <ul>
-        <li><a href="javascript:void(0)" class="nmenu1">Locations</a></li>
-        <li><a href="javascript:void(0)" class="nmenu2"> Viewability</a></li>
-        <li><a href="javascript:void(0)" class="nmenu3"> Browser</a></li>
-        <li><a href="javascript:void(0)" class="nmenu4">Operating Systems</a></li>
-        <li><a href="javascript:void(0)" class="nmenu5">Device Types </a></li>
-        <li><a href="javascript:void(0)" class="nmenu6">Deals</a></li>
-        <li><a href="javascript:void(0)" class="nmenu7">Pacing</a></li>
-        <li><a href="javascript:void(0)" class="nmenu8">Dayparting</a></li>
+        <li class="active"><a href="javascript:void(0)" class="nmenu1">Locations</a></li>
+        <li><a [routerLink]="['/viewability']" href="javascript:void(0)" class="nmenu2"> Viewability</a></li>
+        <li><a [routerLink]="['/browser']" href="javascript:void(0)" class="nmenu3"> Browser</a></li>
+        <li><a [routerLink]="['/os']" href="javascript:void(0)" class="nmenu4">Operating Systems</a></li>
+        <li><a [routerLink]="['/devicetypes']" href="javascript:void(0)" class="nmenu5">Device Types </a></li>
+        <li><a [routerLink]="['/deals']" href="javascript:void(0)" class="nmenu6">Deals</a></li>
+        <li><a [routerLink]="['/pacing']" href="javascript:void(0)" class="nmenu7">Pacing</a></li>
+        <li><a [routerLink]="['/dayparting']" href="javascript:void(0)" class="nmenu8">Dayparting</a></li>
         <div class="clearfix"></div>
       </ul>
       <div class="clearfix"></div>
     </div>
-
     <div class=" geo_new_block1">
-
       <img src="assets/images/geoai4a-icon.png"  alt="#"/>
       <h2>Locations</h2>
       <h3>Lorem Ipsum is simply dummy
         text of the printing and typesetting industry.</h3>
-
     </div>
-
     <h6 class="h6locationtext">Locations</h6>
     <div class=" geo_new_block2">
-      <div class="showerror" *ngIf="error">{{error}}</div>
-      <p>Locations</p>
       <div class="location_tablewrapper">
-        <h6>Available Locations </h6>
-        <table>
-          <tr>
-            <td>
-              <div class="location_heading">
-                <h2>Selected Locations</h2>
-                <span></span>
-                <div class="clearfix"></div>
-              </div>
-              <div class="location_contain">
-                <ul *ngFor="let item of selected_locations; let i=index">
-                  <li>
-                    <img src="assets/images/close_location.png" alt="#" class="loc_img1" (click)="deletelocations(item.attr_id,item.attr_name,item)"/>
-                    <label>{{item.attr_name}}</label></li>
-                </ul>
-              </div>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-              <div class="location_heading">
-                <div *ngIf="count>0"><img src="assets/images/location_arrow_left.png"  alt="#" class="loc_img1" (click)="childlist(0,0,2)"/></div>
-                <h2>{{locationnameforreverse}}</h2>
-                <span class="searchbar_location"></span>
-                <div class="clearfix"></div>
+        <div class="showerror" *ngIf="error">{{error}}</div>
+        <div *ngIf="showlocationdiv">
+          <h6 (click)="hi()" class="h6gobtn">Go to fence</h6>
 
-              </div>
-
-              <div class="location_contain">
-
-                <ul *ngFor="let item of details; let i=index">
-
-                  <li><img src="assets/images/location_menuicon.png" alt="#" class="loc_img1" (click)="addtolist(item.id,item.name)"/> <label>{{item.name}}</label><img src="assets/images/location_arrow_right.png"  alt="#" class="loc_img2" (click)="childlist(item.id,item.name,1)"/></li>
-
-                </ul>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-        <!--  <input type="button"  value="Ok" (click)="submitlocation(selected_locations)" class="browsertabbtn2"/>-->
-
-
-        <div class="budget_formdiv_btn">
-          <input type="button"  value="Save" (click)="submitlocation(selected_locations)"/>
-          <input type="button"  value="Cancel"/>
+          <h6>Available Locations </h6>
+          <table>
+            <tr>
+              <td>
+                <div class="location_heading">
+                  <h2>Selected Locations</h2>
+                  <span></span>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="location_contain">
+                  <ul *ngFor="let item of selected_locations; let i=index">
+                    <li>
+                      <img src="assets/images/close_location.png" alt="#" class="loc_img1" (click)="deletelocations(item.attr_id,item.attr_name,item)"/>
+                      <label>{{item.attr_name}}</label></li>
+                  </ul>
+                </div>
+              </td>
+              <td>&nbsp;</td>
+              <td>
+                <div class="location_heading">
+                  <div *ngIf="count>0"><img src="assets/images/location_arrow_left.png"  alt="#" class="loc_img1" (click)="childlist(0,0,2)"/></div>
+                  <h2>{{locationnameforreverse}}</h2>
+                  <span class="searchbar_location"></span>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="location_contain">
+                  <ul *ngFor="let item of datalist; let i=index">
+                    <li><img src="assets/images/location_menuicon.png" alt="#" class="loc_img1" (click)="addtolist(item.location_id,item.location_name)"/> <label>{{item.location_name}}</label><img src="assets/images/location_arrow_right.png"  alt="#" class="loc_img2" (click)="childlist(item.location_id,item.location_name,1)"/></li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div class="budget_formdiv_btn">
+            <input type="button"  value="Save" (click)="submitlocation(selected_locations)"/>
+            <input type="button"  value="Cancel"/>
+          </div>
         </div>
 
 
+        <div *ngIf="showfencediv">
+          <h6 class="h6gobtn">Geo Fencing</h6>
+          <h6 class="h6gobtn" (click)="hi()">Go to location</h6>
+          <div class="showerror" *ngIf="excessdataerror">{{excessdataerror}}</div>
+          <!--<div class="GeoJSON_block"><span (click)="getjson()">Upload GeoJSON</span></div>-->
+          <div class="GeoJSON_block"><span (click)="getjson()">Upload CSV</span></div>
+          <div class="GeoJSON_block"> <a target="_self" href="http://simplyfi.influxiq.com/test.csv" download="somefile.txt">Download Demo CSV</a></div>
+          <div *ngIf="uploadjson">
+            <input type="file"  ngFileSelect [options]="basicOptions" (onUpload)="handleUpload($event)">
+            <!-- <input type="file">-->
+            <input type="button"  value="Upload"/>
+            <input type="button"  value="Cancel" />
+          </div>
+        </div>
+        <div id="map"></div>
+
+        <div *ngIf="addressoflatlng.length>0">
+          <table class="new_tabledesign">
+            <tr>
+              <th>latitude</th>
+              <th>longitude</th>
+              <th>Address</th>
+
+          </tr>
+        </table>
+        <div class="new_tabledesignwrapper">
+          <table class="new_tabledesign">
+            <tbody *ngFor="let item of addressoflatlng; let i = index">
+            <tr (click)="callcenteraddress(item.csvlat,item.csvlng)">
+              <td>{{item.csvlat}} </td>
+              <td>{{item.csvlng}} </td>
+            <td>{{item.address}}</td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+</div>
+        <button (click)="callforadd()" class="mapbtn1">Save</button>
+        <input type="button"  value="Cancel" class="mapbtn2"/>
+
+
+
       </div>
-
     </div>
-
-
-
     <div class="footerbtndiv">
-      <input type="button" value="Back">
-      <input type="button" value="Next">
-
+      <input type="button" value="Next"  [routerLink]="['/viewability']">
       <div class="clearfix"></div>
-
     </div>
-
-
   </div>
+</div>
 
-
+<div *ngIf="loadervalue" class="loder_body">
+  <div class="loder_wrapper">
+    <div class="loader"></div>
+  </div>
 </div>

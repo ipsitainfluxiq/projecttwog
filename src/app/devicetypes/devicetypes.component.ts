@@ -4,9 +4,9 @@ import {Commonservices} from '../app.commonservices' ;
 import {CookieService} from 'angular2-cookie/core';
 
 @Component({
-  selector: 'app-devicetypes',
-  templateUrl: './devicetypes.component.html',
-  styleUrls: ['./devicetypes.component.css'],
+    selector: 'app-devicetypes',
+    templateUrl: './devicetypes.component.html',
+    styleUrls: ['./devicetypes.component.css'],
     providers: [Commonservices]
 })
 export class DevicetypesComponent implements OnInit {
@@ -34,12 +34,13 @@ export class DevicetypesComponent implements OnInit {
         this.getselecteddevices();
     }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
     getselecteddevices() {
         let link = this.serverurl + 'gettotallist';
         let data = {
             emailid: this.mailcookiedetails,
+            createaudienceid: this.cookiedetails
         }
         this._http.post(link, data)
             .subscribe(res => {
@@ -47,16 +48,18 @@ export class DevicetypesComponent implements OnInit {
                 this.datalist = result;
                 console.log('this.datalist');
                 console.log(this.datalist);
-                console.log(this.datalist[0].selected_devices[0]);
-                for (let x in this.datalist[0].selected_devices) {
-                    if (this.datalist[0].selected_devices[x] == 'Mobile') {
-                        this.Mobile = true;
-                    }if (this.datalist[0].selected_devices[x] == 'Desktops') {
-                        this.Desktops = true;
-                    }if (this.datalist[0].selected_devices[x] == 'Tablets') {
-                        this.Tablets = true;
-                    }if (this.datalist[0].selected_devices[x] == 'TV') {
-                        this.TV = true;
+                console.log(this.datalist[0].selected_devices);
+                if (typeof (this.datalist[0].selected_devices) != 'undefined') {
+                    for (let x in this.datalist[0].selected_devices) {
+                        if (this.datalist[0].selected_devices[x] == 'Mobile') {
+                            this.Mobile = true;
+                        }if (this.datalist[0].selected_devices[x] == 'Desktops') {
+                            this.Desktops = true;
+                        }if (this.datalist[0].selected_devices[x] == 'Tablets') {
+                            this.Tablets = true;
+                        }if (this.datalist[0].selected_devices[x] == 'TV') {
+                            this.TV = true;
+                        }
                     }
                 }
             }, error => {
@@ -80,8 +83,8 @@ export class DevicetypesComponent implements OnInit {
 
         let data = {
             emailid: this.mailcookiedetails,
-          //  createaudienceid: this.cookiedetails,
-            createaudienceid: 703030,
+            createaudienceid: this.cookiedetails,
+            // createaudienceid: 703030,
             selected_devices: this.selected_devices,
         }
         console.log('updatedevices');

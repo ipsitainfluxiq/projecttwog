@@ -51,6 +51,7 @@ export class CampaignlistComponent implements OnInit {
     }
 
     getAdminList() {
+
         let link = 'http://simplyfi.influxiq.com/getcampaignlist.php';
         let data = {};
         this._http.get(link)

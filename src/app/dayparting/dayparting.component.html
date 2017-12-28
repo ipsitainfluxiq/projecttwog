@@ -6,14 +6,14 @@
     <div class="geo_new_heading"><span><strong>CREATE AN</strong> Audience</span></div>
     <div class="geo_new_menublock">
       <ul>
-        <li><a href="javascript:void(0)" class="nmenu1">Locations</a></li>
+        <li><a [routerLink]="['/locations']" href="javascript:void(0)" class="nmenu1">Locations</a></li>
         <li><a [routerLink]="['/viewability']" href="javascript:void(0)" class="nmenu2"> Viewability</a></li>
         <li><a [routerLink]="['/browser']" href="javascript:void(0)" class="nmenu3"> Browser</a></li>
         <li><a [routerLink]="['/os']" href="javascript:void(0)" class="nmenu4">Operating Systems</a></li>
         <li><a [routerLink]="['/devicetypes']" href="javascript:void(0)" class="nmenu5">Device Types </a></li>
         <li><a [routerLink]="['/deals']" href="javascript:void(0)" class="nmenu6">Deals</a></li>
         <li><a [routerLink]="['/pacing']" href="javascript:void(0)" class="nmenu7">Pacing</a></li>
-        <li><a [routerLink]="['/dayparting']" href="javascript:void(0)" class="nmenu8">Dayparting</a></li>
+        <li class="active"><a [routerLink]="['/dayparting']" href="javascript:void(0)" class="nmenu8">Dayparting</a></li>
         <div class="clearfix"></div>
       </ul>
       <div class="clearfix"></div>
@@ -157,15 +157,15 @@
           <img src="assets/images/create_audience_close.png"  alt="#" class="sliderclose"/>
           <div class="clearfix"></div>
         </div>
-       <div class="new_btnwrapper"> <input type="button" value="OK" (click)="updatedaypart()" class="browsertabbtn"></div>
+        <div class="new_btnwrapper"> <input type="button" value="OK" (click)="updatedaypart()" class="browsertabbtn"></div>
         <div class="clearfix"></div>
       </div>
     </div>
 
-  <div class="footerbtndiv">
-    <input type="button" value="Back">
-    <input type="button" value="Next">
-    <div class="clearfix"></div>
+    <div class="footerbtndiv">
+      <input type="button" value="Back" [routerLink]="['/pacing']">
+      <input type="button" value="Next">
+      <div class="clearfix"></div>
+    </div>
   </div>
-</div>
 </div>

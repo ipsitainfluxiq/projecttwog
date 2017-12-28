@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
         console.log('get mail from login page saved cookie ->  ' + this.mailcookiedetails);
         if (typeof (this.mailcookiedetails) != 'undefined') {
             this.router.navigateByUrl('/accountdetails');
+           // this.router.navigateByUrl('/viewability');
         }
     }
 
@@ -53,16 +54,20 @@ export class LoginComponent implements OnInit {
             this._http.post(link, data)
                 .subscribe(res => {
                     let result = res.json();
+                    console.log('result.status-----');
                     console.log(result.status);
                     if (result.status == 'success') {
                         this.emailcookie.putObject('mailcookiedetails', result.msg);
                         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
                         console.log('after putobject ' + this.mailcookiedetails);
-                        this.router.navigate(['/accountdetails']);
+                       // this.router.navigate(['/accountdetails']);
+                        window.location.reload();
+                      //  this.router.navigate(['/viewability']);
                     }
                     else {
+                        console.log('else part');
                         this.is_error = result.msg;
-                        this.router.navigate(['/']);
+                      //  this.router.navigate(['/']);
                     }
 
                 }, error => {

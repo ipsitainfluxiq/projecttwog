@@ -4,9 +4,9 @@ import {Commonservices} from '../app.commonservices' ;
 import {CookieService} from 'angular2-cookie/core';
 
 @Component({
-  selector: 'app-dayparting',
-  templateUrl: './dayparting.component.html',
-  styleUrls: ['./dayparting.component.css'],
+    selector: 'app-dayparting',
+    templateUrl: './dayparting.component.html',
+    styleUrls: ['./dayparting.component.css'],
     providers: [Commonservices]
 })
 export class DaypartingComponent implements OnInit {
@@ -34,7 +34,7 @@ export class DaypartingComponent implements OnInit {
         this.emailcookie = emailcookie;
         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
         this.serverurl = _commonservices.url;
-      this.showdaypartval = 'Anytime of day';
+        this.showdaypartval = 'Anytime of day';
         this.daypartval[0] = {from : 0 , to: 24};
         this.daypartval[1] = {from : 0 , to: 24};
         this.daypartval[2] = {from : 0 , to: 24};
@@ -43,65 +43,68 @@ export class DaypartingComponent implements OnInit {
         this.daypartval[5] = {from : 0 , to: 24};
         this.daypartval[6] = {from : 0 , to: 24};
         this.calldaypartconstructor();
-  }
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
     calldaypartconstructor() {
         let link = this.serverurl + 'gettotallist';
         let data = {
             emailid: this.mailcookiedetails,
+            createaudienceid: this.cookiedetails
         }
         this._http.post(link, data)
             .subscribe(res => {
                 this.responsedaypart = res.json();
                 console.log('hhhhhhhhhhhhhhhhh');
-                console.log(this.responsedaypart[0].dayparting);
-                console.log(this.responsedaypart[0].dayparting[1]);
-              //  console.log(this.responsedaypart.campaigns[0].week_dayparting);
-                let lastvalfrom: any = '';
-                let lastvalto: any = '';
-                let tempval: any = [];
-                let j;
-                for (let i in this.responsedaypart[0].dayparting) {
-                    tempval.from = this.responsedaypart[0].dayparting[i].from;
-                    tempval.to = this.responsedaypart[0].dayparting[i].to;
-                    if ( parseInt(i) > 0) {
-                        if (this.flag == 0) {
-                            if ( tempval.from == lastvalfrom && tempval.to == lastvalto ) {
-                                this.openonediv = true;
-                                this.openalldiv = false;
-                                this.applyforall = true;
-                            } else {
-                                this.openonediv = false;
-                                this.openalldiv = true;
-                                this.applyforall = false;
-                                this.flag = 1;
+                if (typeof (this.responsedaypart[0].dayparting) != 'undefined') {
+                    console.log(this.responsedaypart[0].dayparting);
+                    console.log(this.responsedaypart[0].dayparting[1]);
+                    //  console.log(this.responsedaypart.campaigns[0].week_dayparting);
+                    let lastvalfrom: any = '';
+                    let lastvalto: any = '';
+                    let tempval: any = [];
+                    let j;
+                    for (let i in this.responsedaypart[0].dayparting) {
+                        tempval.from = this.responsedaypart[0].dayparting[i].from;
+                        tempval.to = this.responsedaypart[0].dayparting[i].to;
+                        if (parseInt(i) > 0) {
+                            if (this.flag == 0) {
+                                if (tempval.from == lastvalfrom && tempval.to == lastvalto) {
+                                    this.openonediv = true;
+                                    this.openalldiv = false;
+                                    this.applyforall = true;
+                                } else {
+                                    this.openonediv = false;
+                                    this.openalldiv = true;
+                                    this.applyforall = false;
+                                    this.flag = 1;
+                                }
                             }
                         }
+                        lastvalfrom = tempval.from;
+                        lastvalto = tempval.to;
+                        this.myOnChange(tempval, i);
+                        /* if (i == '0') {   j = 'Mon';   }
+                         if (i == '1') {   j = 'Tue';   }
+                         if (i == '2') {   j = 'Wed';   }
+                         if (i == '3') {   j = 'Thu';   }
+                         if (i == '4') {   j = 'Fri';   }
+                         if (i == '5') {   j = 'Sat';   }
+                         if (i == '6') {   j = 'Sun';   }
+                         if (tempval.from  == 0 && tempval.to == 24) {
+                             this.showdaypart[j] = 'All';
+                         } else {
+                             this.showdaypart[j] = tempval.from;
+                             this.showdaypart[j] = this.showdaypart[j] + ' - ' + tempval.to;
+                         }*/
                     }
-                    lastvalfrom = tempval.from;
-                    lastvalto = tempval.to;
-                    this.myOnChange(tempval, i );
-                   /* if (i == '0') {   j = 'Mon';   }
-                    if (i == '1') {   j = 'Tue';   }
-                    if (i == '2') {   j = 'Wed';   }
-                    if (i == '3') {   j = 'Thu';   }
-                    if (i == '4') {   j = 'Fri';   }
-                    if (i == '5') {   j = 'Sat';   }
-                    if (i == '6') {   j = 'Sun';   }
-                    if (tempval.from  == 0 && tempval.to == 24) {
-                        this.showdaypart[j] = 'All';
-                    } else {
-                        this.showdaypart[j] = tempval.from;
-                        this.showdaypart[j] = this.showdaypart[j] + ' - ' + tempval.to;
+                    /*this.showdaypartval = '';
+                    for (this.k in this.showdaypart) {
+                        this.showdaypartval = this.showdaypartval + (this.k + ' : ' + this.showdaypart[this.k] + ' | ');
                     }*/
                 }
-                /*this.showdaypartval = '';
-                for (this.k in this.showdaypart) {
-                    this.showdaypartval = this.showdaypartval + (this.k + ' : ' + this.showdaypart[this.k] + ' | ');
-                }*/
             }, error => {
                 console.log('Oooops!');
             });
@@ -150,8 +153,7 @@ export class DaypartingComponent implements OnInit {
         let y;
         let data = {
             emailid: this.mailcookiedetails,
-            //  createaudienceid: this.cookiedetails,
-            createaudienceid: 703030,
+            createaudienceid: this.cookiedetails,
             dayparting: this.daypartval
         }
         console.log('updatedaypart');
@@ -159,7 +161,7 @@ export class DaypartingComponent implements OnInit {
         let link = this.serverurl + 'dayparts';
         this._http.post(link, data)
             .subscribe(res => {
-               // this.calldaypartconstructor();
+                // this.calldaypartconstructor();
 
             }, error => {
                 console.log('Oooops!');
