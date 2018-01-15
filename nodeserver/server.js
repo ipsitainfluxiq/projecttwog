@@ -1702,3 +1702,38 @@ app.post('/childlocation' , function (req,resp) {
             });
     }
 });
+
+app.get('/tokensave',function (req,resp) {
+    var link = 'http://simplyfi.influxiq.com/dataapi.php';
+    request(link, function(error2, response, html2){
+        if(!error2) {
+           // console.log(JSON.parse(html2));
+            var a= JSON.parse(html2);
+            a = a.Response.responseDetails.TokenID;
+           // console.log(a);
+            var collection = db.collection('data_api');
+            collection.insert([{
+                     accesstoken :a
+                }],
+                function (err, result) {
+                    if (err) {
+                        console.log('err');
+                        resp.send(JSON.stringify({'status':'error'}));
+                    }
+                    else {
+                        console.log('success');
+                        resp.send(JSON.stringify({'status':'success'}));
+                    }
+                });
+          /*  var data = {
+                accesstoken:a
+            }
+            collection.update({}, {$set: data}, true, true);*/
+        }
+        else {
+            console.log("error in php");
+            resp.send('error');
+        }
+    });
+
+});
