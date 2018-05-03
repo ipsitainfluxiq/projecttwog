@@ -17,13 +17,19 @@ export class HeaderComponent implements OnInit {
     private mailcookiedetails;
     public serverurl;
     public usernamedetail;
+    private alldetailcookie: CookieService;
+    private cookiedetailsforalldetails;
 
-    constructor(addcookie: CookieService, private _http: Http, private router: Router, emailcookie: CookieService, private _commonservices: Commonservices) {
+    constructor(addcookie: CookieService, private _http: Http, private router: Router, emailcookie: CookieService, private _commonservices: Commonservices, alldetailcookie: CookieService) {
         this.addcookie = addcookie ;
         this.cookiedetails = this.addcookie.getObject('cookiedetails');
         this.emailcookie = emailcookie;
         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
         console.log('from header --------> ' + this.mailcookiedetails);
+        console.log('from header cookiedetails --------> ' + this.cookiedetails);
+        this.alldetailcookie = alldetailcookie ;
+        this.cookiedetailsforalldetails = this.alldetailcookie.getObject('cookiedetailsforalldetails');
+
         this.serverurl = _commonservices.url;
 
         /* this subscription will fire always when the url changes */
@@ -89,7 +95,21 @@ export class HeaderComponent implements OnInit {
         this.addcookie.remove('cookiedetails');
         this.cookiedetails = this.addcookie.getObject('cookiedetails'); // after remove you have to call the cookie again to update the value
         console.log('After remove '+this.cookiedetails);
-        this.router.navigateByUrl('/locations');
+        this.router.navigateByUrl('/viewability');
+    }
+
+
+    resetcookie2() {
+        console.log('create new campaign');
+        console.log('reset cookie');
+
+        this.cookiedetails = this.addcookie.getObject('cookiedetails');
+        this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
+
+        this.addcookie.remove('cookiedetails');
+        this.cookiedetails = this.addcookie.getObject('cookiedetails'); // after remove you have to call the cookie again to update the value
+        console.log('After remove '+this.cookiedetails);
+        this.router.navigateByUrl('/campaignadd');
     }
 
 

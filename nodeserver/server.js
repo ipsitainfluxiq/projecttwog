@@ -14,15 +14,18 @@ app.use(bodyParser.json({ parameterLimit: 10000000,
     limit: '90mb'}));
 app.use(bodyParser.urlencoded({ parameterLimit: 10000000,
     limit: '90mb', extended: false}));
-var datetimestamp='';
-var filename='';
+var filename1='';
+var imgwidth1;
+var imgheight1;
 var EventEmitter = require('events').EventEmitter;
 const emitter = new EventEmitter()
 //emitter.setMaxListeners(100)
 emitter.setMaxListeners(0)
 var multer  = require('multer');
+var multer1  = require('multer');
 var datetimestamp='';
 var filename='';
+
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
         //   cb(null, '../assets/uploads/'); // this is for server site, run remotehost and check the path
@@ -33,15 +36,44 @@ var storage = multer.diskStorage({ //multers disk storage settings
 
         console.log('file.originalname'+file.originalname);
         filename=file.originalname.split('.')[0].replace(/ /g,'') + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
-        // console.log(filename);
         cb(null, filename);
     }
+
+});
+
+var storage1 = multer1.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        //   cb(null, '../assets/uploads/'); // this is for server site, run remotehost and check the path
+        cb(null, '../src/assets/uploads/');
+    },
+    filename: function (req, file, cb) {
+        //console.log(cb);
+
+        console.log('file.originalname'+file.originalname);
+        filename1=file.originalname.split('.')[0].replace(/ /g,'') + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
+        cb(null, filename1);
+        setTimeout(function () {
+        var sizeOf1 = require('image-size');
+        console.log(filename1);
+        sizeOf1('../src/assets/uploads/'+filename1, function (err, dimensions) {
+            console.log('dimensions.width, dimensions.height');
+            console.log(dimensions.width, dimensions.height);
+            imgwidth1=dimensions.width;
+            imgheight1=dimensions.height;
+        });
+        },200);
+    }
+
 });
 
 
 
 var upload = multer({ //multer settings
     storage: storage
+}).single('file');
+
+var upload1 = multer({ //multer settings
+    storage: storage1
 }).single('file');
 
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
@@ -60,16 +92,41 @@ app.post('/uploads', function(req, res) {
         /*console.log(1);
          console.log(err);
          console.log(filename);*/
+        if(err){
+            res.json({error_code:1,err_desc:err});
+            return;
+        }
+        res.json(filename);
+        setTimeout(function () {
+            filename=[];
+        },500);
+    });
+
+});
+
+
+app.post('/imguploads', function(req, res) {
+    console.log('imguploads call');
+    datetimestamp = Date.now();
+    upload1(req,res,function(err){
+        /*console.log(1);
+         console.log(err);
+         console.log(filename);*/
 
         if(err){
             res.json({error_code:1,err_desc:err});
             return;
         }
 
-        res.json(filename);
-
-
+        setTimeout(function () {
+            console.log({filename:filename1,imgheight:imgheight1,imgwidth:imgwidth1});
+            res.json({filename:filename1,imgheight:imgheight1,imgwidth:imgwidth1});
+            filename1=[];
+            imgheight1=null;
+            imgwidth1=null;
+        },500);
     });
+
 });
 
 
@@ -88,7 +145,25 @@ MongoClient.connect(url, function (err, database) {
         console.log("connected");
     }});
 
+app.post('/deleteimage', function (req, resp) {
+    if (req.body.id != ''){
+        var o_id = new mongodb.ObjectID(req.body.id);
+        var collection = db.collection('addmanager');
+        var data = {
+            image: ''
+        }
+        collection.update({_id: o_id}, {$set: data}, true, true);
+    }
 
+    var fs = require('fs');
+    // var filePath = "/home/influxiq/public_html/projects/mzsadie/uploads/" +req.body.image;
+    var filePath = "../src/assets/uploads/" +req.body.image; // Path set //
+    //   var filePath = "../assets/images/uploads/" +req.body.image; // Path set //
+    console.log('filepath is  ' +filePath);
+    fs.unlinkSync(filePath);
+    resp.send(JSON.stringify({'status': 'success', 'msg': ''}));
+
+});
 /*-----------------------------------------------------------------(start_for_geoai)
 ------------------------------------------------------------------------*/
 
@@ -252,6 +327,7 @@ app.post('/insertshapes', function (req, resp) {
         var data = {
             path:req.body.path,
         }
+        }
     }
     collection.insert([{
             email:req.body.email,
@@ -271,13 +347,12 @@ app.post('/insertshapes', function (req, resp) {
 });
 
 app.post('/locations', function (req, resp) {
-    console.log('hi');
     var collection = db.collection('campaigninfo');
     var dt = new Date();
     var date = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
     console.log(req.body.createaudienceid);
     collection.find({createaudienceid:req.body.createaudienceid}).toArray(function(err, items) {
-        if (items.length<1) {
+   /*     if (items.length<1) {
             collection.insert([{
                     createaudienceid:req.body.createaudienceid,
                     emailid:req.body.email,
@@ -291,18 +366,56 @@ app.post('/locations', function (req, resp) {
                     else{
                     }
                 });
-        } else {
+        } else {*/
             var data = {
                 dateofcreation:date,
                 locations: req.body.selected_locations,
                 value:null
             }
             collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.email}, {$set: data}, true, true);
+      //  }
+        resp.send(JSON.stringify({'status':'success'}));
+    });
+});
+
+
+app.post('/viewability' , function (req,resp) {
+    console.log('call');
+    var collection = db.collection('campaigninfo');
+    var dt = new Date();
+    var date = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
+    collection.find({createaudienceid:req.body.createaudienceid}).toArray(function(err, items) {
+        if (items.length<1) {
+            console.log('?');
+            collection.insert([{
+                    createaudienceid:req.body.createaudienceid,
+                    audiencename:req.body.audiencename,
+                    integral_viewability_threshold: req.body.integral_viewability_threshold,
+                    emailid:req.body.emailid,
+                    dateofcreation:date,
+                }],
+                function(err, result) {
+                    if (err){
+                        console.log(err);
+                    }
+                    else{
+                        console.log(result);
+                    }
+                });
+        } else {
+            console.log('???');
+            var data = {
+                //dateofcreation:date,
+                audiencename:req.body.audiencename,
+                integral_viewability_threshold: req.body.integral_viewability_threshold,
+            }
+            collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
         }
         resp.send(JSON.stringify({'status':'success'}));
     });
 });
 
+/*
 
 app.post('/viewability' , function (req,resp) {
     var collection = db.collection('campaigninfo');
@@ -312,7 +425,7 @@ app.post('/viewability' , function (req,resp) {
             }
             collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
         resp.send(JSON.stringify({'status':'success'}));
-});
+});*/
 
 app.post('/deleteaudience', function (req, resp) {
     var o_id = new mongodb.ObjectID(req.body.id);
@@ -380,6 +493,7 @@ app.post('/signup' , function (req,resp) {
             //  year: req.body.year,
             phone: req.body.phone,
             about_us: req.body.about_us,
+            type:0,
             // location: req.body.location,
             // state: req.body.state,
         }],
@@ -477,7 +591,8 @@ app.post('/login', function (req, resp) {
          return;
          }*/
         if(items.length>0 && items[0].password==hash){
-            resp.send(JSON.stringify({'status':'success','msg':items[0].email}));
+          //  resp.send(JSON.stringify({'status':'success','msg':items[0].email}));
+            resp.send(JSON.stringify({'status':'success','msg':items[0]}));
             return;
         }
     });
@@ -785,12 +900,274 @@ app.get('/getdetails11', function (req,resp) {
 });
 
 
-/*-----------------------------------------------------------------(end_for_geoai)
---------------------------------------------------------------------------*/
+                                            /*-----------------dated 11.48-----------------------*/
+app.post('/addcreative',function(req,resp){
+    var collection = db.collection('creatives');
+    collection.insert([{
+            emailid: req.body.emailid,
+            creativename: req.body.creativename,
+            description: req.body.description,
+            code: req.body.code,
+        }],
+        function(err, result) {
+            if (err){
+                console.log('err');
+                resp.send(JSON.stringify({'id':0, 'status':'Some error occured..!'}));
+            }
+            else{
+                console.log(result);
+                resp.send(JSON.stringify({'id':result.ops[0]._id, 'status':'success'}));
+            }
+        });
+});
+
+
+/*app.post('/creativelist',function (req,resp) {
+    var emailid = req.body.emailid;
+    var type = req.body.type;
+    var collection = db.collection('creatives');
+    if(type==1){  // 1 for admin .. can see all, but edit only under their addition..
+        collection.find().toArray(function(err, items) {
+            if (err) {
+                console.log(err);
+                resp.send(JSON.stringify({'res':[]}));
+            } else {
+                resp.send(JSON.stringify(items));
+            }
+
+        });
+    }
+    if(type==0){  // 0 for users.. can see nd edit under their addition..
+        collection.find({emailid:emailid}).toArray(function(err, items) {
+            if (err) {
+                console.log(err);
+                resp.send(JSON.stringify({'res':[]}));
+            } else {
+                resp.send(JSON.stringify(items));
+            }
+
+        });
+    }
+});*/
+
+app.post('/creativelist',function (req,resp) {
+    var emailid = req.body.emailid;
+    var type = req.body.type;
+    console.log(type);
+    if(type == 0) { //user
+        var collection = db.collection('creatives').aggregate([
+        { "$match": { "emailid": emailid } },
+        {
+            $lookup: {
+                from: "signup",
+                localField: "emailid",   // localfield of subscribe
+                foreignField: "email",   //localfield of postcategorymanagement
+                as: "Creativeaddata"
+            }
+        },
+        /*    { "$unwind": "$PostManegementdata" },*/
+    ]);
+     console.log('go');
+    }
+    if(type == 1) { //admin
+        var collection = db.collection('creatives').aggregate([
+            {
+                $lookup: {
+                    from: "signup",
+                    localField: "emailid",   // localfield of subscribe
+                    foreignField: "email",   //localfield of postcategorymanagement
+                    as: "Creativeaddata"
+                }
+            },
+            /*    { "$unwind": "$PostManegementdata" },*/
+        ]);
+    }
+    collection.toArray(function (err, items) {
+        console.log(items);
+        resp.send(JSON.stringify(items));
+    });
+});
+
+app.post('/subscribedposts', function (req, resp) {
+    var logid = new mongodb.ObjectID(req.query.loginid);
+    console.log(logid);
+    var collection1 = db.collection('subscribe');
+    var collection = db.collection('subscribe').aggregate([
+        /*   { "$match": { "logid": logid } },*/
+
+        {
+            $lookup: {
+                from: "postcategorymanagement",
+                localField: "categoryid",   // localfield of subscribe
+                foreignField: "postlist",   //localfield of postcategorymanagement
+                as: "PostManegementdata"
+            }
+        },
+        /*    { "$unwind": "$PostManegementdata" },*/
+
+    ]);
+
+
+    collection.toArray(function (err, items) {
+        console.log(items);
+        resp.send(JSON.stringify(items));
+    });
+
+});
+
+app.post('/deletecreative', function (req, resp) {
+    var o_id = new mongodb.ObjectID(req.body.id);
+    var collection = db.collection('creatives')
+    collection.deleteOne({_id: o_id}, function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
+        }
+        else {
+            resp.send("success");
+        }
+    });
+});
+
+app.post('/creativedetails',function(req,resp){        // this is for editadmin page
+    console.log("creativedetails from server.js called");
+    var resitem = {};
+    var collection = db.collection('creatives');
+    var o_id = new mongodb.ObjectID(req.body._id);
+
+    collection.find({_id:o_id}).toArray(function(err, items) {
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            resitem = items[0];
+            resp.send(JSON.stringify({'status':'success','item':resitem}));
+        }
+    });
+});
+
+app.post('/editcreative',function(req,resp){
+    var collection = db.collection('creatives');
+    var data = {
+        creativename: req.body.creativename,
+        description: req.body.description,
+        code: req.body.code
+    }
+    var o_id = new mongodb.ObjectID(req.body.id);
+    collection.update({_id:o_id}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+app.get('/getcreativedetailsbyid', function (req,resp) {
+    var collection= db.collection('creatives');
+    var o_id = new mongodb.ObjectID(req.query.id);
+
+    collection.find({_id:o_id}).toArray(function(err, items) {
+        resp.send(JSON.stringify(items));
+       // resp.send(req.query.id);
+    });
+});
+
+app.post('/addadmin',function(req,resp){
+    var collection = db.collection('signup');
+    var crypto = require('crypto');
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+    collection.insert([{
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: hash,
+      /*  address: req.body.address,
+        city: req.body.city,
+        state: req.body.state,
+        zip: req.body.zip,
+        phone: req.body.phone,*/
+        type:1,
+    }], function (err, result) {
+        if (err) {
+            console.log('error'+err);
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            console.log(result);
+            resp.send(JSON.stringify({'status':'success','id':result.ops[0]._id}));
+        }
+    });
+});
 
 
 
-/*-----------------------------------------------------------------(start)----------------------------------------------------------------------------------*/
+app.get('/adminlist',function (req,resp) {
+    var collection = db.collection('signup');
+    collection.find({type:1}).toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+    });
+});
+
+
+
+app.post('/details',function(req,resp){
+    var resitem = {};
+    var collection = db.collection('signup');
+    var o_id = new mongodb.ObjectID(req.body._id);
+
+    collection.find({_id:o_id}).toArray(function(err, items) {
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            resitem = items[0];
+            resp.send(JSON.stringify({'status':'success','item':resitem}));
+        }
+    });
+});
+
+
+
+app.post('/editadmin',function(req,resp){
+    var collection = db.collection('signup');
+    var data = {
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        phone: req.body.phone,
+        address: req.body.address,
+        city: req.body.city,
+        state: req.body.state,
+        zip: req.body.zip
+    }
+    var o_id = new mongodb.ObjectID(req.body.id);
+    collection.update({_id:o_id}, {$set: data}, true, true);
+
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+app.post('/deleteadmin', function (req, resp) {
+    var o_id = new mongodb.ObjectID(req.body.id);
+    var collection = db.collection('signup');
+    collection.deleteOne({_id: o_id}, function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
+        }
+        else {
+            resp.send("success");
+        }
+    });
+});
+
+
+
+/*---------------------------------------(end_for_geoai)  ---------------------------------------------*/
+
+
+
+/*-----------------------------------------------(start)-------------------------------------------------*/
 app.get('/getdetails', function (req,resp) {
     var collection= db.collection('details');
     collection.find().toArray(function(err, items) {
@@ -1489,6 +1866,7 @@ app.post('/gettotallist',function (req,resp) {
             console.log(err);
             resp.send(JSON.stringify({'res':[]}));
         } else {
+            console.log(items);
             resp.send(JSON.stringify(items));
         }
     });
@@ -1576,6 +1954,7 @@ app.post('/devices' , function (req,resp) {
     collection.update({createaudienceid:req.body.createaudienceid, emailid:req.body.emailid}, {$set: data}, true, true);
     resp.send(JSON.stringify({'status':'success'}));
 });
+/*
 
 app.post('/viewability' , function (req,resp) {
     var collection = db.collection('campaigninfo');
@@ -1608,6 +1987,7 @@ app.post('/viewability' , function (req,resp) {
         resp.send(JSON.stringify({'status':'success'}));
     });
 });
+*/
 
 
 
@@ -1736,4 +2116,266 @@ app.get('/tokensave',function (req,resp) {
         }
     });
 
+});
+
+app.get('/gettoken',function (req,resp) {
+    var collection = db.collection('data_api');
+    collection.find().toArray(function(err, items) {
+        if (err) {
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+    });
+});
+
+/*-----------------5-3-18----------------*/
+
+app.get('/getus_cities', function (req, resp) {
+  //  var collection = db.collection('us_cities');
+    var collection = db.collection('us_cities_trial');
+    collection.find().toArray(function(err, items) {
+        resp.send(JSON.stringify(items));
+    });
+});
+
+app.get('/getus_cities1', function (req, resp) {
+    var collection = db.collection('us_cities');
+    collection.distinct("city", function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            console.log(items);
+            resp.send(JSON.stringify({'res':items}));
+        }
+    });
+});
+
+
+app.get('/getus_cities2', function (req, resp) {
+    var collection = db.collection('us_cities');
+   collection.aggregate([{
+        $group: {_id: {"country" : "$countryname"}, uniqueValues: {$addToSet: "$city"}}
+    }], function(err, items) {
+       if (err) {
+           console.log(err);
+           resp.send(JSON.stringify({'res': []}));
+       } else {
+           console.log(items);
+           resp.send(JSON.stringify({'res': items}));
+       }
+   });
+});
+
+                /*----------------------------------- april add --------------------------------------*/
+
+app.post('/adbanneradd',function(req,resp){
+    var collection = db.collection('adbanner');
+    if(req.body.status == true){
+        req.body.status =1;
+    }
+    else{
+        req.body.status = 0;
+    }
+    collection.insert([{
+        adbannername: req.body.adbannername,
+        imgheight: req.body.imgheight,
+        imgwidth: req.body.imgwidth,
+        priority: req.body.priority,
+        status: req.body.status,
+        image: req.body.image,
+        addedby: req.body.addedby,
+    }], function (err, result) {
+        if (err) {
+            console.log('error'+err);
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            console.log(result);
+            resp.send(JSON.stringify({'status':'success','id':result.ops[0]._id}));
+        }
+    });
+});
+
+
+app.get('/adbannerlist',function (req,resp) {
+    var collection = db.collection('adbanner');
+    collection.find().toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+    });
+});
+
+
+app.post('/deleteadbanner', function (req, resp) {
+    var o_id = new mongodb.ObjectID(req.body.id);
+    var collection = db.collection('adbanner');
+    collection.deleteOne({_id: o_id}, function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
+        }
+        else {
+            resp.send("success");
+        }
+    });
+});
+
+app.post('/adbannerdetails',function(req,resp){
+    var collection = db.collection('adbanner');
+    var o_id = new mongodb.ObjectID(req.body.id);
+    collection.find({_id:o_id}).toArray(function(err, items) {
+        console.log(items);
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            resp.send(JSON.stringify({'status':'success','item':items[0]}));
+        }
+    });
+});
+
+
+app.post('/editadbanner',function(req,resp){
+    if(req.body.status == true){
+        req.body.status =1;
+    }
+    else{
+        req.body.status = 0;
+    }
+    var collection = db.collection('adbanner');
+    var data = {
+        adbannername: req.body.adbannername,
+        imgheight: req.body.imgheight,
+        imgwidth: req.body.imgwidth,
+        priority: req.body.priority,
+        status: req.body.status,
+        image: req.body.image,
+    }
+    var o_id = new mongodb.ObjectID(req.body.id);
+    collection.update({_id:o_id}, {$set: data}, true, true);
+
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+app.post('/campaignadd',function(req,resp){
+    var collection = db.collection('campaignadd');
+    collection.insert([{
+        campaignname: req.body.campaignname,
+        startdate: req.body.startdate,
+        enddate: req.body.enddate,
+        campaignbudget: req.body.campaignbudget,
+        monthlybudget: req.body.monthlybudget,
+        biddingamountnbudget: req.body.biddingamountnbudget,
+        dailyspendtarget: req.body.dailyspendtarget,
+        bidding_type: req.body.bidding_type,
+        added_by: req.body.added_by,
+        audienceid:null
+    }], function (err, result) {
+        if (err) {
+            console.log('error'+err);
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            console.log(result);
+            resp.send(JSON.stringify({'status':'success','id':result.ops[0]._id}));
+        }
+    });
+});
+
+
+
+app.get('/campaignlist',function (req,resp) {
+    var collection = db.collection('campaignadd');
+    collection.find().toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+    });
+});
+
+
+
+
+app.post('/campaigndetails',function(req,resp){
+    var resitem = {};
+    var collection = db.collection('campaignadd');
+    var o_id = new mongodb.ObjectID(req.body._id);
+
+    collection.find({_id:o_id}).toArray(function(err, items) {
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            console.log(items);
+            resitem = items[0];
+            resp.send(JSON.stringify({'status':'success','item':resitem}));
+        }
+    });
+});
+
+app.post('/campaignedit',function(req,resp){
+    var collection = db.collection('campaignadd');
+    var data = {
+        id: req.body.id,
+        campaignname: req.body.campaignname,
+        startdate: req.body.startdate,
+        enddate: req.body.enddate,
+        campaignbudget: req.body.campaignbudget,
+        monthlybudget: req.body.monthlybudget,
+        biddingamountnbudget: req.body.biddingamountnbudget,
+        dailyspendtarget: req.body.dailyspendtarget,
+        bidding_type: req.body.bidding_type,
+    }
+    var o_id = new mongodb.ObjectID(req.body.id);
+    collection.update({_id:o_id}, {$set: data}, true, true);
+
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+app.post('/deletecampaign', function (req, resp) {
+    var o_id = new mongodb.ObjectID(req.body.id);
+    var collection = db.collection('campaignadd')
+    collection.deleteOne({_id: o_id}, function(err, results) {
+        if (err){
+            resp.send("failed");
+            throw err;
+        }
+        else {
+            resp.send("success");
+        }
+    });
+});
+                      /*-------------------Added on 5/2/18-------------------------------*/
+
+app.post('/getaudiencevalue',function(req,resp){
+    console.log('getaudiencevalue-----');
+    var collection = db.collection('campaignadd');
+    var campaignid = new mongodb.ObjectID(req.body.campaignid);
+    collection.find({_id:campaignid}).toArray(function(err, items) {
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            resitem = items[0];
+            resp.send(JSON.stringify({'status':'success','item':resitem}));
+        }
+    });
+});
+
+
+app.post('/addaudiencevalue',function(req,resp){
+    console.log('server--------');
+    var collection = db.collection('campaignadd');
+    var audienceid = new mongodb.ObjectID(req.body.audienceid);
+    var campaignid = new mongodb.ObjectID(req.body.campaignid);
+    var data = {
+        audienceid: audienceid
+    }
+    collection.update({_id:campaignid}, {$set: data}, true, true);
 });

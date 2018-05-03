@@ -43,7 +43,21 @@ import {OsComponent} from 'app/os/os.component';
 import {DaypartingComponent} from 'app/dayparting/dayparting.component';
 import {AudiencelistComponent} from 'app/audiencelist/audiencelist.component';
 import {TriallocComponent} from 'app/trialloc/trialloc.component';
-
+import {TrialAirtoryComponent} from 'app/trial-airtory/trial-airtory.component';
+import {CreativeaddComponent} from 'app/creativeadd/creativeadd.component';
+import {CreativelistComponent} from 'app/creativelist/creativelist.component';
+import {CreativeeditComponent} from 'app/creativeedit/creativeedit.component';
+import { AdminlistComponent } from 'app/adminlist/adminlist.component';
+import { AdminaddComponent } from 'app/adminadd/adminadd.component';
+import { AdmineditComponent } from 'app/adminedit/adminedit.component';
+import { AdbanneraddComponent } from 'app/adbanneradd/adbanneradd.component';
+import { AdbannerlistComponent } from 'app/adbannerlist/adbannerlist.component';
+import { AdbannereditComponent } from 'app/adbanneredit/adbanneredit.component';
+import { AdbanneraddnewComponent } from 'app/adbanneraddnew/adbanneraddnew.component';
+import { AdbannereditnewComponent } from 'app/adbannereditnew/adbannereditnew.component';
+import {CampaignaddComponent} from './app/campaignadd/campaignadd.component';
+import {CampaignlistnewComponent} from './app/campaignlistnew/campaignlistnew.component';
+import {CampaigneditComponent} from "./app/campaignedit/campaignedit.component";
 
 const appRoutes: Routes = [
 
@@ -52,7 +66,7 @@ const appRoutes: Routes = [
     { path: 'simplesolution', component: SimplesolutionComponent},
     { path: 'basicinformation', component: BasicinformationComponent},
     { path: 'confirmation', component: ConfirmationComponent},
-    { path: 'trail', component: TrialComponent},
+    { path: 'trial', component: TrialComponent},
     { path: 'campaignsettings', component: CampaignsettingsComponent},
     { path: 'createaudience', component: CreateAudienceComponent},
     { path: 'campaignlist', component: CampaignlistComponent},
@@ -82,6 +96,21 @@ const appRoutes: Routes = [
     { path: 'dayparting', component: DaypartingComponent},
     { path: 'audiencelist', component: AudiencelistComponent},
     { path: 'trialloc', component: TriallocComponent},
+    { path: 'trial_airtory', component: TrialAirtoryComponent},
+    { path: 'creativeadd', component: CreativeaddComponent},
+    { path: 'creativelist', component: CreativelistComponent},
+    { path: 'campaignadd', component: CampaignaddComponent},
+    { path: 'creativeedit/:id', component: CreativeeditComponent},
+    { path: 'adminedit/:id', component: AdmineditComponent},
+    { path: 'adminadd', component: AdminaddComponent},
+    { path: 'adminlist', component: AdminlistComponent},
+    { path: 'adbanneradd', component: AdbanneraddComponent},
+    { path: 'adbannerlist', component: AdbannerlistComponent},
+    { path: 'adbanneredit/:id', component: AdbannereditComponent},
+    { path: 'adbanneraddnew', component: AdbanneraddnewComponent},
+    { path: 'adbannereditnew/:id', component: AdbannereditnewComponent},
+    { path: 'campaignedit/:id', component: CampaigneditComponent},
+    { path: 'campaignlistnew', component: CampaignlistnewComponent}
 
 ];
 

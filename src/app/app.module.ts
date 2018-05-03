@@ -32,6 +32,7 @@ import { UserlistComponent } from './userlist/userlist.component';
 import { OrderBy } from './orderby';
 import { UsersearchPipe } from './search.pipe';
 import { Ng2UploaderModule } from 'ng2-uploader';
+import { NgUploaderModule } from 'ngx-uploader';
 import { AccountdetailsComponent } from './accountdetails/accountdetails.component';
 import { UpdateprofileComponent } from './updateprofile/updateprofile.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
@@ -52,7 +53,22 @@ import { OsComponent } from './os/os.component';
 import { DaypartingComponent } from './dayparting/dayparting.component';
 import { AudiencelistComponent } from './audiencelist/audiencelist.component';
 import { TriallocComponent } from './trialloc/trialloc.component';
-
+import { TrialAirtoryComponent } from './trial-airtory/trial-airtory.component';
+import { CreativeaddComponent } from './creativeadd/creativeadd.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { CreativelistComponent } from './creativelist/creativelist.component';
+import { CreativeeditComponent } from './creativeedit/creativeedit.component';
+import { AdminaddComponent } from './adminadd/adminadd.component';
+import { AdminlistComponent } from './adminlist/adminlist.component';
+import { AdmineditComponent } from './adminedit/adminedit.component';
+import { AdbanneraddComponent } from './adbanneradd/adbanneradd.component';
+import { AdbannerlistComponent } from './adbannerlist/adbannerlist.component';
+import { AdbannereditComponent } from './adbanneredit/adbanneredit.component';
+import { AdbanneraddnewComponent } from './adbanneraddnew/adbanneraddnew.component';
+import { AdbannereditnewComponent } from './adbannereditnew/adbannereditnew.component';
+import { CampaignaddComponent } from './campaignadd/campaignadd.component';
+import { CampaignlistnewComponent } from './campaignlistnew/campaignlistnew.component';
+import { CampaigneditComponent } from './campaignedit/campaignedit.component';
 
 
 @NgModule({
@@ -95,26 +111,43 @@ import { TriallocComponent } from './trialloc/trialloc.component';
     DaypartingComponent,
     AudiencelistComponent,
     TriallocComponent,
+    TrialAirtoryComponent,
+    CreativeaddComponent,
+    CreativelistComponent,
+    CreativeeditComponent,
+    AdminaddComponent,
+    AdminlistComponent,
+    AdmineditComponent,
+    AdbanneraddComponent,
+    AdbannerlistComponent,
+      AdbannereditComponent,
+      AdbanneraddnewComponent,
+      AdbannereditnewComponent,
+      CampaignaddComponent,
+      CampaignlistnewComponent,
+      CampaigneditComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    routing,
-    DatepickerModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
-    IonRangeSliderModule,
-    UiSwitchModule,
-    ReactiveFormsModule,
-    ModalModule.forRoot(),
-    Ng2UploaderModule,
-    AgmCoreModule.forRoot({
-     // apiKey: 'AIzaSyA2_vmiwMYMoLIAyN5Bb1C8XZYOyQwIq8U'
-      apiKey: 'AIzaSyC7rd1BpaO2BEgfQMD7ekZ4dQ9gFsKIod4'
-    }),
-  ],
-  providers: [CookieService, CircleManager, AgmCircle,  GoogleMapsAPIWrapper],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        routing,
+        DatepickerModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        TabsModule.forRoot(),
+        IonRangeSliderModule,
+        UiSwitchModule,
+        ReactiveFormsModule,
+        ModalModule.forRoot(),
+        Ng2UploaderModule,
+        CKEditorModule,
+        NgUploaderModule,
+        AgmCoreModule.forRoot({
+            // apiKey: 'AIzaSyA2_vmiwMYMoLIAyN5Bb1C8XZYOyQwIq8U'
+            apiKey: 'AIzaSyC7rd1BpaO2BEgfQMD7ekZ4dQ9gFsKIod4'
+        }),
+    ],
+    providers: [CookieService, CircleManager, AgmCircle,  GoogleMapsAPIWrapper],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,16 +16,18 @@ export class LoginComponent implements OnInit {
     private fb;
     public is_error;
     public serverurl;
-   /* private addcookie: CookieService;
-    private cookiedetails;*/
+    private alldetailcookie: CookieService;
+    private cookiedetailsforalldetails;
     private emailcookie: CookieService;
     private mailcookiedetails;
 
-    constructor(fb: FormBuilder, emailcookie: CookieService, private _http: Http, private router: Router,  private _commonservices: Commonservices) {
+    constructor(fb: FormBuilder, emailcookie: CookieService, alldetailcookie: CookieService, private _http: Http, private router: Router,  private _commonservices: Commonservices) {
         this.serverurl = _commonservices.url;
         this.fb = fb;
         this.emailcookie = emailcookie ;
+        this.alldetailcookie = alldetailcookie ;
         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
+        this.cookiedetailsforalldetails = this.alldetailcookie.getObject('cookiedetailsforalldetails');
         console.log('mailcookiedetails');
         console.log('get mail from login page saved cookie ->  ' + this.mailcookiedetails);
         if (typeof (this.mailcookiedetails) != 'undefined') {
@@ -57,9 +59,10 @@ export class LoginComponent implements OnInit {
                     console.log('result.status-----');
                     console.log(result.status);
                     if (result.status == 'success') {
-                        this.emailcookie.putObject('mailcookiedetails', result.msg);
+                        this.emailcookie.putObject('mailcookiedetails', result.msg.email);
                         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
                         console.log('after putobject ' + this.mailcookiedetails);
+                        this.alldetailcookie.putObject('cookiedetailsforalldetails', result.msg);
                        // this.router.navigate(['/accountdetails']);
                         window.location.reload();
                       //  this.router.navigate(['/viewability']);

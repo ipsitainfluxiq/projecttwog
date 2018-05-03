@@ -438,7 +438,8 @@ meta.foundation-version{font-family:"/5.2.2/"}meta.foundation-mq-small{font-fami
     font-size: 16px;
     color: #fff!important;
     padding: 11px 10px 8px 10px!important;
-    text-shadow: none; margin: 20px 0 0 0;}
+    text-shadow: none; margin: 20px 0 0 0;
+float: right}
 
 .mapbtn2{ border-radius: 0px!important;
     text-align: center!important;
@@ -500,5 +501,17 @@ meta.foundation-version{font-family:"/5.2.2/"}meta.foundation-mq-small{font-fami
         display: block !important;
         margin: 0 auto !important;
     }
-
+    .h2foroption{
+        margin: 0;
+        padding: 6px 0 6px 6px;
+        font-weight: normal;
+        font-size: 16px;
+        color: #000;
+        font-family: Calibri;
+        display: inline-block;
+        float: left;
+    }
+    .selectclass{
+        height: 34px !important;
+    }
 }

@@ -441,3 +441,80 @@
     .geo_new_menublock  .active  .nmenu7{ background: #1eb5f5 url(../images/new_menublock7_hover.png) no-repeat 20px center;}
     .geo_new_menublock  .active  .nmenu8{ background: #1eb5f5 url(../images/new_menublock8_hover.png) no-repeat 20px center;}
 }
+
+/*------------------------------------------------BY Ips----------------------------------------------------*/
+.geo_new_block2 h4{
+    width: 100%;
+    text-align: center;
+    background: #eaeaea; padding: 25px;
+}
+.geo_new_block2 h6{
+    width: 100%;
+    text-align: center;
+}
+
+.h6locationtext1{ padding:20px 0; margin:0px; text-align:center; font-size:24px; cursor: pointer}
+.geo_new_block2 .searchblocks {display: inline-block }
+
+.GeoJSON_block4{ width: 100%; text-align: center;  color: #008cba!important;
+   /* background:  url(../images/tab_new_icon1.png) no-repeat right center!important;*/
+    padding: 0px 25px 0px 25px;
+    /*display:inline; */
+    cursor: pointer;}
+
+.spaninblock:hover {
+    color: #23527c;
+    text-decoration: underline;
+}
+.searchbuttons{
+    background-color: #008cba;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    line-height: normal;
+    border: none;
+    padding: 11px 10px 8px 10px!important;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    border-bottom: solid 2px #007095;
+    margin: 0 5px 0 5px !important;
+}
+.search_column{
+    text-align: center;
+    padding-top: 1%;
+}
+
+.geo_new_block2 .searchclass{
+    margin-top: 5px;
+    float: left;
+    width: 30%;
+}
+.geo_new_block2 .searchclass p {
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-family: 'open_sansregular';
+    color: #000000;
+}
+.geo_new_block2 .rightaligneddiv{
+    float: right;
+    width: 70%;
+    margin-top: 5px;
+}
+
+.geo_new_block2 .twodiv{
+    display: inline-block;
+    width: 100%;
+}
+.mapbtn3{
+    border-radius: 0px!important;
+    background: #008cba!important;
+    border: none!important;
+    border-bottom: solid 2px #007095!important;
+    font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    color: #fff!important;
+    /*  padding: 11px 10px 8px 10px!important;*/
+    text-shadow: none;
+    text-align: center;
+}

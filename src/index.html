@@ -9,35 +9,22 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 
-
-<!--  <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap2/bootstrap-switch.css" rel="stylesheet">-->
-
-
-
   <link href="assets/css/order.css" media="screen, projection" rel="stylesheet" />
   <link href="assets/css/media.css" media="screen, projection" rel="stylesheet" />
-  <!--<link href="assets/css/style.css" media="screen, projection" rel="stylesheet" />-->
   <link href="assets/css/order1.css" media="screen, projection" rel="stylesheet" />
   <link href="assets/css/new_css.css" media="screen, projection" rel="stylesheet" />
+  <link href="assets/css/admin_style.css" media="screen, projection" rel="stylesheet" />
+  <link href="assets/css/admin_media.css" media="screen, projection" rel="stylesheet" />
   <link href="assets/css/ion.rangeSlider.css" media="screen, projection" rel="stylesheet" />
   <link href="assets/css/ion.rangeSlider.skinFlat.css" media="screen, projection" rel="stylesheet" />
-  <!--<link href="assets/order2.css" media="screen, projection" rel="stylesheet" />-->
-  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
   <script src="assets/js/order.js"></script>
+  <script src="https://cdn.ckeditor.com/4.6.1/full/ckeditor.js"></script>
   <script src="assets/js/ion.rangeSlider.js"></script>
-  <!--  <script src="assets/order1.js"></script>
-  <script src="assets/order2.js"></script>-->
   <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery-ui.css" media="all">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 
-
-
-
-
-
-
+  <script src="http://cdn.airtory.com/js/embed.js"></script>
 
 
 
@@ -45,20 +32,64 @@
   <script src="https://arthur-e.github.io/Wicket/wicket.js"></script>
   <script src="https://arthur-e.github.io/Wicket/wicket-gmap3.js"></script>
   <script src="https://bl.ocks.org/christophermanning/raw/4450188/javascript.util.min.js"></script>
- <!-- <script src="https://bl.ocks.org/christophermanning/raw/4450188/jsts.min.js"></script>-->
   <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.1.2/jsts.min.js"></script>
   <script src="https://unpkg.com/core-js@2.4.1/client/shim.min.js"></script>
-<!--  <script src="https://unpkg.com/zone.js/dist/zone.js"></script>-->
-<!--  <script src="https://unpkg.com/zone.js/dist/long-stack-trace-zone.js"></script>-->
   <script src="https://unpkg.com/reflect-metadata@0.1.3/Reflect.js"></script>
   <script src="https://unpkg.com/systemjs@0.19.31/dist/system.js"></script>
 
 
-
-
-  <!-- <script src="bootstrap-switch.js"></script>-->
-</head>
+  <link href="styles.b17b8c150ef19d5eb7a6.bundle.css" rel="stylesheet"/></head>
 <body>
+<script src="http://cdn.airtory.com/js/embed.js"></script>
+
+<script>
+
+  var airtory_widget_user='';
+  var airtory_widget_fname='';
+  var airtory_widget_lname='';
+  var config = {
+      companyId : "78ba3cb8-e613-299e-832e-e6f402677f70",
+      userName : "geoai_324234",
+      zindex : "99999",
+      first_name : 'Tuser',
+      last_name : 'T name',
+  };
+    function show(){
+        console.log(45345);
+        var config = {
+            companyId : "78ba3cb8-e613-299e-832e-e6f402677f70",
+            userName : "geoai_"+$('#airtory_widgetcompanyid').val(),
+            zindex : "99999",
+            first_name : $('#airtory_widgetfname').val(),
+            last_name : $('#airtory_widgetlname').val(),
+        };
+       console.log(config);
+         openairtory();
+    }
+    function openairtory() {
+        /*console.log(config);
+        console.log(airtory_widget_user);
+        console.log(airtory_widget_fname);
+        console.log(airtory_widget_lname);*/
+        air_embed.init(config,function(d){
+//called when when you export the creative
+            console.log('d.tag');
+            console.log(d.tag);
+            $('#getcode').val(d.tag);
+        })
+
+    }
+</script>
+<div  class="hidden">
+<h2>dasdadasds
+  <input type="text" id="airtory_widgetfname" class="hidden">
+  <input type="text" id="airtory_widgetlname"  class="hidden">
+  <input type="text" id="airtory_widgetcompanyid"  class="hidden">
+  <!--<button id="airtory_widget" onclick="openairtory()"> Open widgrt of airtory</button>-->
+  <button id="airtory_widget" onclick="show()"> Open widgrt of airtory</button>
+
+</h2>
+</div>
 <app-root>
   <div class="loder_body">
     <div class="loder_wrapper">
@@ -66,5 +97,12 @@
     </div>
   </div>
 </app-root>
+
+<!--<script type="text/javascript" src="inline.0725e8a2de03a2d0230a.bundle.js"></script><script type="text/javascript" src="polyfills.692b2870ac33e4e695c5.bundle.js"></script><script type="text/javascript" src="vendor.19441c251ec94aea57cc.bundle.js"></script><script type="text/javascript" src="main.a823e658e39a7381afcc.bundle.js"></script>-->
+
+<!--
+<script>var params={click_url:"no_macro",cachebuster:"",deviceid:""};var s=document.createElement("script");s.type="text/javascript";s.src="https://cdn.airtory.com/5f08eb2ed9e0f438951f283d4e55a3f2.js";document.body.appendChild(s);var img=document.createElement("img");img.src="https://studio.airtory.com/serve/track/5f08eb2ed9e0f438951f283d4e55a3f2/impression?n="+params.cachebuster+"&deviceid="+params.deviceid;img.setAttribute("style","position:absolute;visibility:hidden;");document.body.appendChild(img);</script>
+-->
 </body>
+
 </html>

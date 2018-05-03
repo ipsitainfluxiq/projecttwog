@@ -21,7 +21,7 @@ export class ViewabilityComponent implements OnInit {
     public errorforname: any;
     public viewability: any;
     public audiencename: any;
-  //  public rand1: number;
+    public rand1: number;
 
     constructor(addcookie: CookieService, emailcookie: CookieService, private _http: Http, private _commonservices: Commonservices) {
         this.errorforname = '';
@@ -34,24 +34,50 @@ export class ViewabilityComponent implements OnInit {
         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
         this.serverurl = _commonservices.url;
 
-      /*  if (this.cookiedetails == null || this.cookiedetails == '' || typeof (this.cookiedetails) == 'undefined') {
+        if (this.cookiedetails == null || this.cookiedetails == '' || typeof (this.cookiedetails) == 'undefined') {
             console.log('create it');
             this.createcampaign();
         } else {
             console.log('do nothing');
             this.getviewablity();
-        }*/
+        }
         /*  setTimeout(() => {
         this.getviewablity();
         }, 1000);*/
-        this.getviewablity();
     }
 
     ngOnInit() {
         this.viewabilitis = ['No minimum', 'Good', 'Better', 'Best'];
         this.view = 'No minimum';
     }
-
+    createcampaign() {
+        console.log('Create called');
+        this.rand1 = Math.round((Math.random() * 100) * 100);
+        let link = this.serverurl + 'checkcreateaudienceid';
+        let data = {
+            randomvar: this.rand1,
+        }
+        this._http.post(link, data)
+            .subscribe(res => {
+                this.result = res.json();
+                console.log(this.result.status);
+                if (this.result.status == 'success') {
+                    this.calltocreate();
+                }
+                else {
+                    this.createcampaign();
+                }
+            }, err => {
+                console.log('Ooops');
+            } );
+    }
+    calltocreate() {
+        console.log('created');
+        this.addcookie.putObject('cookiedetails', this.rand1);
+        this.cookiedetails = this.addcookie.getObject('cookiedetails');
+        console.log('after putobject ' + this.cookiedetails);
+       // this.getviewablity();
+    }
     getviewablity() {
         console.log('????');
 
@@ -65,10 +91,13 @@ export class ViewabilityComponent implements OnInit {
                 this.viewability = res.json();
                 console.log('this.viewability');
                 console.log(this.viewability);
-                this.audiencename = this.viewability[0].audiencename;
-                if (typeof (this.viewability[0].integral_viewability_threshold) != 'undefined') {
-                    this.view = this.viewability[0].integral_viewability_threshold;
+                if (this.viewability != null) {
+                    this.audiencename = this.viewability[0].audiencename;
+                    if (typeof (this.viewability[0].integral_viewability_threshold) != 'undefined') {
+                        this.view = this.viewability[0].integral_viewability_threshold;
+                    }
                 }
+
             }, error => {
                 console.log('Oooops!');
             });
@@ -100,6 +129,7 @@ export class ViewabilityComponent implements OnInit {
     }
 
     doupdate(data: any) {
+        console.log(data);
         console.log('doupdate');
         console.log('audiencename ' + this.audiencename);
         if (this.audiencename == null || this.audiencename == '' || (typeof (this.audiencename) == 'undefined')) {

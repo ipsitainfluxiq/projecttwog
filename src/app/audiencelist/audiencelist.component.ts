@@ -145,6 +145,7 @@ export class AudiencelistComponent implements OnInit {
                 let result = res;
                 console.log(result);
                 console.log('Data Deleted');
+                this.getAudienceList();
             }, error => {
                 console.log('Oooops!');
             });
@@ -156,6 +157,6 @@ export class AudiencelistComponent implements OnInit {
         this.addcookie.putObject('cookiedetails', id);
         this.cookiedetails = this.addcookie.getObject('cookiedetails');
         console.log('after putobject ' + this.cookiedetails);
-        this.router.navigate(['/locations']);
+        this.router.navigate(['/viewability']);
     }
 }
