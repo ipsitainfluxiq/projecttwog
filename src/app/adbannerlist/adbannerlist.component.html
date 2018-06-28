@@ -31,7 +31,7 @@
           <tr *ngIf=" i>=pagestart && i < pageinitation">
             <td>{{i+1}}</td>
             <td>{{item.adbannername}}</td>
-            <td *ngIf="item.image"><img width="100%" src="../../assets/uploads/{{item.image}}" ></td>
+            <td *ngIf="item.image"><img width="100%" [height]="item.imgheight" [width]="item.imgwidth" src="../../assets/uploads/{{item.image}}" ></td>
             <td>{{showname(item.addedby)}}</td>
             <td *ngIf="item.status==1">Active</td>
             <td *ngIf="item.status==0">Inactive</td>

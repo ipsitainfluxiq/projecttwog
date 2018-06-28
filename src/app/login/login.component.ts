@@ -28,11 +28,16 @@ export class LoginComponent implements OnInit {
         this.alldetailcookie = alldetailcookie ;
         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
         this.cookiedetailsforalldetails = this.alldetailcookie.getObject('cookiedetailsforalldetails');
-        console.log('mailcookiedetails');
-        console.log('get mail from login page saved cookie ->  ' + this.mailcookiedetails);
+
         if (typeof (this.mailcookiedetails) != 'undefined') {
-            this.router.navigateByUrl('/accountdetails');
+           /* if(this.cookiedetailsforalldetails.type==0){ //user
+            this.router.navigateByUrl('/campaignlists');
+            }
+            else{
+                this.router.navigateByUrl('/accountdetails'); //admin
+            }*/
            // this.router.navigateByUrl('/viewability');
+            this.router.navigateByUrl('/campaignlists');
         }
     }
 
@@ -61,8 +66,10 @@ export class LoginComponent implements OnInit {
                     if (result.status == 'success') {
                         this.emailcookie.putObject('mailcookiedetails', result.msg.email);
                         this.mailcookiedetails = this.emailcookie.getObject('mailcookiedetails');
-                        console.log('after putobject ' + this.mailcookiedetails);
+                        console.log('after putobject mail' + this.mailcookiedetails);
                         this.alldetailcookie.putObject('cookiedetailsforalldetails', result.msg);
+                        this.cookiedetailsforalldetails = this.alldetailcookie.getObject('mailcookiedetails');
+                        console.log('after putobject all details' + this.cookiedetailsforalldetails);
                        // this.router.navigate(['/accountdetails']);
                         window.location.reload();
                       //  this.router.navigate(['/viewability']);

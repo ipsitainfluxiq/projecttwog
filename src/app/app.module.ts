@@ -11,6 +11,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { TrialComponent } from './trial/trial.component';
 import { CampaignsettingsComponent } from './campaignsettings/campaignsettings.component';
 import {DatepickerModule} from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
  // import {UiSwitchModule} from 'angular2-ui-switch';
  import {UiSwitchModule} from 'angular2-ui-switch/src';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -69,6 +70,21 @@ import { AdbannereditnewComponent } from './adbannereditnew/adbannereditnew.comp
 import { CampaignaddComponent } from './campaignadd/campaignadd.component';
 import { CampaignlistnewComponent } from './campaignlistnew/campaignlistnew.component';
 import { CampaigneditComponent } from './campaignedit/campaignedit.component';
+import { AddmoneyComponent } from './addmoney/addmoney.component';
+import { WalletComponent } from './wallet/wallet.component';
+import { WalletlistComponent } from './walletlist/walletlist.component';
+import { HeadernewComponent } from './headernew/headernew.component';
+import { FooternewComponent } from './footernew/footernew.component';
+import { MissioncontrolComponent } from './missioncontrol/missioncontrol.component';
+import { CampaignlistsComponent } from './campaignlists/campaignlists.component';
+import { WalletlistforadminComponent } from './walletlistforadmin/walletlistforadmin.component';
+import { AllwalletlistComponent } from './allwalletlist/allwalletlist.component';
+import { AddcampaignComponent } from './addcampaign/addcampaign.component';
+import { EditcampaignComponent } from './editcampaign/editcampaign.component';
+import { SignupnewComponent } from './signupnew/signupnew.component';
+import { UserinformationComponent } from './userinformation/userinformation.component';
+import {TooltipModule} from "ngx-tooltip";
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 
 @NgModule({
@@ -125,7 +141,20 @@ import { CampaigneditComponent } from './campaignedit/campaignedit.component';
       AdbannereditnewComponent,
       CampaignaddComponent,
       CampaignlistnewComponent,
-      CampaigneditComponent
+      CampaigneditComponent,
+      AddmoneyComponent,
+      WalletComponent,
+      WalletlistComponent,
+      FooternewComponent,
+      HeadernewComponent,
+      MissioncontrolComponent,
+      CampaignlistsComponent,
+      WalletlistforadminComponent,
+      AllwalletlistComponent,
+      AddcampaignComponent,
+      EditcampaignComponent,
+      SignupnewComponent,
+      UserinformationComponent
   ],
     imports: [
         BrowserModule,
@@ -133,6 +162,7 @@ import { CampaigneditComponent } from './campaignedit/campaignedit.component';
         HttpModule,
         routing,
         DatepickerModule.forRoot(),
+        BsDatepickerModule.forRoot(),
         BsDropdownModule.forRoot(),
         TabsModule.forRoot(),
         IonRangeSliderModule,
@@ -142,6 +172,8 @@ import { CampaigneditComponent } from './campaignedit/campaignedit.component';
         Ng2UploaderModule,
         CKEditorModule,
         NgUploaderModule,
+        TooltipModule,
+        Ng2AutoCompleteModule,
         AgmCoreModule.forRoot({
             // apiKey: 'AIzaSyA2_vmiwMYMoLIAyN5Bb1C8XZYOyQwIq8U'
             apiKey: 'AIzaSyC7rd1BpaO2BEgfQMD7ekZ4dQ9gFsKIod4'

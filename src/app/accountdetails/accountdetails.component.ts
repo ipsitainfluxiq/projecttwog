@@ -28,8 +28,8 @@ export class AccountdetailsComponent implements OnInit {
     }
 
     ngOnInit() {
-
     }
+
     getdetails() {
         let link = this.serverurl + 'accountdetails';
         let data = {emailid : this.mailcookiedetails};

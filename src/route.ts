@@ -58,6 +58,19 @@ import { AdbannereditnewComponent } from 'app/adbannereditnew/adbannereditnew.co
 import {CampaignaddComponent} from './app/campaignadd/campaignadd.component';
 import {CampaignlistnewComponent} from './app/campaignlistnew/campaignlistnew.component';
 import {CampaigneditComponent} from "./app/campaignedit/campaignedit.component";
+import {AddmoneyComponent} from "./app/addmoney/addmoney.component";
+import {WalletComponent} from "./app/wallet/wallet.component";
+import {WalletlistComponent} from "./app/walletlist/walletlist.component";
+import {HeadernewComponent} from "./app/headernew/headernew.component";
+import {FooternewComponent} from "./app/footernew/footernew.component";
+import {MissioncontrolComponent} from "./app/missioncontrol/missioncontrol.component";
+import {CampaignlistsComponent} from "./app/campaignlists/campaignlists.component";
+import {WalletlistforadminComponent} from "./app/walletlistforadmin/walletlistforadmin.component";
+import {AllwalletlistComponent} from "./app/allwalletlist/allwalletlist.component";
+import {AddcampaignComponent} from "./app/addcampaign/addcampaign.component";
+import {EditcampaignComponent} from "./app/editcampaign/editcampaign.component";
+import {SignupnewComponent} from "./app/signupnew/signupnew.component";
+import {UserinformationComponent} from "./app/userinformation/userinformation.component";
 
 const appRoutes: Routes = [
 
@@ -110,7 +123,21 @@ const appRoutes: Routes = [
     { path: 'adbanneraddnew', component: AdbanneraddnewComponent},
     { path: 'adbannereditnew/:id', component: AdbannereditnewComponent},
     { path: 'campaignedit/:id', component: CampaigneditComponent},
-    { path: 'campaignlistnew', component: CampaignlistnewComponent}
+    { path: 'campaignlistnew', component: CampaignlistnewComponent},
+    { path: 'addmoney', component: AddmoneyComponent},
+    { path: 'wallet', component: WalletComponent},
+    { path: 'walletlist', component: WalletlistComponent},
+    { path: 'headernew', component: HeadernewComponent},
+    { path: 'footernew', component: FooternewComponent},
+    { path: 'missioncontrol', component: MissioncontrolComponent},
+    { path: 'campaignlists', component: CampaignlistsComponent},
+    { path: 'adminwalletlist/:emailid', component: WalletlistforadminComponent},
+    { path: 'allwalletlist', component: AllwalletlistComponent},
+    { path: 'addcampaign', component: AddcampaignComponent},
+    { path: 'addcampaign/:id', component: AddcampaignComponent},
+    { path: 'editcampaign/:id', component: EditcampaignComponent},
+    { path: 'signupnew', component: SignupnewComponent},
+    { path: 'userinformation', component: UserinformationComponent}
 
 ];
 

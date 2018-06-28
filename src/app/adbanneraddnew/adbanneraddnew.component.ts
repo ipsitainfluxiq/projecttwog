@@ -165,6 +165,9 @@ export class AdbanneraddnewComponent implements OnInit {
                         if (output.file.response != '') {
                           this.uploadedimgheight = output.file.response.imgheight;
                           this.uploadedimgwidth = output.file.response.imgwidth;
+                          console.log('this.uploadedimgheight');
+                          console.log(this.uploadedimgheight);
+                          console.log(typeof(this.uploadedimgheight));
                           this.flag=1;
                             if (output.file.response.imgheight == this.selectedimgheight && output.file.response.imgwidth == this.selectedimgwidth) {
                               /*  if (this.files != null) {

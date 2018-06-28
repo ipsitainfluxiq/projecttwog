@@ -108,6 +108,7 @@ export class AdbanneraddComponent implements OnInit {
                     console.log('inside');
                     console.log(resp1);
                     if (resp1.filename != 'undefined') {
+
                       if (resp1.imgheight == this.selectedimgheight && resp1.imgwidth == this.selectedimgwidth) {
                         // this.dataForm.patchValue({image: result.filename});
                         this.dataForm.patchValue({image: resp1.filename});

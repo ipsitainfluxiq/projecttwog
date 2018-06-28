@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var app = express();
+var randomString = require('random-string');
 var port = process.env.PORT || 3004;
 //var port = process.env.PORT || 3014;
 var request = require('request');
@@ -565,38 +566,7 @@ app.post('/updateprofile',function(req,resp){
 });
 
 
-app.post('/login', function (req, resp) {
-    console.log('callloginnn');
-    console.log(req.body.email);
-    console.log(req.body.password);
-    var crypto = require('crypto');
-    var secret = req.body.password;
-    var hash = crypto.createHmac('sha256', secret)
-        .update('password')
-        .digest('hex');
-    var collection = db.collection('signup');
-    collection.find({ email:req.body.email }).toArray(function(err, items){
-        console.log('items[0]'); //admin_login details shown here
-        console.log(items[0]); //admin_login details shown here
-        if(items.length==0){
-            resp.send(JSON.stringify({'status':'error','msg':'Username invalid...'}));
-            return;
-        }
-        if(items.length>0 && items[0].password!=hash){
-            resp.send(JSON.stringify({'status':'error','msg':'Password Doesnot match'}));
-            return;
-        }
-        /* if(items.length>0 && items[0].status!=1){
-         resp.send(JSON.stringify({'status':'error','msg':'You are Blocked..'}));
-         return;
-         }*/
-        if(items.length>0 && items[0].password==hash){
-          //  resp.send(JSON.stringify({'status':'success','msg':items[0].email}));
-            resp.send(JSON.stringify({'status':'success','msg':items[0]}));
-            return;
-        }
-    });
-});
+
 
 app.post('/accountdetails',function(req,resp){        // this is for editadmin page
     // console.log("accountdetails from server.js called");
@@ -2288,6 +2258,9 @@ app.post('/campaignadd',function(req,resp){
 
 
 
+
+
+
 app.get('/campaignlist',function (req,resp) {
     var collection = db.collection('campaignadd');
     collection.find().toArray(function(err, items) {
@@ -2318,6 +2291,7 @@ app.post('/campaigndetails',function(req,resp){
         }
     });
 });
+
 
 app.post('/campaignedit',function(req,resp){
     var collection = db.collection('campaignadd');
@@ -2378,4 +2352,441 @@ app.post('/addaudiencevalue',function(req,resp){
         audienceid: audienceid
     }
     collection.update({_id:campaignid}, {$set: data}, true, true);
+});
+
+
+function randomnumbergenerator(){
+    return randomString({
+        length: 10,
+        numeric: true,
+        letters: false,
+        special: false,
+    });
+}
+
+app.post('/addmoney',function(req,resp){
+    datetimestamp = Date.now();
+    var randomno = randomnumbergenerator();
+    var collection = db.collection('addmoney');
+    var data={
+        name: req.body.name,
+        amount: req.body.amount,
+        type: req.body.type,
+        added_by: req.body.added_by,
+        transaction_id: randomno,
+        date: datetimestamp,
+    }
+    collection.find({transaction_id:randomno}).toArray(function(err, items) {
+        if(items.length>0){
+            var randomno1 = randomnumbergenerator();
+            var data1={
+                name: req.body.name,
+                amount: req.body.amount,
+                type: req.body.type,
+                added_by: req.body.added_by,
+                transaction_id: randomno1,
+                date: datetimestamp,
+            }
+            console.log('new randomno generated,data is ');
+            var returnval = addmoneytodb(randomno1,data1);
+        }
+        else{
+            var returnval = addmoneytodb(randomno,data);
+        }
+        setTimeout(function () {
+        console.log('returnval'+ returnval);
+        if(returnval == 0){
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        }
+        else{
+            resp.send (JSON.stringify({'status':'success','id':returnval}));
+        }
+        },1000);
+    });
+});
+
+function addmoneytodb(randomno,data) {
+    var collection = db.collection('addmoney');
+    collection.insert([{
+        name: data.name,
+        amount: data.amount,
+        type: data.type,
+        added_by: data.added_by,
+        transaction_id: randomno,
+        date: data.date,
+    }], function (err, result) {
+        if (err) {
+           // console.log('error'+err);
+            return(0);
+           // resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+         //   console.log(result);
+            return (result.ops[0]._id);
+          //  resp.send (JSON.stringify({'status':'success','id':result.ops[0]._id}));
+        }
+    });
+}
+
+
+app.post('/walletlistofthisuserid',function (req,resp) {
+    var collection = db.collection('addmoney');
+    collection.find({added_by:req.body.email}).toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+    });
+});
+
+app.get('/walletlist',function (req,resp) {
+    var collection = db.collection('addmoney');
+    collection.find().toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+    });
+});
+
+app.post('/userdetails', function (req,resp) {
+    var collection= db.collection('signup');
+    collection.find({email:req.body.email}).toArray(function(err, items) {
+        resp.send(JSON.stringify({'res':items}));
+    });
+});
+
+app.get('/walletlistjoiningsignup',function (req,resp) {
+    var collection = db.collection('addmoney').aggregate([
+        {
+            $lookup: {
+                from: "signup",
+                localField: "added_by", // localfield of patients
+                foreignField: "email", // localfield of usertags
+                as: "Signupdata"
+            },
+        }
+    ]);
+
+    /*    var collection = db.collection('addmoney').aggregate(
+            [
+                {
+                    $group:
+                        {
+                            _id: { addded_by: { $addded_by: "$addded_by"} },
+                            totalAmount: { $sum: ["$amount"]}
+                        }
+                }
+            ]
+        )*/
+
+
+
+    collection.toArray(function (err, items) {
+        resp.send(JSON.stringify({'res':items}));
+    });
+
+});
+
+function updateval(doc){
+
+    var collection= db.collection('addmoney');
+    var amountInt = parseInt(doc.amount);
+    collection.update({_id: doc._id}, {$set: {amount: amountInt}});
+}
+
+app.get('/walletlistjoiningsignup1',function (req,resp) {
+
+    var collection= db.collection('addmoney');
+
+    collection.find({amount: {$type:"string"}}).forEach(function(doc) {
+        var amountInt = parseFloat(doc.amount);
+        updateval(doc);
+        //collection.update({_id: doc._id}, {$set: {amount: amountInt}});
+    });
+
+
+    var collection = db.collection('addmoney').aggregate(
+        [
+            //{
+            /*$group: {
+                _id: { email: { $email: "$email"}},
+                TotalAmount: { $sum: "$amount"},
+                //count: { $sum: 1 }
+            }*/
+            {"$group" : {_id:"$added_by", count:{$sum:1} ,Total: { $sum: '$amount'}}},
+            {
+                $lookup: {
+                    from: "signup",
+                    localField: "_id", // localfield of patients
+                    foreignField: "email", // localfield of usertags
+                    as: "Signupdata"
+                },
+            }
+            //}
+        ]
+
+    )
+
+
+
+    collection.toArray(function (err, items) {
+        resp.send(JSON.stringify({'res':items}));
+    });
+
+});
+
+app.post('/getalltransactionsofthisemail',function (req,resp) {
+    var collection = db.collection('addmoney');
+    collection.find({added_by:req.body.added_by}).toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+    });
+});
+
+
+app.post('/addcampaign',function(req,resp){
+    var collection = db.collection('addcampaign');
+    var stdate = parseInt((new Date(req.body.startdate).getTime() / 1000).toFixed(0));
+    var enddate = parseInt((new Date(req.body.enddate).getTime() / 1000).toFixed(0));
+    collection.insert([{
+        campaignname: req.body.campaignname,
+        status: req.body.status,
+        totalcampaignspend: req.body.totalcampaignspend,
+        cpa: req.body.cpa,
+        epc: req.body.epc,
+        dailybudget: req.body.dailybudget,
+        startingbid: req.body.startingbid,
+        conversionvalue: req.body.conversionvalue,
+        /*  startdate: req.body.startdate,
+        enddate: req.body.enddate,*/
+        startdate: stdate,
+        enddate: enddate,
+        fcap: req.body.fcap,
+        added_by: req.body.added_by
+    }], function (err, result) {
+        if (err) {
+            console.log('error'+err);
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            console.log(result);
+            resp.send(JSON.stringify({'status':'success','id':result.ops[0]._id}));
+        }
+    });
+});
+
+
+app.get('/campaignlists',function (req,resp) {
+    var collection = db.collection('addcampaign');
+    collection.find().toArray(function(err, items) {
+        if (err) {
+            console.log(err);
+            resp.send(JSON.stringify({'res':[]}));
+        } else {
+            resp.send(JSON.stringify({'res':items}));
+        }
+    });
+});
+
+
+app.post('/changecampaignstatus',function(req,resp){
+    var collection = db.collection('addcampaign');
+    var data = {
+        status: req.body.statusid,
+    }
+    var o_id = new mongodb.ObjectID(req.body.id);
+    collection.update({_id:o_id}, {$set: data}, true, true);
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+app.post('/campaigndetailsnew',function(req,resp){
+    var resitem = {};
+    var collection = db.collection('addcampaign');
+    var o_id = new mongodb.ObjectID(req.body._id);
+
+    collection.find({_id:o_id}).toArray(function(err, items) {
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            resitem = items[0];
+            resp.send(JSON.stringify({'status':'success','item':resitem}));
+        }
+    });
+});
+
+
+app.post('/editcampaign',function(req,resp){
+    var collection = db.collection('addcampaign');
+    var data = {
+        campaignname: req.body.campaignname,
+        status: req.body.status,
+        totalcampaignspend: req.body.totalcampaignspend,
+        cpa: req.body.cpa,
+        epc: req.body.epc,
+        dailybudget: req.body.dailybudget,
+        startingbid: req.body.startingbid,
+        conversionvalue: req.body.conversionvalue,
+        startdate: req.body.startdate,
+        enddate: req.body.enddate,
+        fcap: req.body.fcap
+    }
+    var o_id = new mongodb.ObjectID(req.body.id);
+
+    collection.update({_id:o_id}, {$set: data}, true, true);
+
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+app.post('/changeallcampaignstatus',function(req,resp){
+    var collection = db.collection('addcampaign');
+    var data = {
+        status: req.body.statusid
+    }
+    var arr = Object.keys(req.body.arrid).map(function (key) { return req.body.arrid[key]; });
+    var i = 0;
+    for(i in arr){
+        var o_id = new mongodb.ObjectID(arr[i]);
+        collection.update({_id:o_id}, {$set: data}, true, true);
+    }
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+
+
+app.post('/signupnew' , function (req,resp) {
+    var collection = db.collection('signupnew');
+    var crypto = require('crypto');
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+    collection.find({email:req.body.email}).toArray(function(err, items) {
+        if(items.length>0){
+            resp.send(JSON.stringify({'status':'error','id':'Emailid already Exists!'}));
+        }
+        else {
+            collection.insert([{
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    password: hash,
+                    companyname: req.body.companyname,
+                    email: req.body.email,
+                    country: req.body.country,
+                    companywebsite: req.body.companywebsite,
+                    city: req.body.city,
+                    app: req.body.app,
+                    message: req.body.message,
+                    marketingbudget: req.body.marketingbudget,
+                    request: req.body.request,
+                    messageno: req.body.messageno,
+                    type: 0
+                }],
+                function (err, result) {
+                    if (err) {
+                        console.log('err');
+                        resp.send(JSON.stringify({'id': 0, 'status': 'Some error occured..!'}));
+                    }
+                    else {
+                        console.log(result);
+                        resp.send(JSON.stringify({'id': result.ops[0]._id, 'status': 'success'}));
+                    }
+                });
+        }
+    });
+});
+
+app.post('/userdetailsnew',function(req,resp){
+    var resitem = {};
+    var collection = db.collection('signupnew');
+    var o_id = new mongodb.ObjectID(req.body._id);
+
+    collection.find({_id:o_id}).toArray(function(err, items) {
+        if (err) {
+            resp.send(JSON.stringify({'status':'error','id':0}));
+        } else {
+            resitem = items[0];
+            resp.send(JSON.stringify({'status':'success','item':resitem}));
+        }
+    });
+});
+
+
+app.post('/usserinfoedit',function(req,resp){
+    var collection = db.collection('signupnew');
+    console.log(req.body.password);
+    if(req.body.password == null){
+        console.log('no pass');
+        var data = {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            companyname: req.body.companyname,
+            country: req.body.country,
+            companywebsite: req.body.companywebsite,
+            city: req.body.city,
+            marketingbudget: req.body.marketingbudget
+        }
+    }
+    else{
+        console.log('pass given');
+        var crypto = require('crypto');
+        var secret = req.body.password;
+        var hash = crypto.createHmac('sha256', secret)
+            .update('password')
+            .digest('hex');
+        var data = {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            companyname: req.body.companyname,
+            country: req.body.country,
+            companywebsite: req.body.companywebsite,
+            city: req.body.city,
+            marketingbudget: req.body.marketingbudget,
+            password: hash
+        }
+    }
+    var o_id = new mongodb.ObjectID(req.body.id);
+    collection.update({_id:o_id}, {$set: data}, true, true);
+
+    resp.send(JSON.stringify({'status':'success'}));
+});
+
+app.post('/login', function (req, resp) {
+    console.log('callloginnn');
+    console.log(req.body.email);
+    console.log(req.body.password);
+    var crypto = require('crypto');
+    var secret = req.body.password;
+    var hash = crypto.createHmac('sha256', secret)
+        .update('password')
+        .digest('hex');
+    var collection = db.collection('signupnew');
+    collection.find({ email:req.body.email }).toArray(function(err, items){
+        console.log('items[0]'); //admin_login details shown here
+        console.log(items[0]); //admin_login details shown here
+        if(items.length==0){
+            resp.send(JSON.stringify({'status':'error','msg':'Username invalid...'}));
+            return;
+        }
+        if(items.length>0 && items[0].password!=hash){
+            resp.send(JSON.stringify({'status':'error','msg':'Password Doesnot match'}));
+            return;
+        }
+        /* if(items.length>0 && items[0].status!=1){
+         resp.send(JSON.stringify({'status':'error','msg':'You are Blocked..'}));
+         return;
+         }*/
+        if(items.length>0 && items[0].password==hash){
+            //  resp.send(JSON.stringify({'status':'success','msg':items[0].email}));
+            resp.send(JSON.stringify({'status':'success','msg':items[0]}));
+            return;
+        }
+    });
 });

@@ -373,7 +373,7 @@ export class LocationsComponent implements OnInit {
         this.searchcriteria();
         setTimeout(() => {
             this.callforsearch();
-        }, 2000);
+        }, 3000);
         this.getuscities();
     }
     hi() {
