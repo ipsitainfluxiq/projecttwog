@@ -71,6 +71,8 @@ import {AddcampaignComponent} from "./app/addcampaign/addcampaign.component";
 import {EditcampaignComponent} from "./app/editcampaign/editcampaign.component";
 import {SignupnewComponent} from "./app/signupnew/signupnew.component";
 import {UserinformationComponent} from "./app/userinformation/userinformation.component";
+import {SearchnewComponent} from "./app/searchnew/searchnew.component";
+import {BannerlistComponent} from "./app/bannerlist/bannerlist.component";
 
 const appRoutes: Routes = [
 
@@ -137,7 +139,10 @@ const appRoutes: Routes = [
     { path: 'addcampaign/:id', component: AddcampaignComponent},
     { path: 'editcampaign/:id', component: EditcampaignComponent},
     { path: 'signupnew', component: SignupnewComponent},
-    { path: 'userinformation', component: UserinformationComponent}
+    { path: 'userinformation', component: UserinformationComponent},
+    { path: 'searchnew', component: SearchnewComponent},
+    { path: 'bannerlist', component: BannerlistComponent}
+
 
 ];
 

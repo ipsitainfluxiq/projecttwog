@@ -83,6 +83,8 @@ import { AddcampaignComponent } from './addcampaign/addcampaign.component';
 import { EditcampaignComponent } from './editcampaign/editcampaign.component';
 import { SignupnewComponent } from './signupnew/signupnew.component';
 import { UserinformationComponent } from './userinformation/userinformation.component';
+import { SearchnewComponent } from './searchnew/searchnew.component';
+import { BannerlistComponent } from './bannerlist/bannerlist.component';
 import {TooltipModule} from "ngx-tooltip";
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
@@ -154,7 +156,9 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
       AddcampaignComponent,
       EditcampaignComponent,
       SignupnewComponent,
-      UserinformationComponent
+      UserinformationComponent,
+      SearchnewComponent,
+      BannerlistComponent
   ],
     imports: [
         BrowserModule,

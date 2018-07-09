@@ -1,6 +1,6 @@
 @media only screen and (max-width:1666px) {
     .adminmainwarpper {
-        width: 92%;
+        width: 92% !important;
     }
     .formblock2 .btnoulineround {
         margin-bottom: 7px !important;
@@ -130,6 +130,17 @@
 }
 
 
+@media only screen and (max-width:1100px) {
+    .bannerlistblocksingle {display: inline-flex;  width: 49.7%; margin: 0 10px;}
+    .bannerlists{width: 100% !important;}
+    .bannerlistsingleimage {padding: 10px;min-height: 56px;}
+    .bannermainblock, .bannermainblock1, .bannermainblock2, .bannermainblock3, .bannermainblock4, .bannermainblock5, .bannermainblock6, .bannermainblock7, .bannermainblock8, .bannermainblock9, .bannermainblock10, .bannermainblock11, .bannermainblock12, .bannermainblock13, .bannermainblock14, .bannermainblock15, .bannermainblock16, .bannermainblock17, .bannermainblock18, .bannermainblock19{ position: inherit; top: 0;  left: 0; transform: inherit;    margin: 0 auto;}
+    .bannermainblock {width: 120px; height: 21px; background-color: #fff;}
+    .btn-bannerlist {float: none;}
+    .bannerlistblocksingle h2 {text-align: center; position: inherit; top: 0; left: 0; transform: inherit; margin: 10px auto 0px;}
+
+
+}
 
 @media only screen and (max-width:991px) {
     .buttonlists .btnblueround{margin-bottom: 10px !important;}
@@ -202,6 +213,21 @@
 
 
 @media only screen and (max-width:767px) {
+    .bannerlistblocksingle {width: 100%;}
+
+    .submenuformblock .form-group:nth-child(1) {
+        width: 100%;
+        padding-left: 0px !important;
+    }
+    .submenuformblock .form-group:nth-child(2) {
+        width: 100%;
+        padding-left: 0px !important;
+    }
+    .submenuwrapper.submenuformblock .formblock .form-group.form-group-fullwidth{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
     .signupwarpper {
         width: 84% !important;
         padding: 30px !important;
@@ -448,6 +474,13 @@
 }
 
 @media only screen and (max-width:480px) {
+    .submenuwrapper.submenuformblock .formblock .fivediv {
+        width: 100%;
+        padding: 0px 0px !important;
+        display: inline-block;
+        margin-top: 5px;
+    }
+
     .formblock2 .userinfoblock .txtfield label{width: 100%;}
     .formblock2 .userinfoblock .txtfield span{margin-left: 0px;width: 100%;}
     .walletwrapperprofileright h1 {
@@ -486,3 +519,10 @@
 }
 
 
+@media only screen and (max-width:360px) {
+    .bannermainblock3, .bannermainblock4, .bannermainblock5, .bannermainblock6, .bannermainblock7, .bannermainblock8, .bannermainblock9,
+    .bannermainblock10, .bannermainblock11, .bannermainblock12, .bannermainblock13, .bannermainblock14, .bannermainblock15, .bannermainblock16 {
+        width: 96%;
+    }
+/* .bannermainblock, .bannermainblock1, .bannermainblock2, .bannermainblock3, .bannermainblock4, .bannermainblock5, .bannermainblock6, .bannermainblock7, .bannermainblock8, .bannermainblock9, .bannermainblock10, .bannermainblock11, .bannermainblock12, .bannermainblock13, .bannermainblock14, .bannermainblock15, .bannermainblock16, .bannermainblock17, .bannermainblock18, .bannermainblock19 {width: 94%;}*/
+}

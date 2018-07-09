@@ -3,6 +3,8 @@ import {Http} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 declare var $: any;
+declare var google: any;
+
 @Component({
   selector: 'app-trial',
   templateUrl: './trial.component.html',
@@ -11,6 +13,9 @@ declare var $: any;
 export class TrialComponent implements OnInit {
   private addcookie: CookieService;
   private cookiedetails;
+    public flightPath;
+    public map;
+
   constructor(private _http: Http, private router: Router, addcookie: CookieService) {
     this.addcookie = addcookie ;
     this.cookiedetails = this.addcookie.getObject('cookiedetails');
@@ -18,8 +23,37 @@ export class TrialComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 3,
+          center: {lat: 0, lng: -180},
+          mapTypeId: 'terrain'
+      });
+
+      var flightPathCoordinates = [
+          {lat: 37.772, lng: -122.214},
+          {lat: 21.291, lng: -157.821},
+          {lat: -18.142, lng: 178.431},
+          {lat: -27.467, lng: 153.027}
+      ];
+      this.flightPath = new google.maps.Polyline({
+          path: flightPathCoordinates,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+      });
+
+      this.addLine();
+
   }
   show(){
 /*    $('#calender').datepicker();*/
   }
+
+    addLine() {
+        this.flightPath.setMap(this.map);
+    }
+
+    removeLine() {
+        this.flightPath.setMap(null);
+    }
 }

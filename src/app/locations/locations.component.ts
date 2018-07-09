@@ -1801,7 +1801,7 @@ LocationsComponent.totalshapes[i].ccenter = LocationsComponent.totalshapes[i].cc
         console.log(this.selected_locationscountry);
     }
     getuscities() {
-        let link = this.serverurl + 'getus_cities';
+        let link = this.serverurl + 'getus_cities1';
         this._http.get(link)
             .subscribe(res => {
                 var result = res.json();

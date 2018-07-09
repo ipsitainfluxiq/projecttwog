@@ -528,7 +528,7 @@ app.post('/changepassword', function (req, resp) {
         password: hashnew
     }
 
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     var mail = req.body.email;
 
     collection.find({email: mail, password: hashold}).toArray(function (err, items) {
@@ -547,7 +547,7 @@ app.post('/changepassword', function (req, resp) {
 
 app.post('/updateprofile',function(req,resp){
     console.log('called');
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     var data = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -571,7 +571,7 @@ app.post('/updateprofile',function(req,resp){
 app.post('/accountdetails',function(req,resp){        // this is for editadmin page
     // console.log("accountdetails from server.js called");
     var resitem = {};
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     var mail = req.body.emailid;
 
     collection.find({email:mail}).toArray(function(err, items) {
@@ -588,7 +588,7 @@ app.post('/accountdetails',function(req,resp){        // this is for editadmin p
 
 app.post('/forgetpassword', function (req, resp) {
     console.log('forgt pass');
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     collection.find({ email:req.body.email }).toArray(function(err, items) {
         if(items.length>0){
             var randomstring = require("randomstring");
@@ -626,7 +626,7 @@ app.post('/forgetpassword', function (req, resp) {
 
 
 app.post('/accesscodecheck', function (req, resp) {
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     collection.find({ email:req.body.email, accesscode:req.body.accesscode}).toArray(function(err, items) {
         console.log(items.length);
         if(items.length>0) {
@@ -640,7 +640,7 @@ app.post('/accesscodecheck', function (req, resp) {
 });
 
 app.post('/newpassword', function (req, resp) {
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     var crypto = require('crypto');
     var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
@@ -680,7 +680,7 @@ app.post('/calluploads',function (req,resp) {
 
 app.get('/userlist',function (req,resp) {
 
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
 
     collection.find().toArray(function(err, items) {
 
@@ -929,7 +929,7 @@ app.post('/creativelist',function (req,resp) {
         { "$match": { "emailid": emailid } },
         {
             $lookup: {
-                from: "signup",
+                from: "signupnew",
                 localField: "emailid",   // localfield of subscribe
                 foreignField: "email",   //localfield of postcategorymanagement
                 as: "Creativeaddata"
@@ -943,7 +943,7 @@ app.post('/creativelist',function (req,resp) {
         var collection = db.collection('creatives').aggregate([
             {
                 $lookup: {
-                    from: "signup",
+                    from: "signupnew",
                     localField: "emailid",   // localfield of subscribe
                     foreignField: "email",   //localfield of postcategorymanagement
                     as: "Creativeaddata"
@@ -1038,7 +1038,7 @@ app.get('/getcreativedetailsbyid', function (req,resp) {
 });
 
 app.post('/addadmin',function(req,resp){
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     var crypto = require('crypto');
     var secret = req.body.password;
     var hash = crypto.createHmac('sha256', secret)
@@ -1069,7 +1069,7 @@ app.post('/addadmin',function(req,resp){
 
 
 app.get('/adminlist',function (req,resp) {
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     collection.find({type:1}).toArray(function(err, items) {
         if (err) {
             console.log(err);
@@ -1084,7 +1084,7 @@ app.get('/adminlist',function (req,resp) {
 
 app.post('/details',function(req,resp){
     var resitem = {};
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     var o_id = new mongodb.ObjectID(req.body._id);
 
     collection.find({_id:o_id}).toArray(function(err, items) {
@@ -1100,7 +1100,7 @@ app.post('/details',function(req,resp){
 
 
 app.post('/editadmin',function(req,resp){
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     var data = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -1119,7 +1119,7 @@ app.post('/editadmin',function(req,resp){
 
 app.post('/deleteadmin', function (req, resp) {
     var o_id = new mongodb.ObjectID(req.body.id);
-    var collection = db.collection('signup');
+    var collection = db.collection('signupnew');
     collection.deleteOne({_id: o_id}, function(err, results) {
         if (err){
             resp.send("failed");
@@ -2110,16 +2110,24 @@ app.get('/getus_cities', function (req, resp) {
 });
 
 app.get('/getus_cities1', function (req, resp) {
-    var collection = db.collection('us_cities');
-    collection.distinct("city", function(err, items) {
+    var collection = db.collection('us_cities_modified');
+    collection.find().toArray(function(err, items) {
         if (err) {
-            console.log(err);
             resp.send(JSON.stringify({'res':[]}));
         } else {
-            console.log(items);
-            resp.send(JSON.stringify({'res':items}));
+            resp.send(JSON.stringify(items));
         }
     });
+  /*  var collection = db.collection('us_cities').aggregate(
+        [
+            {"$group" : {_id:"$city"}}
+        ], function(err, items) {
+            if (err) {
+                resp.send(JSON.stringify([]));
+            } else {
+                resp.send(JSON.stringify(items));
+            }
+        });*/
 });
 
 
@@ -2453,7 +2461,7 @@ app.get('/walletlist',function (req,resp) {
 });
 
 app.post('/userdetails', function (req,resp) {
-    var collection= db.collection('signup');
+    var collection= db.collection('signupnew');
     collection.find({email:req.body.email}).toArray(function(err, items) {
         resp.send(JSON.stringify({'res':items}));
     });
@@ -2463,7 +2471,7 @@ app.get('/walletlistjoiningsignup',function (req,resp) {
     var collection = db.collection('addmoney').aggregate([
         {
             $lookup: {
-                from: "signup",
+                from: "signupnew",
                 localField: "added_by", // localfield of patients
                 foreignField: "email", // localfield of usertags
                 as: "Signupdata"
@@ -2520,7 +2528,7 @@ app.get('/walletlistjoiningsignup1',function (req,resp) {
             {"$group" : {_id:"$added_by", count:{$sum:1} ,Total: { $sum: '$amount'}}},
             {
                 $lookup: {
-                    from: "signup",
+                    from: "signupnew",
                     localField: "_id", // localfield of patients
                     foreignField: "email", // localfield of usertags
                     as: "Signupdata"
